@@ -1,0 +1,69 @@
+import * as React from 'react';
+import { StyleSheet, Text, View, Dimensions,TouchableOpacity, Image } from 'react-native';
+import {widthPercentageToDP, heightPercentageToDP} from 'react-native-responsive-screen';
+ 
+export default function Food({navigation}) {
+    return (
+      <View style={styles.container}>
+          <TouchableOpacity onPress={() => navigation.navigate('Breakfast')}>
+            <View style={styles.responsiveBox}>                  
+                <Image source={require('../assets/br.png')} style={styles.image}/>
+                <Text style={styles.text}>BREAKFAST</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Lunch/Dinner')}>
+            <View style={styles.responsiveBox}>                  
+                <Image source={require('../assets/lunch.png')} style={styles.image}/>
+                <Text style={styles.text}>LUNCH/DINNER</Text>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={() => navigation.navigate('Dessert')}>
+            <View style={styles.responsiveBox }>                  
+                <Image source={require('../assets/des.png')} style={styles.image}/>
+                <Text style={styles.text}>DESSERT</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Drink')}>
+            <View style={styles.responsiveBox}>                  
+                <Image source={require('../assets/dri.png')} style={styles.image}/>
+                <Text style={styles.text}>DRINKS</Text>
+            </View>
+          </TouchableOpacity>
+        
+      </View>
+    );
+  }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  responsiveBox: {
+    width: widthPercentageToDP('100%'),
+    height: heightPercentageToDP('24%'),
+    flexDirection: 'column',
+    justifyContent: 'space-around' 
+  },
+  text: {
+    position: 'absolute',
+    color: 'white',
+    textAlign:'center',
+    top: '40%',
+    left: 0,
+    right: 0,
+    fontSize: 32,
+    fontFamily: 'jetbrains-var'
+  },
+  image:{
+      width:'100%',
+      height: '100%',
+      opacity: 0.6
+  }
+});
