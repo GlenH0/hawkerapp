@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Food from "../screens/food";
 import ReviewDetails from "../screens/reviewDetails";
 import Header from '../shared/header';
-import Break from '../screens/breakfast'
+import Break from '../screens/breakfastContent'
 
 import MainTabScreen from './mainFood';
 
@@ -98,6 +98,8 @@ export default FoodStack = () => {
         headerTintColor:'white'
       }}
     />
+
+<Screen name="break" component={Break}/>
 
     </Navigator>
   );
