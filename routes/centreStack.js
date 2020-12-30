@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Centre from "../screens/centre";
-import ReviewDetails from "../screens/reviewDetails";
+
 import Header from '../shared/header';
 
 const { Navigator, Screen } = createStackNavigator();

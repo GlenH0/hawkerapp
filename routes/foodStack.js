@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Food from "../screens/food";
-import ReviewDetails from "../screens/reviewDetails";
+
 import Header from '../shared/header';
 import Break from '../screens/breakfastContent'
 
