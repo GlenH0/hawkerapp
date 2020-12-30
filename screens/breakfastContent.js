@@ -6,7 +6,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 
 
 export default function Break({ route, navigation }) {
-    const { item, title, text, image, image1} = route.params;
+    const { item, title, text, image, image1, key} = route.params;
   
     return (
       <View>

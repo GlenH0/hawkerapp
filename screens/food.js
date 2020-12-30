@@ -41,15 +41,19 @@ export default function Food({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: "100%",
   },
   responsiveBox: {
     width: widthPercentageToDP('100%'),
     height: heightPercentageToDP('24%'),
     flexDirection: 'column',
-    justifyContent: 'space-around' 
+    justifyContent: 'space-around',
+    paddingTop: 5,
+    
+    
   },
   text: {
     position: 'absolute',
@@ -64,6 +68,9 @@ const styles = StyleSheet.create({
   image:{
       width:'100%',
       height: '100%',
-      opacity: 0.6
+      opacity: 0.7,
+      backgroundColor:'black',
+      // borderRadius: 10,
+      // overflow: "hidden",
   }
 });
