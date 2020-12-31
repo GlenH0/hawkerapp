@@ -8,7 +8,8 @@ const dataList = [
     key: 'Prata', 
     title:"Prata",
     image: require('../assets/Breakfast/prata.png'),
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled'
+    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
+    video: 'RSzITFbOtpQ'
   }, 
   {
     key: 'Chew', 
@@ -19,7 +20,8 @@ const dataList = [
   {key: '1', title:"hi"}, 
   {key: '2'}, 
   {key: '3'}, 
-  {key: '4'}  ]
+  {key: '3'}, 
+    ]
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
@@ -35,7 +37,7 @@ export default class App extends Component {
       return (
         <View style={{flex:1}}>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            {/* <Text style={styles.itemText}>{item.key}</Text> */}
+            
             <Image style={styles.img} source={item.image}/>
           </TouchableOpacity>
           <Text style={{paddingLeft:10}}>{item.key}</Text>
