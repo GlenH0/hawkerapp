@@ -60,7 +60,10 @@ export default FoodStack = () => {
         headerTitle: 'Our Local Delights',
         headerStyle: { backgroundColor: '#FF4343'},
         headerTitleStyle: {
-          color: 'white'
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 26,
+          fontFamily:"latoR"
         },
         headerTintColor:'white'
       }}
@@ -71,7 +74,10 @@ export default FoodStack = () => {
         headerTitle: 'Our Local Delights',
         headerStyle: { backgroundColor: '#FF4343'},
         headerTitleStyle: {
-          color: 'white'
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 26,
+          fontFamily:"latoR"
         },
         headerTintColor:'white'
       }}
@@ -82,7 +88,10 @@ export default FoodStack = () => {
         headerTitle: 'Our Local Delights',
         headerStyle: { backgroundColor: '#FF4343'},
         headerTitleStyle: {
-          color: 'white'
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 26,
+          fontFamily:"latoR"
         },
         headerTintColor:'white'
       }}
@@ -93,13 +102,28 @@ export default FoodStack = () => {
         headerTitle: 'Our Local Delights',
         headerStyle: { backgroundColor: '#FF4343'},
         headerTitleStyle: {
-          color: 'white'
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 26,
+          fontFamily:"latoR"
         },
         headerTintColor:'white'
       }}
     />
 
-<Screen name="break" component={Break}/>
+<Screen name="break" component={Break}
+   options={{
+    headerTitle: 'Details',
+    headerStyle: { backgroundColor: '#FF4343'},
+    headerTitleStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 26,
+      fontFamily:"latoR"
+    },
+    headerTintColor:'white'
+  }}
+/>
 
     </Navigator>
   );
