@@ -5,6 +5,7 @@ import {globalStyles, images} from '../styles/global';
 import YoutubePlayer from "react-native-youtube-iframe";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import renderIf from 'render-if';
 
 
 
@@ -35,13 +36,21 @@ export default function Break({ route, navigation }) {
                 <Text style={styles.desc}>Where to find them?</Text>
               </View> 
             </View>
-
-            <Text style={styles.desc}>Reviews</Text>
-
-            <YoutubePlayer 
-              height={240}
-              videoId={video}
-            />
+            {
+              renderIf(video)(
+                <Text style={styles.desc}>Reviews</Text>
+              )
+            }
+            
+            {
+              renderIf(video)(
+              <YoutubePlayer 
+                height={240}
+                videoId={video}
+              />
+              )
+            }
+            
 
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
@@ -71,16 +80,16 @@ export default function Break({ route, navigation }) {
       
     },
     img:{
-        resizeMode:'contain',
+        resizeMode:'cover',
         width: '100%',
-        height: 350,
-        borderRadius: 4,
-        overflow:'hidden', 
+        height: 300,
+        // borderRadius: 4,
+        // overflow:'hidden', 
     },
     imgContainer:{
-      width:"95%",
+      width:"100%",
       alignItems:'center',
-      paddingTop: 10,
+     
     },  
     name:{
         paddingBottom: 10,

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, FlatList, Dimensions, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image, FlatList, Dimensions, TouchableOpacity, Button } from "react-native";
 import { Searchbar } from 'react-native-paper';
 import { useState } from 'react/cjs/react.development';
 import {dataList} from '../array/data';
-import Filter from '../filter/filter';
+import renderIf from 'render-if';
+import { NavigationContainer } from '@react-navigation/native';
 
 // const dataList = [
 //   {
@@ -38,9 +39,8 @@ export default class App extends Component {
     this.state = {
       searchText: '',
     };
+   
   }
-
-  
     _renderItem = ({item, index}) => {
       return (
         <View style={{flex:1}}>
@@ -65,18 +65,33 @@ export default class App extends Component {
         )
       : dataList;
 
-      
+      const {navigation} = this.props
+
       return (
         <View style={styles.container}>
          
-         <Searchbar
-          placeholder="Search..."
-          
-          onChangeText={text => this.setState({ searchText: text })}
-            value={this.state.searchText}
-        />
-          {/* <Filter/> */}
+         <View style={{justifyContent:'center', alignItems:'center', paddingTop: 10}}>
+          <View style={{width: '95%'}}>
+            
+            <Searchbar
+              placeholder="Search..."
+              onChangeText={text => this.setState({ searchText: text })}
+              value={this.state.searchText}
+            />
+          </View>
+         </View>
 
+          {renderIf(dataList === filteredData)(
+            <View>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('filter')}
+            style={styles.btnTab}
+            >
+              <Text>Halal</Text>
+            </TouchableOpacity>
+          </View>
+          )}
+          
             <FlatList
             data={filteredData}
             renderItem={this._renderItem}
@@ -125,14 +140,21 @@ export default class App extends Component {
       
     },
     btnTab:{
-      width: Dimensions.get('window').width/3.5,
+      width: 70,
       flexDirection:'row',
-      borderWidth: 0.5,
-      borderColor: '#ebebeb',
       padding: 10,
-      justifyContent:'center'
-    },
-    btnTabActive:{
-      backgroundColor:'red'
+      justifyContent:'center',
+      backgroundColor:'white',
+      borderRadius:30,
+      margin: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+
+      elevation: 4,
     }
   });
