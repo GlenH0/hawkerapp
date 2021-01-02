@@ -5,6 +5,7 @@ import Food from "../screens/food";
 
 import Header from '../shared/header';
 import Break from '../screens/breakfastContent'
+import Filter from '../filter/filter'
 
 import MainTabScreen from './mainFood';
 
@@ -62,7 +63,7 @@ export default FoodStack = () => {
         headerTitleStyle: {
           color: 'white',
           fontWeight: 'bold',
-          fontSize: 26,
+          fontSize: 22,
           fontFamily:"latoR"
         },
         headerTintColor:'white'
@@ -76,7 +77,7 @@ export default FoodStack = () => {
         headerTitleStyle: {
           color: 'white',
           fontWeight: 'bold',
-          fontSize: 26,
+          fontSize: 22,
           fontFamily:"latoR"
         },
         headerTintColor:'white'
@@ -90,7 +91,7 @@ export default FoodStack = () => {
         headerTitleStyle: {
           color: 'white',
           fontWeight: 'bold',
-          fontSize: 26,
+          fontSize: 22,
           fontFamily:"latoR"
         },
         headerTintColor:'white'
@@ -104,7 +105,7 @@ export default FoodStack = () => {
         headerTitleStyle: {
           color: 'white',
           fontWeight: 'bold',
-          fontSize: 26,
+          fontSize: 22,
           fontFamily:"latoR"
         },
         headerTintColor:'white'
@@ -118,7 +119,21 @@ export default FoodStack = () => {
     headerTitleStyle: {
       color: 'white',
       fontWeight: 'bold',
-      fontSize: 26,
+      fontSize: 22,
+      fontFamily:"latoR"
+    },
+    headerTintColor:'white'
+  }}
+/>
+
+<Screen name="filter" component={Filter}
+   options={{
+    headerTitle: 'Halal',
+    headerStyle: { backgroundColor: '#FF4343'},
+    headerTitleStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 22,
       fontFamily:"latoR"
     },
     headerTintColor:'white'
