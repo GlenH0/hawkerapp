@@ -1,18 +1,43 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView, Linking, FlatList, Dimensions } from "react-native";
 import {globalStyles, images} from '../styles/global';
 // import Card from '../shared/card';
 import YoutubePlayer from "react-native-youtube-iframe";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
-// import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import {dataList} from '../array/data';
+import {dataList2} from '../array/dataCentre';
+import { NavigationContainer } from '@react-navigation/native';
 
+
+const numColumns = 2
+const WIDTH = Dimensions.get("window").width;
 
 
 export default function West({ route, navigation }) {
-    const { item, title, text, video, rating, add, image, time,phone} = route.params;
-  
+    const { item, title, text, video, rating, add, image, time, phone, lat, long, mrt, bus, place} = route.params;
+   
+    const _renderItem = ({item, index}) => {
+      if(item.place = {place}){
+        return (
+          <View style={{flex:1}}>
+           
+            <View>
+              <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('break', item )}>
+                <Image style={styles.img} source={item.image}/>
+              </TouchableOpacity>
+            </View>
+      
+            <Text style={{paddingLeft:10}}>{item.key}</Text>
+            <Image style={{marginLeft:9}} source={item.rating} />
+      
+          </View>
+        )
+      }
+    }
+    
     return (
       <ScrollView>
         <View style={styles.boxImg}>
@@ -34,17 +59,34 @@ export default function West({ route, navigation }) {
                 {renderIf(phone)(
                     <View>
                         <Text style={styles.desc}>Phone Number</Text>
-                        <Text>{phone}</Text>
+                        <Text style={{color:'#009dff'}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
                     </View>
                 )}   
               </View> 
-            </View>
-            
-
+            </View>          
 
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
                 <Text style={styles.desc}>Where to find them?</Text>
+
+                <View style={styles.mapcontainer}>
+                  <MapView
+                      provider={PROVIDER_GOOGLE}
+                      style={styles.map}
+                      initialRegion={{
+                        latitude: lat,
+                        longitude: long,
+                        latitudeDelta: 0.001,
+                        longitudeDelta: 0.005,
+                      }}
+                      showUserLocation={true} >
+                      <Marker coordinate={{
+                        latitude: lat,
+                        longitude: long,
+                      }}  />
+
+                  </MapView>
+                </View>
               </View> 
             </View>
             {
@@ -61,25 +103,43 @@ export default function West({ route, navigation }) {
               />
               )
             }
-            
 
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
-                <Text style={styles.rate}>Rate this food </Text>
-                <Text style={styles.rateText}>Tell others what you think</Text>
-                <TouchableOpacity style={{flexDirection:'row', justifyContent:'center', paddingTop:10}}>
-                  <Icon name="chef-hat" color={"#d3d3d3"} size={50} />
-                  <Icon name="chef-hat" color={"#d3d3d3"} size={50} />
-                  <Icon name="chef-hat" color={"#d3d3d3"} size={50} />
-                  <Icon name="chef-hat" color={"#d3d3d3"} size={50} />
-                  <Icon name="chef-hat" color={"#d3d3d3"} size={50} />
-                </TouchableOpacity>
-             </View> 
-            </View>
+                <Text style={styles.desc}>Directions</Text>
+
+                <View style={{paddingBottom: 10}}>
+                  <View style={styles.iconText}>
+                    <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
+                    <Text style={styles.transport}>Nearest MRT</Text>
+                  </View>
+                  <Text style={styles.transportText}>{mrt}</Text>
+                </View>
+
+                <View style={styles.iconText}>
+                  <Icon style={{paddingRight: 5}} name="bus" color={'#FF4343'} size={26} />
+                  <Text style={styles.transport}>By Bus</Text>
+                </View>
+                <Text style={styles.transportText}>{bus}</Text>
+              </View>
+            </View>  
+
+            <View>
+              <Text>Recommended</Text>
+              <FlatList
+                scrollEnabled={false}
+                data={dataList.slice(0,4)}
+                renderItem={_renderItem}
+                keyExtractor={(item, index)=> (index.toString())}
+                numColumns={numColumns}
+              />
+            </View>       
         </View>
       </ScrollView>
     );
   }
+
+
 
   const styles = StyleSheet.create({
    
@@ -114,9 +174,8 @@ export default function West({ route, navigation }) {
     },
     desContent:{
       width: '90%',
-      padding:10,
-      paddingLeft:20,
-      backgroundColor:'#E2DEDE',
+      padding:20,
+      backgroundColor:'white',
       borderRadius: 10,
       shadowColor: "#000",
       shadowOffset: {
@@ -136,5 +195,44 @@ export default function West({ route, navigation }) {
     rateText:{
       color:'#8d8d8d',
       textAlign: 'center'
+    },
+
+    mapcontainer: {
+      height: 300,
+      width: '100%',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    map: {
+          ...StyleSheet.absoluteFillObject,
+    },
+
+    transport: {
+      color:'#FF4343'
+    },
+    transportText: {
+      fontWeight: 'bold',
+      fontSize:16
+    },
+    iconText: {
+      flexDirection: 'row',
+      alignItems:'baseline',
+    },
+    itemStyle: {   
+      // shadow 
+      shadowOffset: { width: 12, height: 12 },
+      shadowColor: 'black',
+      shadowOpacity: 1,
+      elevation: 3,
+      backgroundColor : "#fff", 
+
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 100,
+      flex: 1,
+      margin: 10,
+      height: WIDTH/numColumns,    
+      borderRadius: 12
+      
     }
   });
