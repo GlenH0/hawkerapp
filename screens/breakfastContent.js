@@ -10,7 +10,7 @@ import renderIf from 'render-if';
 
 
 export default function Break({ route, navigation }) {
-    const { item, title, text, image, image1, key, video, rating} = route.params;
+    const { item, title, text, image, image1, key, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace } = route.params;
   
     return (
       <ScrollView>
@@ -34,6 +34,21 @@ export default function Break({ route, navigation }) {
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
                 <Text style={styles.desc}>Where to find them?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('hawkerDetail',  {
+                  key: subpage,
+                  title: subpage,
+                  image: subpageimg,
+                  add: subpageadd,
+                  time: subpagetime,
+                  phone:subpagephone,
+                  lat: subpagelat,
+                  long: subpagelong,
+                  mrt: subpagemrt,
+                  bus: subpagebus,
+                  place: subpageplace
+                })}>
+                  <Text style={{color:'#009dff'}}>{subpage}</Text>
+                </TouchableOpacity >
               </View> 
             </View>
             {

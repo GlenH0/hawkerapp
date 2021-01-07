@@ -74,7 +74,7 @@ export default class App extends Component {
           <View style={{width: '95%'}}>
             
             <Searchbar
-              placeholder="Search..."
+              placeholder="What's in mind today?"
               onChangeText={text => this.setState({ searchText: text })}
               value={this.state.searchText}
             />
@@ -90,6 +90,12 @@ export default class App extends Component {
               <Text>Halal</Text>
             </TouchableOpacity>
           </View>
+          )}
+
+          {renderIf(filteredData == '')(
+            <View>
+              <Text style={{padding: 10}}>Ops! No results found</Text>
+            </View>
           )}
           
             <FlatList

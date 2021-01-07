@@ -12,6 +12,7 @@ import {dataList2} from '../array/dataCentre';
 import { NavigationContainer } from '@react-navigation/native';
 
 
+
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
@@ -21,7 +22,6 @@ export default function West({ route, navigation }) {
    
     const _renderItem = ({item, index}) => {
       if(item["place"] === place){
-        console.log(place)
         return (
           <View style={{flex:1}}>
            
@@ -54,9 +54,9 @@ export default function West({ route, navigation }) {
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
                 <Text style={styles.desc}>Address</Text>
-                <Text>{add}</Text>
+                <Text style={{paddingBottom: 20}}>{add}</Text>
                 <Text style={styles.desc}>Opening Hours</Text>
-                <Text>{time}</Text>
+                <Text style={{paddingBottom: 20}}>{time}</Text>
                 {renderIf(phone)(
                     <View>
                         <Text style={styles.desc}>Phone Number</Text>
@@ -107,8 +107,7 @@ export default function West({ route, navigation }) {
 
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
-                <Text style={styles.desc}>Directions</Text>
-
+                <Text style={styles.descDirection}>Directions</Text>
                 <View style={{paddingBottom: 10}}>
                   <View style={styles.iconText}>
                     <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
@@ -126,7 +125,7 @@ export default function West({ route, navigation }) {
             </View>  
 
             <View>
-              <Text>Recommended</Text>
+              <Text style={styles.desc}>What's recommended here?</Text>
               <FlatList
                 scrollEnabled={false}
                 data={dataList.slice(0,4)}
@@ -156,7 +155,7 @@ export default function West({ route, navigation }) {
         width: '100%',
         height: 300,
         // borderRadius: 4,
-        // overflow:'hidden', 
+        //  overflow:'hidden', 
     },
     imgContainer:{
       width:"100%",
@@ -172,6 +171,11 @@ export default function West({ route, navigation }) {
       fontWeight: 'bold',
       fontSize: 16,
       paddingBottom: 5
+    },
+    descDirection: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      paddingBottom: 20
     },
     desContent:{
       width: '90%',
@@ -233,7 +237,7 @@ export default function West({ route, navigation }) {
       flex: 1,
       margin: 10,
       height: WIDTH/numColumns,    
-      borderRadius: 12
-      
+      borderRadius: 12,
+      overflow:'hidden'
     }
   });
