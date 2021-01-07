@@ -13,7 +13,62 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../shared/header';
 
+import BreakfastPage from '../screens/breakfast'
+import LunchPage from '../screens/lunch'
+import DessertPage from '../screens/dessert'
+import DrinkPage from '../screens/drink'
+
 const Tab = createMaterialBottomTabNavigator();
+
+const N = createStackNavigator();
+
+function BreakfastP() {
+  return (
+    <N.Navigator>
+      <N.Screen
+        name="Breakfast"
+        component={BreakfastPage}
+        options={{ tabBarLabel: 'Breakfast' }}
+      />
+    </N.Navigator>
+  );
+}
+
+function LunchP() {
+  return (
+    <N.Navigator>
+      <N.Screen
+        name="Lunch/Dinner"
+        component={LunchPage}
+        options={{ tabBarLabel: 'Lunch/Dinner' }}
+      />
+    </N.Navigator>
+  );
+}
+
+function DessertP() {
+  return (
+    <N.Navigator>
+      <N.Screen
+        name="Dessert"
+        component={DessertPage}
+        options={{ tabBarLabel: 'Dessert' }}
+      />
+    </N.Navigator>
+  );
+}
+
+function DrinkP() {
+  return (
+    <N.Navigator>
+      <N.Screen
+        name="Drinks"
+        component={DrinkPage}
+        options={{ tabBarLabel: 'Drinks' }}
+      />
+    </N.Navigator>
+  );
+}
 
 const MainTabScreen = ({route}) => (
     <Tab.Navigator
@@ -24,7 +79,7 @@ const MainTabScreen = ({route}) => (
     >
       <Tab.Screen
         name="Breakfast"
-        component={Breakfast}
+        component={BreakfastP}
         // listeners={{ focus: () => BackHandler.addEventListener('hardwareBackPress',handleBackButton)
         //               ,blur: () => BackHandler.removeEventListener('hardwareBackPress',handleBackButton)
         //   }}
@@ -40,7 +95,7 @@ const MainTabScreen = ({route}) => (
       />
       <Tab.Screen
         name= "Lunch/Dinner"
-        component={Lunch}
+        component={LunchP}
         options={{
           tabBarLabel: 'Lunch/Dinner',
           tabBarColor: '#FF4343',
@@ -52,7 +107,7 @@ const MainTabScreen = ({route}) => (
       
       <Tab.Screen
         name="Dessert"
-        component={Dessert}
+        component={DessertP}
         options={{
           tabBarLabel: 'Dessert',
           tabBarColor: '#FF4343',
@@ -64,7 +119,7 @@ const MainTabScreen = ({route}) => (
 
     <Tab.Screen
         name="Drink"
-        component={Drink}
+        component={DrinkP}
         options={{
           tabBarLabel: 'Drinks',
           tabBarColor: '#FF4343',

@@ -8,6 +8,8 @@ import Break from '../screens/breakfastContent'
 import Filter from '../filter/filter'
 
 import MainTabScreen from './mainFood';
+import MainCentreTabScreen from './mainCentre';
+import West from '../screens/westContent';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -47,68 +49,40 @@ export default FoodStack = () => {
           }
         }}
       />
-      {/* <Screen
-        name="Review Details"
-        component={ReviewDetails}
-        options={{
-          title: "Review Details",
-        }}
-      /> */}
 
     <Screen name="Breakfast" component={MainTabScreen}
-    
+    // backup for styling~ 
+      // options={{
+      //   headerTitle: 'Our Local Delights',
+      //   headerStyle: { backgroundColor: '#FF4343'},
+      //   headerTitleStyle: {
+      //     color: 'white',
+      //     fontWeight: 'bold',
+      //     fontSize: 22,
+      //     fontFamily:"latoR"
+      //   },
+      //   headerTintColor:'white'
+      // }}
       options={{
-        headerTitle: 'Our Local Delights',
-        headerStyle: { backgroundColor: '#FF4343'},
-        headerTitleStyle: {
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: 22,
-          fontFamily:"latoR"
-        },
-        headerTintColor:'white'
+        headerShown: false
       }}
     />
 
     <Screen name="Lunch/Dinner" component={MainTabScreen}
       options={{
-        headerTitle: 'Our Local Delights',
-        headerStyle: { backgroundColor: '#FF4343'},
-        headerTitleStyle: {
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: 22,
-          fontFamily:"latoR"
-        },
-        headerTintColor:'white'
+        headerShown: false
       }}
     />
 
     <Screen name="Dessert" component={MainTabScreen}
       options={{
-        headerTitle: 'Our Local Delights',
-        headerStyle: { backgroundColor: '#FF4343'},
-        headerTitleStyle: {
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: 22,
-          fontFamily:"latoR"
-        },
-        headerTintColor:'white'
+        headerShown: false
       }}
     />
 
 <Screen name="Drink" component={MainTabScreen}
       options={{
-        headerTitle: 'Our Local Delights',
-        headerStyle: { backgroundColor: '#FF4343'},
-        headerTitleStyle: {
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: 22,
-          fontFamily:"latoR"
-        },
-        headerTintColor:'white'
+        headerShown: false
       }}
     />
 
@@ -139,6 +113,27 @@ export default FoodStack = () => {
     headerTintColor:'white'
   }}
 />
+{/* this is hawker centre path */}
+<Screen name="West" component={MainCentreTabScreen}
+                
+                options={{
+                  headerShown: false
+                }}
+              />
+
+<Screen name="hawkerDetail" component={West}
+        options={{
+          headerTitle: 'Details',
+          headerStyle: { backgroundColor: '#FF4343'},
+          headerTitleStyle: {
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 22,
+            fontFamily:"latoR"
+          },
+          headerTintColor:'white'
+        }}
+      />
 
     </Navigator>
   );
