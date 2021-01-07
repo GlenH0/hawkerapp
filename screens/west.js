@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Dimensions, TouchableOpacity, Button } from "react-native";
 import { Searchbar } from 'react-native-paper';
 import { useState } from 'react/cjs/react.development';
-import {dataList} from '../array/dataCentre';
+import {dataList2} from '../array/dataCentre';
 import renderIf from 'render-if';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -49,10 +49,10 @@ export default class App extends Component {
   
     render(){
       const filteredData = this.state.searchText
-      ? dataList.filter(x =>
+      ? dataList2.filter(x =>
           x.key.toLowerCase().includes(this.state.searchText.toLowerCase())
         )
-      : dataList;
+      : dataList2;
 
       const {navigation} = this.props
 

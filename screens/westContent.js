@@ -20,7 +20,8 @@ export default function West({ route, navigation }) {
     const { item, title, text, video, rating, add, image, time, phone, lat, long, mrt, bus, place} = route.params;
    
     const _renderItem = ({item, index}) => {
-      if(item.place = {place}){
+      if(item["place"] === place){
+        console.log(place)
         return (
           <View style={{flex:1}}>
            
