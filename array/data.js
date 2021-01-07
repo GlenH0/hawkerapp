@@ -7,7 +7,8 @@ export
           text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
           video: 'KTK2lCyg0-k',
           rating: 4,
-          status: 'Halal'
+          status: 'Halal',
+          place: 'Boon Lay'
         }, 
         {
           key: 'Fried Kway Teow Mee', 
@@ -15,7 +16,8 @@ export
           image: require('../assets/WestFood/teow.jpg'),
           text:'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
           rating: 3,
-          status: 'Halal'
+          status: 'Halal',
+          place:'Tamp'
         }, 
         {
           key: 'Chicken Wing',
