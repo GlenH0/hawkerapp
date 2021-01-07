@@ -8,7 +8,18 @@ export
           video: 'KTK2lCyg0-k',
           rating: 4,
           status: 'Halal',
-          place: 'Boon Lay'
+          place: 'Boon Lay',
+          page: 'West',
+          subpage: 'Boon Lay Place Market and Food Village',
+          subpageimg: require('../assets/WestHawker/BLM.jpg'),
+          subpageadd: '221A Boon Lay Pl, Singapore 641221',
+          subpagetime: '24 hours',
+          subpagephone:62255632,
+          subpagelat: 1.3467516321919029,
+          subpagelong: 103.71298136931848,
+          subpagemrt: 'Boon Lay',
+          subpagebus: '180, 187, 240, 30, 99',
+          subpageplace: 'Boon Lay'
         }, 
         {
           key: 'Fried Kway Teow Mee', 
@@ -17,7 +28,17 @@ export
           text:'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
           rating: 3,
           status: 'Halal',
-          place:'Tamp'
+          place:'Boon Lay',
+          subpage: 'Boon Lay Place Market and Food Village',
+          subpageimg: require('../assets/WestHawker/BLM.jpg'),
+          subpageadd: '221A Boon Lay Pl, Singapore 641221',
+          subpagetime: '24 hours',
+          subpagephone:62255632,
+          subpagelat: 1.3467516321919029,
+          subpagelong: 103.71298136931848,
+          subpagemrt: 'Boon Lay',
+          subpagebus: '180, 187, 240, 30, 99',
+          subpageplace: 'Boon Lay'
         }, 
         {
           key: 'Chicken Wing',
