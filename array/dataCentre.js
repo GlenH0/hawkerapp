@@ -68,12 +68,16 @@ export
             place: 'Lake'
         },
         {
-            key: 'Block 726 Clementi West Street 2',
-            title: 'Block 726 Clementi West Street 2',
+            key: 'West Coast Market Square',
+            title: 'West Coast Market Square',
             image: require('../assets/WestHawker/726ClementiWS2.png'),
-            lat: 1.3467516321919029,
-            long: 103.71298136931848,
-            place: 'Lake'
+            add: '726 Clementi West Street 2, Singapore 120726',
+            lat: 1.305339125054957,
+            long: 103.76449489643741, 
+            phone: 62255632,
+            mrt: 'Clementi',
+            bus: '143, 201, 30, 97',
+            place: 'West Coast',
         },
         {
             key: 'Boon Lay Place Market and Food Village',
