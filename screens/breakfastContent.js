@@ -20,7 +20,7 @@ export default function Break({ route, navigation }) {
           </View>
         </View>
         <View  style={styles.view}>
-            <View style={{paddingBottom:12}}>
+            <View style={{paddingLeft:20, paddingBottom:10, width:'90%'}}>
               <Text style={styles.name}>{title}</Text>
               <Image source={images.ratings[rating]} />
             </View>

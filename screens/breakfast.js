@@ -6,6 +6,10 @@ import {dataList} from '../array/data';
 import renderIf from 'render-if';
 import { NavigationContainer } from '@react-navigation/native';
 
+import { shuffle } from "lodash";
+
+
+
 // const dataList = [
 //   {
 //     key: 'Prata', 
@@ -42,6 +46,7 @@ export default class App extends Component {
    
   }
     _renderItem = ({item, index}) => {
+     if(item["category"] === 'breakfast'){
       return (
         <View style={{flex:1}}>
          
@@ -51,11 +56,12 @@ export default class App extends Component {
             </TouchableOpacity>
           </View>
 
-          <Text style={{paddingLeft:10}}>{item.key}</Text>
+          <Text numberOfLines={1} style={{paddingLeft:10}}>{item.key}</Text>
           <Image style={{marginLeft:9}} source={item.rating} />
 
         </View>
       )
+     }
     }
   
     render(){
@@ -99,7 +105,7 @@ export default class App extends Component {
           )}
           
             <FlatList
-            data={filteredData}
+            data={shuffle(filteredData)}
             renderItem={this._renderItem}
             keyExtractor={(item, index)=> (index.toString())}
             numColumns={numColumns}

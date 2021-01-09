@@ -73,7 +73,7 @@ export default class App extends Component {
 
           {renderIf(filteredData == '')(
             <View>
-              <Text style={{padding: 10}}>No results found</Text>
+              <Text style={{padding: 10}}>Ops! No results found</Text>
             </View>
           )}
           

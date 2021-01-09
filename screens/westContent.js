@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import {dataList} from '../array/data';
-import {dataList2} from '../array/dataCentre';
+import {lunchData} from '../array/dataLunch';
+import {dataList} from '../array/data'
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -31,7 +31,7 @@ export default function West({ route, navigation }) {
               </TouchableOpacity>
             </View>
       
-            <Text style={{paddingLeft:10}}>{item.key}</Text>
+            <Text numberOfLines={1} style={{paddingLeft:10}}>{item.key}</Text>
             <Image style={{marginLeft:9}} source={item.rating} />
       
           </View>
@@ -40,102 +40,108 @@ export default function West({ route, navigation }) {
     }
     
     return (
-      <ScrollView>
-        <View style={styles.boxImg}>
-          <View style={styles.imgContainer}>
-            <Image style={styles.img} source={image}/>
-          </View>
-        </View>
-        <View  style={styles.view}>
-            <View style={{paddingBottom:12}}>
-              <Text style={styles.name}>{title}</Text>
-              <Image source={images.ratings[rating]} />
-            </View>
-            <View style={{alignItems:'center'}}>
-              <View style={styles.desContent}>
-                <Text style={styles.desc}>Address</Text>
-                <Text style={{paddingBottom: 20}}>{add}</Text>
-                <Text style={styles.desc}>Opening Hours</Text>
-                <Text style={{paddingBottom: 20}}>{time}</Text>
-                {renderIf(phone)(
-                    <View>
-                        <Text style={styles.desc}>Phone Number</Text>
-                        <Text style={{color:'#009dff'}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
-                    </View>
-                )}   
-              </View> 
-            </View>          
-
-            <View style={{alignItems:'center'}}>
-              <View style={styles.desContent}>
-                <Text style={styles.desc}>Where to find them?</Text>
-
-                <View style={styles.mapcontainer}>
-                  <MapView
-                      provider={PROVIDER_GOOGLE}
-                      style={styles.map}
-                      initialRegion={{
-                        latitude: lat,
-                        longitude: long,
-                        latitudeDelta: 0.001,
-                        longitudeDelta: 0.005,
-                      }}
-                      showUserLocation={true} >
-                      <Marker coordinate={{
-                        latitude: lat,
-                        longitude: long,
-                      }}  />
-
-                  </MapView>
-                </View>
-              </View> 
-            </View>
-            {
-              renderIf(video)(
-                <Text style={styles.desc}>Reviews</Text>
-              )
-            }
-            
-            {
-              renderIf(video)(
-              <YoutubePlayer 
-                height={240}
-                videoId={video}
-              />
-              )
-            }
-
-            <View style={{alignItems:'center'}}>
-              <View style={styles.desContent}>
-                <Text style={styles.descDirection}>Directions</Text>
-                <View style={{paddingBottom: 10}}>
-                  <View style={styles.iconText}>
-                    <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
-                    <Text style={styles.transport}>Nearest MRT</Text>
-                  </View>
-                  <Text style={styles.transportText}>{mrt}</Text>
-                </View>
-
-                <View style={styles.iconText}>
-                  <Icon style={{paddingRight: 5}} name="bus" color={'#FF4343'} size={26} />
-                  <Text style={styles.transport}>By Bus</Text>
-                </View>
-                <Text style={styles.transportText}>{bus}</Text>
-              </View>
-            </View>  
-
-            <View>
-              <Text style={styles.desc}>What's recommended here?</Text>
-              <FlatList
-                scrollEnabled={false}
-                data={dataList.slice(0,4)}
+      
+        <FlatList
+                
+                data={lunchData}
                 renderItem={_renderItem}
                 keyExtractor={(item, index)=> (index.toString())}
                 numColumns={numColumns}
-              />
-            </View>       
-        </View>
-      </ScrollView>
+
+                ListHeaderComponent={ <>   
+                  <View style={styles.boxImg}>
+                    <View style={styles.imgContainer}>
+                      <Image style={styles.img} source={image}/>
+                    </View>
+                  </View>
+                  <View  style={styles.view}>
+                      <View style={{paddingLeft:20, paddingBottom:10, width:'90%'}}>
+                        <Text style={styles.name}>{title}</Text>
+                        <Image source={images.ratings[rating]} />
+                      </View>
+                      <View style={{alignItems:'center'}}>
+                        <View style={styles.desContent}>
+                          <Text style={styles.desc}>Address</Text>
+                          <Text style={{paddingBottom: 20}}>{add}</Text>
+                          {renderIf(time)(
+                            <View>
+                              <Text style={styles.desc}>Opening Hours</Text>
+                              <Text style={{paddingBottom: 20}}>{time}</Text>
+                            </View>
+                          )}
+                          {renderIf(phone)(
+                              <View>
+                                  <Text style={styles.desc}>Phone Number</Text>
+                                  <Text style={{color:'#009dff'}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
+                              </View>
+                          )}   
+                        </View> 
+                      </View>          
+
+                      <View style={{alignItems:'center'}}>
+                        <View style={styles.desContent}>
+                          <Text style={styles.desc}>Where to find them?</Text>
+
+                          <View style={styles.mapcontainer}>
+                            <MapView
+                                provider={PROVIDER_GOOGLE}
+                                style={styles.map}
+                                initialRegion={{
+                                  latitude: lat,
+                                  longitude: long,
+                                  latitudeDelta: 0.001,
+                                  longitudeDelta: 0.005,
+                                }}
+                                showUserLocation={true} >
+                                <Marker coordinate={{
+                                  latitude: lat,
+                                  longitude: long,
+                                }}  />
+
+                            </MapView>
+                          </View>
+                        </View> 
+                      </View>
+                      {
+                        renderIf(video)(
+                          <Text style={styles.desc}>Reviews</Text>
+                        )
+                      }
+                      
+                      {
+                        renderIf(video)(
+                        <YoutubePlayer 
+                          height={240}
+                          videoId={video}
+                        />
+                        )
+                      }
+
+                      <View style={{alignItems:'center'}}>
+                        <View style={styles.desContent}>
+                          <Text style={styles.descDirection}>Directions</Text>
+                          <View style={{paddingBottom: 10}}>
+                            <View style={styles.iconText}>
+                              <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
+                              <Text style={styles.transport}>Nearest MRT</Text>
+                            </View>
+                            <Text style={styles.transportText}>{mrt}</Text>
+                          </View>
+
+                          <View style={styles.iconText}>
+                            <Icon style={{paddingRight: 5}} name="bus" color={'#FF4343'} size={26} />
+                            <Text style={styles.transport}>By Bus</Text>
+                          </View>
+                          <Text style={styles.transportText}>{bus}</Text>
+                        </View>
+                      </View>  
+
+                      <View>
+                        <Text style={styles.desc}>What's recommended here?</Text> 
+                      </View>       
+                  </View>
+               </> }
+      />
     );
   }
 
