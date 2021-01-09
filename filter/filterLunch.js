@@ -1,27 +1,19 @@
 import React, {useState} from 'react'
 import { render } from 'react-dom';
 import { StyleSheet, Text, View, Dimensions, FlatList, TouchableOpacity, Button, Image} from 'react-native';
-import {dataList} from '../array/data';
+import {lunchData} from '../array/dataLunch';
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
-export default class Filter extends React.Component {
+export default class FilterLunch extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        dataList
+        lunchData
       };
     }
 
-    // onPress=()=>{
-    //     const newData = this.state.dataList.filter((item)=>{
-    //       return item.rating == '3';
-    //     })
-    //     this.setState({
-    //     dataList: newData
-    //     });
-    //   }
 
     _renderItem = ({item, index}) => {
         return (
@@ -52,7 +44,7 @@ export default class Filter extends React.Component {
           /> */}
          
          <FlatList
-            data={dataList.filter(data => data.status === 'Halal').map(filteredData =>(filteredData))}
+            data={lunchData.filter(data => data.status === 'Halal').map(filteredData =>(filteredData))}
             renderItem={this._renderItem}
             keyExtractor={(item, index)=> (index.toString())}
             numColumns={numColumns}
