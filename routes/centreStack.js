@@ -8,6 +8,7 @@ import North from '../screens/north';
 
 import MainCentreTabScreen from './mainCentre'
 import West from '../screens/westContent'
+import Break from '../screens/breakfastContent'
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -73,6 +74,20 @@ export default CentreStack = () => {
           headerTintColor:'white'
         }}
       />
+
+    <Screen name="break" component={Break}
+      options={{
+        headerTitle: 'Details',
+        headerStyle: { backgroundColor: '#FF4343'},
+        headerTitleStyle: {
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 22,
+          fontFamily:"latoR"
+        },
+        headerTintColor:'white'
+      }}
+/>
     </Navigator>
   );
 }

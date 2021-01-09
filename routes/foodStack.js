@@ -6,34 +6,13 @@ import Food from "../screens/food";
 import Header from '../shared/header';
 import Break from '../screens/breakfastContent'
 import Filter from '../filter/filter'
+import FilterLunch from '../filter/filterLunch'
 
 import MainTabScreen from './mainFood';
 import MainCentreTabScreen from './mainCentre';
 import West from '../screens/westContent';
 
 const { Navigator, Screen } = createStackNavigator();
-
-// const HomeNavigator = () => (
-//   <Navigator headerMode="screen">
- 
-//     <Screen name="Hawker Food" component={Food} 
-//       options={{
-//         title: 'HAWKER FOOD',
-//         headerStyle: {
-//           backgroundColor: '#FF4343',
-//         },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: {
-//           fontWeight: 'bold',
-//         },
-//       }}
-//     />
-//     <Screen name="Breakfast" component={ReviewDetails} />
-//     <Screen name="Lunch/Dinner" component={ReviewDetails} />
-//   </Navigator>
-// );
-
-
 
 export default FoodStack = () => {
   return (
@@ -101,6 +80,20 @@ export default FoodStack = () => {
 />
 
 <Screen name="filter" component={Filter}
+   options={{
+    headerTitle: 'Halal',
+    headerStyle: { backgroundColor: '#FF4343'},
+    headerTitleStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 22,
+      fontFamily:"latoR"
+    },
+    headerTintColor:'white'
+  }}
+/>
+
+<Screen name="filterLunch" component={FilterLunch}
    options={{
     headerTitle: 'Halal',
     headerStyle: { backgroundColor: '#FF4343'},
