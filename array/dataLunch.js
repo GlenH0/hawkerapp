@@ -91,7 +91,7 @@ export
             title:"Fried Kway Teow Mee (Ghee Huat)",
             image: require('../assets/WestFood/teow.jpg'),
             text:'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-            rating: 3,
+            rating: 5,
             place:'Boon Lay',
             subpage: 'Boon Lay Place Market and Food Village',
             subpageimg: require('../assets/WestHawker/BLM.jpg'),
