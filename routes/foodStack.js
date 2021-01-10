@@ -11,6 +11,7 @@ import FilterLunch from '../filter/filterLunch'
 import MainTabScreen from './mainFood';
 import MainCentreTabScreen from './mainCentre';
 import West from '../screens/westContent';
+import FoodtoCentre from '../screens/food2centre'
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -127,7 +128,19 @@ export default FoodStack = () => {
           headerTintColor:'white'
         }}
       />
-
+<Screen name="food2centre" component={FoodtoCentre}
+      options={{
+        headerTitle: 'Details',
+        headerStyle: { backgroundColor: '#FF4343'},
+        headerTitleStyle: {
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: 22,
+          fontFamily:"latoR"
+        },
+        headerTintColor:'white'
+      }}
+/>
     </Navigator>
   );
 }

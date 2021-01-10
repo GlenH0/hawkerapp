@@ -8,7 +8,7 @@ import North from '../screens/north';
 
 import MainCentreTabScreen from './mainCentre'
 import West from '../screens/westContent'
-import Break from '../screens/breakfastContent'
+import FoodtoCentre from '../screens/food2centre'
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -75,7 +75,7 @@ export default CentreStack = () => {
         }}
       />
 
-    <Screen name="break" component={Break}
+    <Screen name="food2centre" component={FoodtoCentre}
       options={{
         headerTitle: 'Details',
         headerStyle: { backgroundColor: '#FF4343'},
