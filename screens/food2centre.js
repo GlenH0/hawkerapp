@@ -9,7 +9,7 @@ import renderIf from 'render-if';
 
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
-export default function Break({ route, navigation }) {
+export default function FoodtoCentre({ route, navigation }) {
     const { item, title, text, image, image1, key, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace } = route.params;
     
     return (

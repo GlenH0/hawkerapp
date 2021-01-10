@@ -1,8 +1,30 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions,TouchableOpacity, Image } from 'react-native';
+import React, {useEffect} from 'react';
+import { StyleSheet, Text, View, Dimensions,TouchableOpacity, Image, BackHandler,Alert } from 'react-native';
 import {widthPercentageToDP, heightPercentageToDP} from 'react-native-responsive-screen';
  
 export default function Food({navigation}) {
+  
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to exit?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.removeEventListener("hardwareBackPress", handleBackButton);
+  }, []);
+
     return (
       <View style={styles.container}>
           <TouchableOpacity onPress={() => navigation.navigate('Breakfast')}>

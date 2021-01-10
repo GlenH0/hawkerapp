@@ -31,7 +31,7 @@ export default class App extends Component {
           </View>
 
           <Text numberOfLines={1} style={{paddingLeft:10}}>{item.key}</Text>
-          <Image style={{marginLeft:9}} source={item.rating} />
+          <Image style={{marginLeft:9}} source={item['rating']} />
 
         </View>
       )

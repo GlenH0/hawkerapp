@@ -26,7 +26,7 @@ export default function West({ route, navigation }) {
           <View style={{flex:1}}>
            
             <View>
-              <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('break', item )}>
+              <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('food2centre', item )}>
                 <Image style={styles.img} source={item.image}/>
               </TouchableOpacity>
             </View>
@@ -123,7 +123,7 @@ export default function West({ route, navigation }) {
                           <View style={{paddingBottom: 10}}>
                             <View style={styles.iconText}>
                               <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
-                              <Text style={styles.transport}>Nearest MRT</Text>
+                              <Text style={styles.transport}>Nearest MRT/LRT</Text>
                             </View>
                             <Text style={styles.transportText}>{mrt}</Text>
                           </View>
