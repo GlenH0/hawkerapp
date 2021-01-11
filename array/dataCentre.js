@@ -4,8 +4,8 @@ export
             key: 'Teban Gardens Road Market and Food Centre',
             title: 'Teban Gardens Road Market and Food Centre',
             image: require('../assets/WestHawker/37aTeban.png'),
-            add: 'Blk 37A Teban Gardens Road',
-            time: '6am - 5am',
+            add: '37A Teban Gardens Rd, Singapore 601037',
+            time: 'Daily from 6am - 5am',
             lat: 1.3215071188691971,
             long: 103.74294455397775,
             place: 'Teban',
@@ -20,10 +20,11 @@ export
             lat: 1.3095105723075375,
             long: 103.79304317671647,
             place: '44Holland',
-            add: 'Block 44 Holland Drive',
+            add: '44 Holland Dr, Singapore 270044',
             phone: 62255632,
             mrt: 'Buona Vista MRT (EW21/CC22)',
             bus: '200A, 48, 74E, 74, 91, 95, 185, 191, 200', 
+            time: 'Daily 6am - 10pm'
         },
         {
             key: 'Yuhua Village Market & Food Centre',
@@ -32,9 +33,10 @@ export
             lat: 1.3439402950085961, 
             long: 103.73780811871586,
             place: 'yuhuaVillage',
-            add: 'Block 254 Jurong East Street 24',
+            add: '254 Jurong East St 24, Singapore 600254',
             mrt: 'Chinese Garden (EW25), Bukit Batok (NS2)',
             bus: '157, 185, 187, 198, 99', 
+            time: 'Daily 7am - 11pm'
         },
         {
             key: 'Yuhua Market & Hawker Centre',
@@ -43,10 +45,11 @@ export
             lat: 1.3454292464964706,
             long: 103.73097941358765,
             place: 'yuhuaMarket',
-            add: 'Block 347 Jurong East Ave 1',
+            add: '347 Jurong East Ave 1, Singapore 600347',
             phone: 62255632,
             mrt: 'Chinese Garden (EW25), Jurong East (EW24|NS1)',
             bus: '157, 185, 187, 198, 99',  
+            time: 'Daily 6am - 8.30pm'
         },
         {
             key: 'Clementi Cooked Food Centre',
@@ -55,7 +58,7 @@ export
             lat: 1.3143732659456508,
             long: 103.7708261753329,
             place: 'clementiCook',
-            add: 'Block 353 Clementi Ave 2',
+            add: '353 Clementi Ave 2, Singapore 120353',
             bus: '154B, 52, 74E, 74, 151E, 151, 154, 165',
             mrt: 'Clementi MRT (EW23)'
              
@@ -64,12 +67,12 @@ export
             key: 'Clementi 448 Market & Food Centre',
             title: 'Clementi 448 Market & Food Centre',
             image: require('../assets/WestHawker/448ClementiA3.png'),
-            lat: 1.3467516321919029,
-            long: 103.71298136931848,
+            lat: 1.3136807494545228,
+            long: 103.76451418184217,
             place: 'clementi448',
-            add: 'Block 448 Clementi Ave 3',
+            add: '448 Clementi Ave 3, Singapore 120448',
             bus: '147, 154, 154B, 166, 175, 184, 185, 188',
-            mrt: 'Clementi MRT (EW23)'
+            mrt: 'Clementi MRT (EW23)' 
         },
         {
             key: 'Ayer Rajah Food Centre',
@@ -78,10 +81,11 @@ export
             lat: 1.3121521345606484,
             long: 103.75979559726181,
             place: 'ayer',
-            add: 'Block 503 West Coast Drive',
+            add: 'Blk 503, West Coast Drive. Ayer Rajah Food Centre, Singapore 120503',
             phone: 62255632,
             mrt: 'Clementi (EW23)',
             bus: '143, 188, 30, 97',   
+            time: 'Daily 6am - 1am'
         },
         {
             key: 'Jurong West 505 Market & Food Centre',
@@ -90,10 +94,11 @@ export
             lat: 1.3501442436603115,
             long: 103.71810659985844,
             place: 'jw505',
-            add: 'Block 505 Jurong West Street 52',
+            add: '505 Jurong West Street 52, Singapore 640505',
             phone: 81268080,
             mrt: 'Lakeside MRT (EW26)',
-            bus: '657, NR5, 49, 5N, 99, 157, 185, 198, 334, 502',    
+            bus: '657, NR5, 49, 5N, 99, 157, 185, 198, 334, 502', 
+            time: 'Daily 6am - 9pm'   
         },
         {
             key: 'West Coast Market Square',
@@ -106,6 +111,7 @@ export
             mrt: 'Clementi (EW23)',
             bus: '143, 201, 30, 97',
             place: 'West Coast',
+            time: 'Daily 5.30am - 12am'  
         },
         {
             key: 'Boon Lay Place Market and Food Village',
@@ -131,6 +137,7 @@ export
             add: '2 Bukit Panjang Ring Rd, Singapore 679947',
             bus: '171, 184, 960, 963, 966',
             mrt: 'Pending (BP8)', 
+            time: 'Daily 6am - 10pm'  
         },
         {
             key: 'Holland Village Market & Food Centre',
@@ -143,6 +150,7 @@ export
             add: '1 Lor Mambong, Singapore 277700',
             bus: '106, 185, 198, 48, 61, 970',
             mrt: 'Buona Vista (CC22|EW21), Holland Village (CC21)',
+            time: 'Daily 6am - 12am'  
         },
         {
             key: 'Taman Jurong Market & Food Centre',
@@ -155,6 +163,7 @@ export
             phone: 62255632,
             bus: '154, 178, 246, 30, 98, 98B', 
             mrt: 'Lakeside (EW26)',
+            time:'Closed on Monday, Tuesday to Sunday 11am - 2pm, 6pm - 9pm'
         }
     ];
 
