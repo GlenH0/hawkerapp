@@ -63,11 +63,12 @@ export default class App extends Component {
 
           {renderIf(lunchData === filteredData)(
             <View>
+              <Text style={{paddingLeft: 10, paddingTop: 10, fontFamily:'latoR', color:'#808080'}}>Suggested filters:</Text>
             <TouchableOpacity
             onPress={() => navigation.navigate('filterLunch')}
             style={styles.btnTab}
             >
-              <Text>Halal</Text>
+              <Text style={{fontFamily:'latoR'}}>Halal</Text>
             </TouchableOpacity>
           </View>
           )}

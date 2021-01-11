@@ -56,7 +56,7 @@ export default class App extends Component {
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={{paddingLeft:10}}>{item.key}</Text>
+          <Text numberOfLines={1} style={{paddingLeft:10, fontFamily:'latoB'}}>{item.key}</Text>
           <Image style={{marginLeft:9}} source={item.rating} />
 
         </View>
@@ -89,18 +89,19 @@ export default class App extends Component {
 
           {renderIf(dataList === filteredData)(
             <View>
+              <Text style={{paddingLeft: 10, paddingTop: 10, fontFamily:'latoR', color:'#808080'}}>Suggested filters:</Text>
             <TouchableOpacity
             onPress={() => navigation.navigate('filter')}
             style={styles.btnTab}
             >
-              <Text>Halal</Text>
+              <Text style={{fontFamily:'latoR'}}>Halal</Text>
             </TouchableOpacity>
           </View>
           )}
 
           {renderIf(filteredData == '')(
             <View>
-              <Text style={{padding: 10}}>Ops! No results found</Text>
+              <Text style={{padding: 20, fontFamily:'latoB', color:'#2f2f2f'}}>Ops! No results found</Text>
             </View>
           )}
           

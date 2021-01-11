@@ -29,7 +29,7 @@ export default class App extends Component {
             </TouchableOpacity>
           </View>
 
-          <Text style={{paddingLeft:10, fontWeight:'bold'}}>{item.key}</Text>
+          <Text style={{paddingLeft:10, fontFamily:'latoB'}}>{item.key}</Text>
           <Image style={{marginLeft:9}} source={item.rating} />
 
         </View>

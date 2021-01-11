@@ -42,12 +42,10 @@ const styles = StyleSheet.create({
     button:{
         width:129,
         height: 46,
-     
         textAlign:'center',
         padding: 10,
         borderRadius: 6,
-        fontFamily:'latoR',
-        fontWeight:'bold',
+        fontFamily:'latoB',  
         backgroundColor:'#FF4343',
         color:'#fff',
         shadowColor: "#000",

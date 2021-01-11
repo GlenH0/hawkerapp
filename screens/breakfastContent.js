@@ -27,7 +27,7 @@ export default function Break({ route, navigation }) {
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
                 <Text style={styles.desc}>Description</Text>
-                <Text>{text}</Text>  
+                <Text style={{color: '#2f2f2f', fontFamily:'latoR'}}>{text}</Text>  
               </View> 
             </View>
             
@@ -47,7 +47,7 @@ export default function Break({ route, navigation }) {
                   bus: subpagebus,
                   place: subpageplace
                 })}>
-                  <Text style={{color:'#009dff'}}>{subpage}</Text>
+                  <Text style={{color:'#4286f4', fontFamily:'latoR'}}>{subpage}</Text>
                 </TouchableOpacity >
               </View> 
             </View>
@@ -109,11 +109,12 @@ export default function Break({ route, navigation }) {
     },  
     name:{
         paddingBottom: 10,
-        fontWeight:'bold',
+        fontWeight: "300",
         fontSize:28,
+        fontFamily:'latoR'
     },
     desc: {
-      fontWeight: 'bold',
+      fontFamily:'latoB',
       fontSize: 16,
       paddingBottom: 5
     },
@@ -131,15 +132,16 @@ export default function Break({ route, navigation }) {
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
-      marginBottom: 20
+      marginBottom: 20,
     },
     rate:{
-      fontWeight: 'bold',
+      fontFamily:'latoB',
       fontSize: 16,
       textAlign: 'center'
     },
     rateText:{
       color:'#8d8d8d',
-      textAlign: 'center'
+      textAlign: 'center',
+      fontFamily:'latoR'
     }
   });

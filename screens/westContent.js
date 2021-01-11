@@ -8,7 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {lunchData} from '../array/dataLunch';
-import {dataList} from '../array/data'
+
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -62,19 +62,19 @@ export default function West({ route, navigation }) {
                       <View style={{alignItems:'center'}}>
                         <View style={styles.desContent}>
                           <Text style={styles.desc}>Address</Text>
-                          <Text style={{paddingBottom: 20}}>{add}</Text>
+                          <Text style={{paddingBottom: 20, paddingLeft:10, color: '#2f2f2f'}}>{add}</Text>
                           {renderIf(time)(
                             <View>
                               <Text style={styles.desc}>Opening Hours</Text>
-                              <Text style={{paddingBottom: 20}}>{time}</Text>
+                              <Text style={{paddingBottom: 20, paddingLeft:10, color: '#2f2f2f'}}>{time}</Text>
                             </View>
                           )}
                           {renderIf(phone)(
                               <View>
                                   <Text style={styles.desc}>Phone Number</Text>
-                                  <Text style={{color:'#009dff'}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
+                                  <Text style={{color:'#4286f4', paddingLeft:10}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
                               </View>
-                          )}   
+                          )} 
                         </View> 
                       </View>          
 
@@ -82,7 +82,7 @@ export default function West({ route, navigation }) {
                         <View style={styles.desContent}>
                           <Text style={styles.desc}>Where to find them?</Text>
 
-                          <View style={styles.mapcontainer}>
+                         <TouchableOpacity style={styles.mapcontainer} onPress={() => Linking.openURL('http://maps.google.com/maps?daddr='+lat+'+'+long)}>                      
                             <MapView
                                 provider={PROVIDER_GOOGLE}
                                 style={styles.map}
@@ -99,7 +99,8 @@ export default function West({ route, navigation }) {
                                 }}  />
 
                             </MapView>
-                          </View>
+                         </TouchableOpacity>
+                         <Text style={{paddingTop:5, fontSize: 10}}>*Use two fingers to tap on the map to view GPS</Text>
                         </View> 
                       </View>
                       {
@@ -119,7 +120,7 @@ export default function West({ route, navigation }) {
 
                       <View style={{alignItems:'center'}}>
                         <View style={styles.desContent}>
-                          <Text style={styles.descDirection}>Directions</Text>
+                          <Text style={styles.descDirection}>How to get there?</Text>
                           <View style={{paddingBottom: 10}}>
                             <View style={styles.iconText}>
                               <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
@@ -137,7 +138,7 @@ export default function West({ route, navigation }) {
                       </View>  
 
                       <View>
-                        <Text style={styles.desc}>What's recommended here?</Text> 
+                        <Text style={styles.rec}>What's recommended here?</Text> 
                       </View>       
                   </View>
                </> }
@@ -170,18 +171,25 @@ export default function West({ route, navigation }) {
     },  
     name:{
         paddingBottom: 10,
-        fontWeight:'bold',
+        fontWeight: "300",
         fontSize:28,
+        fontFamily:'latoR'
     },
     desc: {
-      fontWeight: 'bold',
+      fontFamily:'latoB',
       fontSize: 16,
-      paddingBottom: 5
+      paddingBottom: 5,
+    },
+    rec:{
+      fontFamily:'latoB',
+      fontSize: 16,
+      paddingBottom: 5,
+      textAlign: 'center'
     },
     descDirection: {
       fontWeight: 'bold',
       fontSize: 16,
-      paddingBottom: 20
+      paddingBottom: 10
     },
     desContent:{
       width: '90%',
@@ -198,15 +206,6 @@ export default function West({ route, navigation }) {
       elevation: 5,
       marginBottom: 20
     },
-    rate:{
-      fontWeight: 'bold',
-      fontSize: 16,
-      textAlign: 'center'
-    },
-    rateText:{
-      color:'#8d8d8d',
-      textAlign: 'center'
-    },
 
     mapcontainer: {
       height: 300,
@@ -222,8 +221,11 @@ export default function West({ route, navigation }) {
       color:'#FF4343'
     },
     transportText: {
-      fontWeight: 'bold',
-      fontSize:16
+      paddingLeft:10,
+      fontSize:14,
+      paddingBottom: 15,
+      color: '#2f2f2f',
+      fontFamily: 'latoR'
     },
     iconText: {
       flexDirection: 'row',
