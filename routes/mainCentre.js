@@ -25,7 +25,14 @@ function NorthSide() {
       <N.Screen
         name="North"
         component={North}
-        options={{ tabBarLabel: 'North' }}
+        options={{ tabBarLabel: 'North',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white' }}
       />
     </N.Navigator>
   );
@@ -37,7 +44,14 @@ function NorthESide() {
       <NE.Screen
         name="North East"
         component={NorthE}
-        options={{ tabBarLabel: 'North East' }}
+        options={{ tabBarLabel: 'North East',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white' }}
       />
     </NE.Navigator>
   );
@@ -49,7 +63,14 @@ function CentralSide() {
       <NE.Screen
         name="Central"
         component={Central}
-        options={{ tabBarLabel: 'Central' }}
+        options={{ tabBarLabel: 'Central',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white' }}
       />
     </NE.Navigator>
   );
@@ -61,7 +82,14 @@ function EastSide() {
       <NE.Screen
         name="East"
         component={East}
-        options={{ tabBarLabel: 'North East' }}
+        options={{ tabBarLabel: 'North East',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white' }}
       />
     </NE.Navigator>
   );
@@ -75,7 +103,14 @@ function WestSide() {
       <NE.Screen
         name="West"
         component={West}
-        options={{ tabBarLabel: 'North East' }}
+        options={{ tabBarLabel: 'North East',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white' }}
       />
     </NE.Navigator>
   );
@@ -84,7 +119,8 @@ function WestSide() {
 const MainCentreTabScreen = ({route}) => (
     <Tab.Navigator
       initialRouteName={route.name}
-      activeColor="#fff"
+      activeColor="#FF4343"
+      inactiveColor="#d3d3d3"
       style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'
     >
@@ -96,7 +132,7 @@ const MainCentreTabScreen = ({route}) => (
         //   }}
         options={{
           tabBarLabel: 'North',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="alpha-n" color={color} size={26} />
             
@@ -109,7 +145,7 @@ const MainCentreTabScreen = ({route}) => (
         component={NorthESide}
         options={{
           tabBarLabel: 'North East',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="alpha-n-circle-outline" color={color} size={26} />
           ),
@@ -122,7 +158,7 @@ const MainCentreTabScreen = ({route}) => (
         component={CentralSide}
         options={{
           tabBarLabel: 'Central',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="alpha-c" color={color} size={26} />
           ),
@@ -134,7 +170,7 @@ const MainCentreTabScreen = ({route}) => (
         component={EastSide}
         options={{
           tabBarLabel: 'East',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="alpha-e" color={color} size={26} />
           ),
@@ -146,7 +182,7 @@ const MainCentreTabScreen = ({route}) => (
         component={WestSide}
         options={{
           tabBarLabel: 'West',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="alpha-w" color={color} size={26} />
           ),

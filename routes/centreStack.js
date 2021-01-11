@@ -67,9 +67,8 @@ export default CentreStack = () => {
           headerStyle: { backgroundColor: '#FF4343'},
           headerTitleStyle: {
             color: 'white',
-            fontWeight: 'bold',
             fontSize: 22,
-            fontFamily:"latoR"
+            fontFamily:"latoB"
           },
           headerTintColor:'white'
         }}
@@ -81,9 +80,8 @@ export default CentreStack = () => {
         headerStyle: { backgroundColor: '#FF4343'},
         headerTitleStyle: {
           color: 'white',
-          fontWeight: 'bold',
           fontSize: 22,
-          fontFamily:"latoR"
+          fontFamily:"latoB"
         },
         headerTintColor:'white'
       }}

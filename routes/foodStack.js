@@ -12,6 +12,7 @@ import MainTabScreen from './mainFood';
 import MainCentreTabScreen from './mainCentre';
 import West from '../screens/westContent';
 import FoodtoCentre from '../screens/food2centre'
+import FilterDessert from "../filter/filterDessert";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -72,9 +73,8 @@ export default FoodStack = () => {
     headerStyle: { backgroundColor: '#FF4343'},
     headerTitleStyle: {
       color: 'white',
-      fontWeight: 'bold',
       fontSize: 22,
-      fontFamily:"latoR"
+      fontFamily:"latoB"
     },
     headerTintColor:'white'
   }}
@@ -86,9 +86,8 @@ export default FoodStack = () => {
     headerStyle: { backgroundColor: '#FF4343'},
     headerTitleStyle: {
       color: 'white',
-      fontWeight: 'bold',
       fontSize: 22,
-      fontFamily:"latoR"
+      fontFamily:"latoB"
     },
     headerTintColor:'white'
   }}
@@ -100,9 +99,21 @@ export default FoodStack = () => {
     headerStyle: { backgroundColor: '#FF4343'},
     headerTitleStyle: {
       color: 'white',
-      fontWeight: 'bold',
       fontSize: 22,
-      fontFamily:"latoR"
+      fontFamily:"latoB"
+    },
+    headerTintColor:'white'
+  }}
+/>
+
+<Screen name="filterDessert" component={FilterDessert}
+   options={{
+    headerTitle: 'Halal',
+    headerStyle: { backgroundColor: '#FF4343'},
+    headerTitleStyle: {
+      color: 'white',
+      fontSize: 22,
+      fontFamily:"latoB"
     },
     headerTintColor:'white'
   }}
@@ -121,9 +132,8 @@ export default FoodStack = () => {
           headerStyle: { backgroundColor: '#FF4343'},
           headerTitleStyle: {
             color: 'white',
-            fontWeight: 'bold',
             fontSize: 22,
-            fontFamily:"latoR"
+            fontFamily:"latoB"
           },
           headerTintColor:'white'
         }}
@@ -134,9 +144,8 @@ export default FoodStack = () => {
         headerStyle: { backgroundColor: '#FF4343'},
         headerTitleStyle: {
           color: 'white',
-          fontWeight: 'bold',
           fontSize: 22,
-          fontFamily:"latoR"
+          fontFamily:"latoB"
         },
         headerTintColor:'white'
       }}

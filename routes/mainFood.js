@@ -28,7 +28,15 @@ function BreakfastP() {
       <N.Screen
         name="Breakfast"
         component={BreakfastPage}
-        options={{ tabBarLabel: 'Breakfast' }}
+        options={{ tabBarLabel: 'Breakfast' ,
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white'
+      }}
       />
     </N.Navigator>
   );
@@ -40,7 +48,15 @@ function LunchP() {
       <N.Screen
         name="Lunch/Dinner"
         component={LunchPage}
-        options={{ tabBarLabel: 'Lunch/Dinner' }}
+        options={{ tabBarLabel: 'Lunch/Dinner',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white'
+      }}
       />
     </N.Navigator>
   );
@@ -52,7 +68,15 @@ function DessertP() {
       <N.Screen
         name="Dessert"
         component={DessertPage}
-        options={{ tabBarLabel: 'Dessert' }}
+        options={{ tabBarLabel: 'Dessert',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white'
+      }}
       />
     </N.Navigator>
   );
@@ -64,7 +88,15 @@ function DrinkP() {
       <N.Screen
         name="Drinks"
         component={DrinkPage}
-        options={{ tabBarLabel: 'Drinks' }}
+        options={{ tabBarLabel: 'Drinks',
+        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 22,
+          fontFamily:"latoB"
+        },
+        headerTintColor:'white'
+      }}
       />
     </N.Navigator>
   );
@@ -73,7 +105,8 @@ function DrinkP() {
 const MainTabScreen = ({route}) => (
     <Tab.Navigator
       initialRouteName={route.name}
-      activeColor="#fff"
+      activeColor="#FF4343"
+      inactiveColor="#d3d3d3"
       style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'
     >
@@ -85,7 +118,7 @@ const MainTabScreen = ({route}) => (
         //   }}
         options={{
           tabBarLabel: 'Breakfast',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="bread-slice" color={color} size={26} />
           ),
@@ -98,7 +131,7 @@ const MainTabScreen = ({route}) => (
         component={LunchP}
         options={{
           tabBarLabel: 'Lunch/Dinner',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="noodles" color={color} size={26} />
           ),
@@ -110,7 +143,7 @@ const MainTabScreen = ({route}) => (
         component={DessertP}
         options={{
           tabBarLabel: 'Dessert',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="bowl-mix" color={color} size={26} />
           ),
@@ -122,7 +155,7 @@ const MainTabScreen = ({route}) => (
         component={DrinkP}
         options={{
           tabBarLabel: 'Drinks',
-          tabBarColor: '#FF4343',
+          tabBarColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="coffee" color={color} size={26} />
           ),
