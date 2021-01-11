@@ -21,13 +21,20 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-maps": "^0.27.1",
     "react-native-paper": "^4.5.0",
+    "react-native-phone-call": "^1.0.9",
+    "react-native-ratings": "^7.3.0",
     "react-native-reanimated": "~1.13.0",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
+    "react-native-search-box": "0.0.20",
     "react-native-web": "~0.13.12",
-    "react-navigation": "^1.0.0-beta.7"
+    "react-native-webview": "^11.0.2",
+    "react-native-youtube-iframe": "^1.4.0",
+    "react-navigation": "^1.0.0-beta.7",
+    "render-if": "^0.1.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
