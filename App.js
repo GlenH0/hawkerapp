@@ -9,6 +9,7 @@ const getFonts = () => Font.loadAsync({
     'jetbrains-ital': require('./assets/fonts/JetBrainsMono-Italic-VariableFont_wght.ttf'),
     'jetbrains-var': require('./assets/fonts/JetBrainsMono-VariableFont_wght.ttf'),
     'latoR': require('./assets/fonts/Lato-Regular.ttf'),
+    'latoB': require('./assets/fonts/Lato-Bold.ttf'),
   });
 
 
