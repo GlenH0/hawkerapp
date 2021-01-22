@@ -33,7 +33,7 @@ export default class Filter extends React.Component {
               </TouchableOpacity>
             </View>
   
-            <Text style={{paddingLeft:10}}>{item.key}</Text>
+            <Text style={{paddingLeft:10, fontFamily:'playB'}}>{item.key}</Text>
             <Image style={{marginLeft:9}} source={item.rating} />
   
           </View>
