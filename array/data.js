@@ -21,7 +21,8 @@ export
           subpagemrt: 'Boon Lay (EW27)',
           subpagebus: '180, 187, 240, 30, 99',
           subpageplace: 'Boon Lay',
-          category: 'breakfast'
+          category: 'breakfast',
+          store: require('../assets/WestFood/boonlaynasiStore.jpg'),
         }, 
         {
           key: 'Fried Kway Teow Mee (Ghee Huat)', 
