@@ -10,13 +10,14 @@ import renderIf from 'render-if';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
 export default function Break({ route, navigation }) {
-    const { item, title, text, image, image1, key, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace } = route.params;
+    const { item, title, text, image, image1, key, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace, store } = route.params;
     
+
     return (
       <ScrollView>
         <View style={styles.boxImg}>
           <View style={styles.imgContainer}>
-            <Image style={styles.img} source={image}/>
+            <Image style={styles.img} source={image}/>          
           </View>
         </View>
         <View  style={styles.view}>
@@ -24,12 +25,36 @@ export default function Break({ route, navigation }) {
               <Text style={styles.name}>{title}</Text>
               <Image source={images.ratings[rating]} />
             </View>
+
+            <View
+              style={{
+                borderBottomColor: '#aeaeae',
+                borderBottomWidth: 1,
+                marginBottom: 12
+                
+              }}
+            />
+
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
                 <Text style={styles.desc}>Description</Text>
                 <Text style={{color: '#2f2f2f', fontFamily:'latoR'}}>{text}</Text>  
               </View> 
             </View>
+
+            {
+              renderIf(video)(
+                <View style={{alignItems:'center'}}>
+                  <View style={styles.videoContent}>
+                    <Text style={styles.desc}>Reviews</Text>
+                      <YoutubePlayer 
+                        height={220}
+                        videoId={video}
+                      />
+                  </View> 
+                </View>
+              )
+            }
             
             <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
@@ -49,22 +74,19 @@ export default function Break({ route, navigation }) {
                 })}>
                   <Text style={{color:'#4286f4', fontFamily:'latoR'}}>{subpage}</Text>
                 </TouchableOpacity >
+
+                {
+                  renderIf(store)(
+                    <View style={{alignItems:'center'}}>
+                      <Image style={styles.imgStore} source={store}/>  
+                    </View>
+                  )
+                }
+
               </View> 
+              
             </View>
-            {
-              renderIf(video)(
-                <Text style={styles.desc}>Reviews</Text>
-              )
-            }
             
-            {
-              renderIf(video)(
-              <YoutubePlayer 
-                height={240}
-                videoId={video}
-              />
-              )
-            }
            
 
             <View style={{alignItems:'center'}}>
@@ -102,26 +124,35 @@ export default function Break({ route, navigation }) {
         // borderRadius: 4,
         // overflow:'hidden', 
     },
+    imgStore:{
+      resizeMode:'contain',
+      width: '100%',
+      height: 250,
+      borderRadius: 10,
+      overflow:'hidden', 
+        
+    },
     imgContainer:{
       width:"100%",
       alignItems:'center',
      
     },  
     name:{
-        paddingBottom: 10,
-        fontWeight: "300",
-        fontSize:28,
-        fontFamily:'latoR'
+        paddingTop: 10,
+        fontSize:24,
+        fontFamily:'playB',
+        includeFontPadding: false,
+        lineHeight: 35
     },
     desc: {
-      fontFamily:'latoB',
+      fontFamily:'playB',
       fontSize: 16,
       paddingBottom: 5
     },
     desContent:{
       width: '90%',
       padding:10,
-      paddingLeft:20,
+      
       backgroundColor:'#E2DEDE',
       borderRadius: 10,
       shadowColor: "#000",
@@ -143,5 +174,9 @@ export default function Break({ route, navigation }) {
       color:'#8d8d8d',
       textAlign: 'center',
       fontFamily:'latoR'
-    }
+    },
+    videoContent:{
+      width: '90%',
+    },
+    
   });

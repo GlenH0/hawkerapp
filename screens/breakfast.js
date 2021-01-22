@@ -56,7 +56,7 @@ export default class App extends Component {
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={{paddingLeft:10, fontFamily:'latoB'}}>{item.key}</Text>
+          <Text numberOfLines={1} style={{paddingLeft:10, fontFamily:'playB'}}>{item.key}</Text>
           <Image style={{marginLeft:9}} source={item.rating} />
 
         </View>
@@ -80,7 +80,7 @@ export default class App extends Component {
           <View style={{width: '95%'}}>
             
             <Searchbar
-              placeholder="What's in mind today?"
+              placeholder="What are you craving?"
               onChangeText={text => this.setState({ searchText: text })}
               value={this.state.searchText}
             />
@@ -89,19 +89,19 @@ export default class App extends Component {
 
           {renderIf(dataList === filteredData)(
             <View>
-              <Text style={{paddingLeft: 10, paddingTop: 10, fontFamily:'latoR', color:'#808080'}}>Suggested filters:</Text>
+              <Text style={{paddingLeft: 10, paddingTop: 10, fontFamily:'playB', color:'#808080'}}>Suggested filters:</Text>
             <TouchableOpacity
             onPress={() => navigation.navigate('filter')}
             style={styles.btnTab}
             >
-              <Text style={{fontFamily:'latoR'}}>Halal</Text>
+              <Text style={{fontFamily:'playB'}}>Halal</Text>
             </TouchableOpacity>
           </View>
           )}
 
           {renderIf(filteredData == '')(
             <View>
-              <Text style={{padding: 20, fontFamily:'latoB', color:'#2f2f2f'}}>Ops! No results found</Text>
+              <Text style={{padding: 20, fontFamily:'playB', color:'#2f2f2f'}}>Ops! No results found</Text>
             </View>
           )}
           

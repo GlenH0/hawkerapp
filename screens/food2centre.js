@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 
+
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
 export default function FoodtoCentre({ route, navigation }) {
@@ -31,7 +32,7 @@ export default function FoodtoCentre({ route, navigation }) {
               </View> 
             </View>
             
-            <View style={{alignItems:'center'}}>
+            {/* <View style={{alignItems:'center'}}>
               <View style={styles.desContent}>
                 <Text style={styles.desc}>Where to find them?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('hawkerDetail',  {
@@ -50,19 +51,19 @@ export default function FoodtoCentre({ route, navigation }) {
                   <Text style={{color:'#009dff'}}>{subpage}</Text>
                 </TouchableOpacity >
               </View> 
-            </View>
-            {
-              renderIf(video)(
-                <Text style={styles.desc}>Reviews</Text>
-              )
-            }
+            </View> */}
             
             {
               renderIf(video)(
-              <YoutubePlayer 
-                height={240}
-                videoId={video}
-              />
+                <View style={{alignItems:'center'}}>
+                  <View style={styles.videoContent}>
+                    <Text style={styles.desc}>Reviews</Text>
+                      <YoutubePlayer 
+                        height={240}
+                        videoId={video}
+                      />
+                  </View> 
+                </View>
               )
             }
            
@@ -141,5 +142,8 @@ export default function FoodtoCentre({ route, navigation }) {
     rateText:{
       color:'#8d8d8d',
       textAlign: 'center'
+    },
+    videoContent:{
+      width: '90%',
     }
   });

@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     fontSize: 32,
-    fontFamily: 'jetbrains-var'
+    fontFamily: 'play'
   },
   image:{
       width:'100%',

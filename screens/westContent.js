@@ -10,7 +10,7 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {lunchData} from '../array/dataLunch';
 
 import { NavigationContainer } from '@react-navigation/native';
-
+import { dataList } from '../array/data';
 
 
 const numColumns = 2
@@ -19,11 +19,11 @@ const WIDTH = Dimensions.get("window").width;
 
 export default function West({ route, navigation }) {
     const { item, title, text, video, rating, add, image, time, phone, lat, long, mrt, bus, place} = route.params;
-   
+
     const _renderItem = ({item, index}) => {
       if(item["place"] === place){
         return (
-          <View style={{flex:1}}>
+          <View style={{flex:1, backgroundColor:'white'}}>
            
             <View>
               <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('food2centre', item )}>
@@ -39,14 +39,15 @@ export default function West({ route, navigation }) {
       }
     }
     
+    
     return (
       
-        <FlatList
-                
+        <FlatList 
                 data={lunchData}
                 renderItem={_renderItem}
                 keyExtractor={(item, index)=> (index.toString())}
                 numColumns={numColumns}
+                
 
                 ListHeaderComponent={ <>   
                   <View style={styles.boxImg}>
@@ -92,15 +93,17 @@ export default function West({ route, navigation }) {
                                   latitudeDelta: 0.001,
                                   longitudeDelta: 0.005,
                                 }}
-                                showUserLocation={true} >
+                                showUserLocation={true} 
+                                scrollEnabled={false}>
                                 <Marker coordinate={{
                                   latitude: lat,
                                   longitude: long,
+                                  title: title,
                                 }}  />
 
                             </MapView>
                          </TouchableOpacity>
-                         <Text style={{paddingTop:5, fontSize: 10}}>*Use two fingers to tap on the map to view GPS</Text>
+                         {/* <Text style={{paddingTop:5, fontSize: 10}}>*Use two fingers to tap on the map to view GPS</Text> */}
                         </View> 
                       </View>
                       {
@@ -118,7 +121,7 @@ export default function West({ route, navigation }) {
                         )
                       }
 
-                      <View style={{alignItems:'center'}}>
+                      {/* <View style={{alignItems:'center'}}>
                         <View style={styles.desContent}>
                           <Text style={styles.descDirection}>How to get there?</Text>
                           <View style={{paddingBottom: 10}}>
@@ -135,12 +138,15 @@ export default function West({ route, navigation }) {
                           </View>
                           <Text style={styles.transportText}>{bus}</Text>
                         </View>
-                      </View>  
-
-                      <View>
-                        <Text style={styles.rec}>What's recommended here?</Text> 
-                      </View>       
+                      </View>   */}
+       
                   </View>
+
+                  
+                  <View style={styles.btmRec}>
+                    <Text style={styles.rec}>What's recommended here?</Text> 
+                  </View>   
+                  
                </> }
       />
     );
@@ -181,10 +187,10 @@ export default function West({ route, navigation }) {
       paddingBottom: 5,
     },
     rec:{
-      fontFamily:'latoB',
-      fontSize: 16,
-      paddingBottom: 5,
-      textAlign: 'center'
+      fontFamily:'sat',
+      fontSize: 22,
+      textAlign: 'center',
+      color:'#3a3b3c',
     },
     descDirection: {
       fontWeight: 'bold',
@@ -247,5 +253,20 @@ export default function West({ route, navigation }) {
       height: WIDTH/numColumns,    
       borderRadius: 12,
       overflow:'hidden'
+    },
+    btmRec:{
+      backgroundColor:'white',
+      paddingTop: 10,
+      paddingBottom: 10,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
     }
   });
