@@ -26,11 +26,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingRight: 40,
     },
 
     headerText: {
-        fontWeight: 'bold',
-        fontSize: 22,
+        fontFamily: 'sat',
+        fontSize: 26,
         color: '#fff',
         letterSpacing: 1,
     },
