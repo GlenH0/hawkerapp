@@ -24,8 +24,8 @@ export default FoodStack = () => {
         component={Food}
         options={({ navigation }) => {
           return {
-            headerTitle: () => <Header navigation={navigation} title = 'HAWKER FOOD' />,
-            headerStyle: { backgroundColor: '#FF4343'},
+            headerTitle: () => <Header navigation={navigation} title = 'Hawker Food' />,
+            headerStyle: { backgroundColor: '#f23e65'},
             
           }
         }}
@@ -70,11 +70,11 @@ export default FoodStack = () => {
 <Screen name="break" component={Break}
    options={{
     headerTitle: 'Details',
-    headerStyle: { backgroundColor: '#FF4343'},
+    headerStyle: { backgroundColor: '#f23e65'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
-      fontFamily:"latoB"
+      fontFamily:"sat"
     },
     headerTintColor:'white'
   }}
@@ -83,11 +83,11 @@ export default FoodStack = () => {
 <Screen name="filter" component={Filter}
    options={{
     headerTitle: 'Halal',
-    headerStyle: { backgroundColor: '#FF4343'},
+    headerStyle: { backgroundColor: '#f23e65'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
-      fontFamily:"latoB"
+      fontFamily:"sat"
     },
     headerTintColor:'white'
   }}
@@ -96,11 +96,11 @@ export default FoodStack = () => {
 <Screen name="filterLunch" component={FilterLunch}
    options={{
     headerTitle: 'Halal',
-    headerStyle: { backgroundColor: '#FF4343'},
+    headerStyle: { backgroundColor: '#f23e65'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
-      fontFamily:"latoB"
+      fontFamily:"sat"
     },
     headerTintColor:'white'
   }}
@@ -109,11 +109,11 @@ export default FoodStack = () => {
 <Screen name="filterDessert" component={FilterDessert}
    options={{
     headerTitle: 'Halal',
-    headerStyle: { backgroundColor: '#FF4343'},
+    headerStyle: { backgroundColor: '#f23e65'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
-      fontFamily:"latoB"
+      fontFamily:"sat"
     },
     headerTintColor:'white'
   }}
@@ -129,11 +129,11 @@ export default FoodStack = () => {
 <Screen name="hawkerDetail" component={West}
         options={{
           headerTitle: 'Details',
-          headerStyle: { backgroundColor: '#FF4343'},
+          headerStyle: { backgroundColor: '#f23e65'},
           headerTitleStyle: {
             color: 'white',
             fontSize: 22,
-            fontFamily:"latoB"
+            fontFamily:"sat"
           },
           headerTintColor:'white'
         }}
@@ -141,11 +141,11 @@ export default FoodStack = () => {
 <Screen name="food2centre" component={FoodtoCentre}
       options={{
         headerTitle: 'Details',
-        headerStyle: { backgroundColor: '#FF4343'},
+        headerStyle: { backgroundColor: '#f23e65'},
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white'
       }}

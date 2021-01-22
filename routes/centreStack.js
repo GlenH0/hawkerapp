@@ -20,8 +20,8 @@ export default CentreStack = () => {
         component={Centre}
         options={({ navigation }) => {
           return {
-            headerTitle: () => <Header navigation={navigation} title = 'HAWKER CENTRES' />,
-            headerStyle: { backgroundColor: '#FF4343'}
+            headerTitle: () => <Header navigation={navigation} title = 'Hawker Centres' />,
+            headerStyle: { backgroundColor: '#f23e65'}
           }
         }}
       />
@@ -64,11 +64,11 @@ export default CentreStack = () => {
       <Screen name="hawkerDetail" component={West}
         options={{
           headerTitle: 'Details',
-          headerStyle: { backgroundColor: '#FF4343'},
+          headerStyle: { backgroundColor: '#f23e65'},
           headerTitleStyle: {
             color: 'white',
             fontSize: 22,
-            fontFamily:"latoB"
+            fontFamily:"sat"
           },
           headerTintColor:'white'
         }}
@@ -77,11 +77,11 @@ export default CentreStack = () => {
     <Screen name="food2centre" component={FoodtoCentre}
       options={{
         headerTitle: 'Details',
-        headerStyle: { backgroundColor: '#FF4343'},
+        headerStyle: { backgroundColor: '#f23e65'},
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white'
       }}

@@ -26,11 +26,11 @@ function NorthSide() {
         name="North"
         component={North}
         options={{ tabBarLabel: 'North',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white' }}
       />
@@ -45,11 +45,11 @@ function NorthESide() {
         name="North East"
         component={NorthE}
         options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white' }}
       />
@@ -64,11 +64,11 @@ function CentralSide() {
         name="Central"
         component={Central}
         options={{ tabBarLabel: 'Central',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white' }}
       />
@@ -83,11 +83,11 @@ function EastSide() {
         name="East"
         component={East}
         options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white' }}
       />
@@ -104,11 +104,11 @@ function WestSide() {
         name="West"
         component={West}
         options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white' }}
       />
@@ -119,7 +119,7 @@ function WestSide() {
 const MainCentreTabScreen = ({route}) => (
     <Tab.Navigator
       initialRouteName={route.name}
-      activeColor="#FF4343"
+      activeColor="#f23e65"
       inactiveColor="#d3d3d3"
       style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'
@@ -149,7 +149,7 @@ const MainCentreTabScreen = ({route}) => (
           tabBarIcon: ({ color }) => (
             <Icon name="alpha-n-circle-outline" color={color} size={26} />
           ),
-          title: "hi"
+          
         }}
       />
       

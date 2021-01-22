@@ -29,11 +29,11 @@ function BreakfastP() {
         name="Breakfast"
         component={BreakfastPage}
         options={{ tabBarLabel: 'Breakfast' ,
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white'
       }}
@@ -49,11 +49,11 @@ function LunchP() {
         name="Lunch/Dinner"
         component={LunchPage}
         options={{ tabBarLabel: 'Lunch/Dinner',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white'
       }}
@@ -69,11 +69,11 @@ function DessertP() {
         name="Dessert"
         component={DessertPage}
         options={{ tabBarLabel: 'Dessert',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white'
       }}
@@ -89,11 +89,11 @@ function DrinkP() {
         name="Drinks"
         component={DrinkPage}
         options={{ tabBarLabel: 'Drinks',
-        headerStyle: { backgroundColor: '#FF4343'}, 
+        headerStyle: { backgroundColor: '#f23e65'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
-          fontFamily:"latoB"
+          fontFamily:"sat"
         },
         headerTintColor:'white'
       }}
@@ -105,7 +105,7 @@ function DrinkP() {
 const MainTabScreen = ({route}) => (
     <Tab.Navigator
       initialRouteName={route.name}
-      activeColor="#FF4343"
+      activeColor="#f23e65"
       inactiveColor="#d3d3d3"
       style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'
