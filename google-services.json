@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "188233289575",
+    "project_id": "hawkerapp-6c26a",
+    "storage_bucket": "hawkerapp-6c26a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188233289575:android:3b62f9770a1abe27d129c2",
+        "android_client_info": {
+          "package_name": "com.onyourleft.HawkerApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188233289575-rn11pdesv4li4olrrv0sott0d2k0vjm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt-2Bjopy7lHdVXNUupI9ANxdgpoGRvRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188233289575-rn11pdesv4li4olrrv0sott0d2k0vjm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

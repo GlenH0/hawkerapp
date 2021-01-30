@@ -21,6 +21,7 @@
     },
     "android": {
       "package": "com.onyourleft.HawkerApp",
+      
       "versionCode": 1,
       "config": {
         "googleMaps": { "apiKey": "AIzaSyDgz4TysIHovk5i4GfZ9oUwFOsicECD3SM" }   
