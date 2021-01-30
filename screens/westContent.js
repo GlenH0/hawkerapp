@@ -81,7 +81,7 @@ export default function West({ route, navigation }) {
 
                       <View style={{alignItems:'center'}}>
                         <View style={styles.desContent}>
-                          <Text style={styles.desc}>Where to find them?</Text>
+                          <Text style={styles.desc}>How to get there?</Text>
 
                          <TouchableOpacity style={styles.mapcontainer} onPress={() => Linking.openURL('http://maps.google.com/maps?daddr='+lat+'+'+long)}>                      
                             <MapView
