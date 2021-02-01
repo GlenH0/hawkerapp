@@ -17,7 +17,11 @@ export default function Break({ route, navigation }) {
       <ScrollView>
         <View style={styles.boxImg}>
           <View style={styles.imgContainer}>
-            <Image style={styles.img} source={image}/>          
+            {/* this is for normal array */}
+            {/* <Image style={styles.img} source={image}/>   */}
+            
+            {/* this is for my db ver */}
+            <Image style={styles.img} source={{uri: image}}/>          
           </View>
         </View>
         <View  style={styles.view}>
