@@ -6,6 +6,8 @@ import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
 import renderIf from 'render-if';
 
+import _ from 'lodash'
+
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
@@ -43,7 +45,7 @@ export default class App extends Component{
     firebase.database().ref('drink').on('value', (snapshot) =>{
       var li = []
       snapshot.forEach((child)=>{
-       if(child.val().cat == "drink"){
+       if(child.val().food_id == "1"){
          li.push({
             title: child.val().title,
             image:child.val().image,
@@ -54,11 +56,12 @@ export default class App extends Component{
             subpagetime: child.val().subpagetime,
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
-            subpagephone: child.val().subpagephone             
+            subpagephone: child.val().subpagephone,
+            rating: child.val().rating             
           })
        }
     })
-   this.setState({list:li})
+   this.setState({list:li, inMemory: li})
   })
  }
 
@@ -66,39 +69,19 @@ export default class App extends Component{
    this._isMounted = false;
  }
 
- searchData(searchText) {
-  const newData = this.state.list.filter(item => 
-    {
-    const itemData = item.title.toUpperCase();
-    const textData = searchText.toUpperCase();
-    return itemData.indexOf(textData) > -1
-  }
-  );
-    if(searchText){
-      this.setState({
-        list: newData,
-        searchText: searchText
-        })  
-    }
-    else{
-      this.componentDidMount();
-      this.setState({
-        searchText:''
-      })
-    }
-  }
+handleSearch = (text) => {
+ const filter = this.state.inMemory.filter(
+   list => {
+     let title = list.title.toLowerCase()
+     let search = text.toLowerCase()
 
-  
+     return title.indexOf(search) > -1
+   }
+ )
+ this.setState({list: filter})
+}
  
  render(){
-
-  //  const filteredData = this.state.searchText
-  //  ? this.state.list.filter(x =>
-  //      x.title.toLowerCase().includes(this.state.searchText.toLowerCase())
-  //    )
-  //  : this.state.list;
-
-  
 
    const {navigation} = this.props
 
@@ -110,8 +93,8 @@ export default class App extends Component{
             
             <Searchbar
               placeholder="What's in mind today?"
-              onChangeText={searchText => this.searchData(searchText)}
-              value={this.state.searchText}
+              onChangeText={(text)=>this.handleSearch(text)}
+              // value={this.state.searchText}
             />
           </View>
          </View>
@@ -137,13 +120,6 @@ export default class App extends Component{
 
        <FlatList style={{width:'100%'}}
           data={shuffle(this.state.list)}
-         //  keyExtractor={(item)=>item.key}
-         //  renderItem={({item})=>{
-         //     return(
-         //        <View>
-         //           <Text>{item.name} {item.na}</Text>
-         //        </View>)
-         //     }}
          renderItem={this._renderItem}
          keyExtractor={(item, index) => index.toString() }
          numColumns={numColumns}
