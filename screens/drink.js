@@ -1,6 +1,6 @@
 import firebase from '../firebase/fb'
 import React, {Component} from 'react';
-import {View,Text, FlatList, Dimensions, TouchableOpacity,Image, StyleSheet} from 'react-native';
+import {View,Text, FlatList, Dimensions, TouchableOpacity,Image, StyleSheet, ScrollView} from 'react-native';
 
 import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
@@ -18,6 +18,7 @@ export default class App extends Component{
    this.state={ 
     list:[],
     searchText: '',
+    check: false
   }
   
 }
@@ -57,7 +58,9 @@ export default class App extends Component{
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
             subpagephone: child.val().subpagephone,
-            rating: child.val().rating             
+            rating: child.val().rating, 
+            type: child.val().type,
+            foodtype: child.val().foodtype            
           })
        }
     })
@@ -78,36 +81,100 @@ handleSearch = (text) => {
      return title.indexOf(search) > -1
    }
  )
- this.setState({list: filter})
+ this.setState({list: filter, searchText:text})
+}
+
+handleFilter = () => {
+  this.setState({check: true})
+  if(this.state.check == true){
+    this.setState({list: this.state.inMemory, check: false})
+  }
+}
+
+handleHalal = () =>{
+    this.setState({list: this.state.inMemory.filter(x => x.type === 'halal' && x.foodtype === 'noodle')})
+    console.log(this.state.check)   
+}
+
+handleFoodType = () =>{  
+    // this.setState({list: this.state.inMemory, check: false})
+      this.setState({list: this.state.inMemory.filter(x => x.foodtype === 'noodle')})
+      console.log(this.state.check)
+}
+
+handleFoodTypeW = () =>{  
+  // this.setState({list: this.state.inMemory, check: false})
+    this.setState({list: this.state.inMemory.filter(x => x.foodtype === 'western')})
+    console.log(this.state.check)
 }
  
  render(){
-
-   const {navigation} = this.props
-
   return(
     <View style={styles.container}>
 
          <View style={{justifyContent:'center', alignItems:'center', paddingTop: 10}}>
-          <View style={{width: '95%'}}>
-            
-            <Searchbar
+          <View style={{width: '95%'}}>     
+            {
+              renderIf(this.state.check == false)(
+                <Searchbar
               placeholder="What's in mind today?"
               onChangeText={(text)=>this.handleSearch(text)}
-              // value={this.state.searchText}
+              value={this.state.searchText}
             />
+              )
+            }
           </View>
          </View>
 
-         {renderIf(this.state.searchText === '')(
+         {renderIf(this.state.searchText == '')(
             <View>
               <Text style={{paddingLeft: 10, paddingTop: 10, fontFamily:'latoR', color:'#808080'}}>Suggested filters:</Text>
+           <ScrollView horizontal={true} style={{flexDirection: 'row'}}>
             <TouchableOpacity
-            onPress={() => navigation.navigate('filterDessert')}
-            style={styles.btnTab}
-            >
-              <Text style={{fontFamily:'latoR'}}>Halal</Text>
-            </TouchableOpacity>
+                onPress={this.handleFilter}
+                style={styles.btnTab}
+              >
+                {renderIf(this.state.check == true)(
+                <Text style={{fontFamily:'latoR'}}>Back</Text>
+                )}
+                {renderIf(this.state.check == false)(
+                  <Text style={{fontFamily:'latoR'}}>View Filters</Text>
+                )}
+              </TouchableOpacity>
+
+              {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                onPress={this.handleFoodType}
+                style={styles.btnTab}
+              >
+                <Text style={{fontFamily:'latoR'}}>Noodle</Text>
+              </TouchableOpacity>
+              )}
+              {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                onPress={this.handleHalal}
+                style={styles.btnTab}
+              >
+                <Text style={{fontFamily:'latoR'}}>Halal</Text>
+              </TouchableOpacity>
+              )}
+               {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                onPress={this.handleHalal}
+                style={styles.btnTab}
+              >
+                <Text style={{fontFamily:'latoR'}}>Rice</Text>
+              </TouchableOpacity>
+              )}
+               {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                onPress={this.handleFoodTypeW}
+                style={styles.btnTab}
+              >
+                <Text style={{fontFamily:'latoR'}}>Western</Text>
+              </TouchableOpacity>
+              )}
+           </ScrollView>
           </View>
           )}
 
@@ -163,7 +230,7 @@ handleSearch = (text) => {
       
     },
     btnTab:{
-      width: 70,
+      width: 100,
       flexDirection:'row',
       padding: 10,
       justifyContent:'center',

@@ -52,7 +52,7 @@ export default function West({ route, navigation }) {
                 ListHeaderComponent={ <>   
                   <View style={styles.boxImg}>
                     <View style={styles.imgContainer}>
-                      <Image style={styles.img} source={image}/>
+                      <Image style={styles.img} source={{uri: image}}/>
                     </View>
                   </View>
                   <View  style={styles.view}>
