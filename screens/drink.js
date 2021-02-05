@@ -50,6 +50,7 @@ export default class App extends Component{
          li.push({
             title: child.val().title,
             image:child.val().image,
+            image2:child.val().image2,
             video: child.val().video,
             subpage: child.val().subpage,
             subpageadd: child.val().subpageadd,
