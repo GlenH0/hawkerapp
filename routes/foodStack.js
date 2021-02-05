@@ -108,7 +108,7 @@ export default FoodStack = () => {
 
 <Screen name="filterDessert" component={FilterDessert}
    options={{
-    headerTitle: 'Halal',
+    headerTitle: 'Randomiser',
     headerStyle: { backgroundColor: '#f23e65'},
     headerTitleStyle: {
       color: 'white',
@@ -150,6 +150,7 @@ export default FoodStack = () => {
         headerTintColor:'white'
       }}
 />
+
     </Navigator>
   );
 }
