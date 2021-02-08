@@ -14,7 +14,7 @@ export const AboutStack = () => {
             component={About}
             options={({ navigation, route }) => ({
                 headerTitle: () => <Header navigation={navigation} title = 'About' />,
-                headerStyle: { backgroundColor: '#f23e65'}
+                headerStyle: { backgroundColor: '#ff5959'}
               })}/>
         </Navigator>
       )

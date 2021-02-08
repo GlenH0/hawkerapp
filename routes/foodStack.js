@@ -25,7 +25,7 @@ export default FoodStack = () => {
         options={({ navigation }) => {
           return {
             headerTitle: () => <Header navigation={navigation} title = 'Hawker Food' />,
-            headerStyle: { backgroundColor: '#f23e65'},
+            headerStyle: { backgroundColor: '#ff5959'},
             
           }
         }}
@@ -70,7 +70,7 @@ export default FoodStack = () => {
 <Screen name="break" component={Break}
    options={{
     headerTitle: 'Details',
-    headerStyle: { backgroundColor: '#f23e65'},
+    headerStyle: { backgroundColor: '#ff5959'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
@@ -83,7 +83,7 @@ export default FoodStack = () => {
 <Screen name="filter" component={Filter}
    options={{
     headerTitle: 'Halal',
-    headerStyle: { backgroundColor: '#f23e65'},
+    headerStyle: { backgroundColor: '#ff5959'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
@@ -96,7 +96,7 @@ export default FoodStack = () => {
 <Screen name="filterLunch" component={FilterLunch}
    options={{
     headerTitle: 'Halal',
-    headerStyle: { backgroundColor: '#f23e65'},
+    headerStyle: { backgroundColor: '#ff5959'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
@@ -109,7 +109,7 @@ export default FoodStack = () => {
 <Screen name="filterDessert" component={FilterDessert}
    options={{
     headerTitle: 'Randomiser',
-    headerStyle: { backgroundColor: '#f23e65'},
+    headerStyle: { backgroundColor: '#ff5959'},
     headerTitleStyle: {
       color: 'white',
       fontSize: 22,
@@ -129,7 +129,7 @@ export default FoodStack = () => {
 <Screen name="hawkerDetail" component={West}
         options={{
           headerTitle: 'Details',
-          headerStyle: { backgroundColor: '#f23e65'},
+          headerStyle: { backgroundColor: '#ff5959'},
           headerTitleStyle: {
             color: 'white',
             fontSize: 22,
@@ -141,7 +141,7 @@ export default FoodStack = () => {
 <Screen name="food2centre" component={FoodtoCentre}
       options={{
         headerTitle: 'Details',
-        headerStyle: { backgroundColor: '#f23e65'},
+        headerStyle: { backgroundColor: '#ff5959'},
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,

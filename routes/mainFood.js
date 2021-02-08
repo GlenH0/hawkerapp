@@ -29,7 +29,7 @@ function BreakfastP() {
         name="Breakfast"
         component={BreakfastPage}
         options={{ tabBarLabel: 'Breakfast' ,
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -49,7 +49,7 @@ function LunchP() {
         name="Lunch/Dinner"
         component={LunchPage}
         options={{ tabBarLabel: 'Lunch/Dinner',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -69,7 +69,7 @@ function DessertP() {
         name="Dessert"
         component={DessertPage}
         options={{ tabBarLabel: 'Dessert',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -89,7 +89,7 @@ function DrinkP() {
         name="Drinks"
         component={DrinkPage}
         options={{ tabBarLabel: 'Drinks',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -105,7 +105,7 @@ function DrinkP() {
 const MainTabScreen = ({route}) => (
     <Tab.Navigator
       initialRouteName={route.name}
-      activeColor="#f23e65"
+      activeColor="#ff5959"
       inactiveColor="#d3d3d3"
       style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'

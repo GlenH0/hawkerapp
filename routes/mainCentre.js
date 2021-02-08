@@ -26,7 +26,7 @@ function NorthSide() {
         name="North"
         component={North}
         options={{ tabBarLabel: 'North',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -45,7 +45,7 @@ function NorthESide() {
         name="North East"
         component={NorthE}
         options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -64,7 +64,7 @@ function CentralSide() {
         name="Central"
         component={Central}
         options={{ tabBarLabel: 'Central',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -83,7 +83,7 @@ function EastSide() {
         name="East"
         component={East}
         options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -104,7 +104,7 @@ function WestSide() {
         name="West"
         component={West}
         options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#f23e65'}, 
+        headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
           fontSize: 22,
@@ -119,7 +119,7 @@ function WestSide() {
 const MainCentreTabScreen = ({route}) => (
     <Tab.Navigator
       initialRouteName={route.name}
-      activeColor="#f23e65"
+      activeColor="#ff5959"
       inactiveColor="#d3d3d3"
       style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'
