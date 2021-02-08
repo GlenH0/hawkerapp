@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking } from "react-native";
 import { globalStyles, images } from '../styles/global';
 // import Card from '../shared/card';
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -11,10 +11,10 @@ import { Rating, AirbnbRating } from 'react-native-ratings';
 
 // for img in slider
 const { width } = Dimensions.get("window");
-const height = width * 0.6;
+const height = width * 0.65;
 
 export default function Break({ route, navigation }) {
-  const { item, title, text, image, image2, key, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace, store } = route.params;
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace, store } = route.params;
 
   var picture = [image, image2]
 
@@ -39,9 +39,13 @@ export default function Break({ route, navigation }) {
           showsHorizontalScrollIndicator = {false}
           style={{ width, height }}
         >
-          {/* this is for normal array */}
-          {/* <Image style={styles.img} source={image}/>   */}
-          {/* this is for my db ver */}
+          {/* this is if only 1 image */}
+          {
+            renderIf(!image2)(
+              <Image style={styles.img} source={{ uri: image }}/>
+            )
+          }
+          {/* for > 1 images */}
           {
             renderIf(image2)(
               picture.map((item, index) => (
@@ -80,6 +84,18 @@ export default function Break({ route, navigation }) {
           <View style={styles.desContent}>
             <Text style={styles.desc}>Description</Text>
             <Text style={{ color: '#2f2f2f', fontFamily: 'latoR' }}>{text}</Text>
+            {
+              renderIf(link)(
+                <Text style={{color:'#4286f4', paddingTop: 10}} onPress={()=>{Linking.openURL('fb://page/'+ link);}}>Facebook Page</Text>
+              )
+            }
+            
+            {
+              renderIf(phone)(
+                <Text style={{color:'#4286f4', paddingTop:10}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
+              )
+            }
+            {console.log(link)}
           </View>
         </View>
 
@@ -158,8 +174,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width: width,
     height: height,
-    // borderRadius: 4,
-    // overflow:'hidden', 
   },
   imgStore: {
     resizeMode: 'contain',

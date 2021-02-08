@@ -40,10 +40,10 @@ export default class App extends Component{
  }
 
   componentDidMount(){
-    firebase.database().ref('drink').on('value', (snapshot) =>{
+    firebase.database().ref('foodBreak').on('value', (snapshot) =>{
       var li = []
       snapshot.forEach((child)=>{
-       if(child.val().food_id == "2"){
+       if(child.val().food_id == "3"){
          li.push({
             title: child.val().title,
             image:child.val().image,
