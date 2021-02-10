@@ -66,6 +66,7 @@ export default class App extends Component {
             text: child.val().text,
             link: child.val().link,
             phone: child.val().phone,
+            place:child.val().place
           })
         }
       })

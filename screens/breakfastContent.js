@@ -14,7 +14,7 @@ const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
 export default function Break({ route, navigation }) {
-  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store} = route.params;
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place} = route.params;
 
   var picture = [image, image2]
 
@@ -117,7 +117,7 @@ export default function Break({ route, navigation }) {
           <View style={styles.desContent}>
             <Text style={styles.desc}>Where to find them?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('hawkerDetail', {
-              key: subpage,
+              // key: subpage,
               title: subpage,
               image: subpageimg,
               add: subpageadd,
@@ -125,6 +125,7 @@ export default function Break({ route, navigation }) {
               phone: subpagephone,
               lat: subpagelat,
               long: subpagelong,
+              place: place
             })}>
               <Text style={{ color: '#4286f4', fontFamily: 'latoR' }}>{subpage}</Text>
             </TouchableOpacity >

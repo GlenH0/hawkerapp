@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Linking, FlatList, Dimensions } from "react-native";
 import {globalStyles, images} from '../styles/global';
 // import Card from '../shared/card';
@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import {lunchData} from '../array/dataLunch';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { dataList } from '../array/data';
@@ -21,37 +20,50 @@ const WIDTH = Dimensions.get("window").width;
 export default function West({ route, navigation }) {
     const {  title, video, rating, add, image, time, phone, lat, long, place} = route.params;
 
-    // const [list, setList] = useState([])
-    
+    const [list, setList] = useState([])
+
+    useEffect(()=>{
+      firebase.database().ref('foodBreak').on('value', (snapshot) => {
+        console.log(snapshot.val())
+        var li = []
+        snapshot.forEach((child) => {
+          if(child.val().food_id != "3"){
+            li.push({
+              title: child.val().title,
+              image: child.val().image,
+              place:child.val().place
+            })
+          }
+        })
+        setList(li)
+      })
+    }, [])
 
     const _renderItem = ({item, index}) => {
-      if(item["place"] === place){
+      if(item['place'] === place && item.place !== undefined){
         return (
           <View style={{flex:1, backgroundColor:'white'}}>
-           
+            
             <View>
               <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('food2centre', item )}>
-                <Image style={styles.img} source={item.image}/>
+                <Image style={styles.img} source={{uri: item.image}}/>
               </TouchableOpacity>
             </View>
       
-            <Text numberOfLines={1} style={{paddingLeft:10}}>{item.key}</Text>
+            <Text numberOfLines={1} style={{paddingLeft:10}}>{item.title}</Text>
             <Image style={{marginLeft:9}} source={item.rating} />
-      
           </View>
         )
       }
     }
-    
-        
+          
     return (   
         <FlatList 
-                data={lunchData}
+                data={list}
                 renderItem={_renderItem}
                 keyExtractor={(item, index)=> (index.toString())}
                 numColumns={numColumns}
                 
-
                 ListHeaderComponent={ <>   
                   <View style={styles.boxImg}>
                     <View style={styles.imgContainer}>

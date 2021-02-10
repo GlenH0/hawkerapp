@@ -54,7 +54,8 @@ export default class App extends Component {
             lat: child.val().lat,
             long: child.val().long,
             time: child.val().time,
-            place: child.val().place
+            place: child.val().place,
+            rating: child.val().rating
           })
         }
       })
