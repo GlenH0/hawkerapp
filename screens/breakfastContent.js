@@ -14,7 +14,7 @@ const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
 export default function Break({ route, navigation }) {
-  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, subpagemrt, subpagebus, subpageplace, store } = route.params;
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store} = route.params;
 
   var picture = [image, image2]
 
@@ -125,9 +125,6 @@ export default function Break({ route, navigation }) {
               phone: subpagephone,
               lat: subpagelat,
               long: subpagelong,
-              mrt: subpagemrt,
-              bus: subpagebus,
-              place: subpageplace
             })}>
               <Text style={{ color: '#4286f4', fontFamily: 'latoR' }}>{subpage}</Text>
             </TouchableOpacity >

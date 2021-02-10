@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Linking, FlatList, Dimensions } from "react-native";
 import {globalStyles, images} from '../styles/global';
 // import Card from '../shared/card';
@@ -12,13 +12,17 @@ import {lunchData} from '../array/dataLunch';
 import { NavigationContainer } from '@react-navigation/native';
 import { dataList } from '../array/data';
 
+import firebase from '../firebase/fb'
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
 
 export default function West({ route, navigation }) {
-    const { item, title, text, video, rating, add, image, time, phone, lat, long, mrt, bus, place} = route.params;
+    const {  title, video, rating, add, image, time, phone, lat, long, place} = route.params;
+
+    // const [list, setList] = useState([])
+    
 
     const _renderItem = ({item, index}) => {
       if(item["place"] === place){
@@ -39,9 +43,8 @@ export default function West({ route, navigation }) {
       }
     }
     
-    
-    return (
-      
+        
+    return (   
         <FlatList 
                 data={lunchData}
                 renderItem={_renderItem}

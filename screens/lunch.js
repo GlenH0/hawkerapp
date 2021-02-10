@@ -65,7 +65,7 @@ export default class App extends Component {
             foodtype: child.val().foodtype,
             text: child.val().text,
             link: child.val().link,
-            phone: child.val().phone
+            phone: child.val().phone,
           })
         }
       })
