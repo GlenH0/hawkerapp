@@ -48,6 +48,7 @@ export default class App extends Component {
       snapshot.forEach((child) => {
         if(child.val().food_id != "3"){
           li.push({
+            key: child.key,
             title: child.val().title,
             image: child.val().image,
             add: child.val().add,

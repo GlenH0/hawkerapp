@@ -33,9 +33,10 @@ export default class App extends Component {
             <Image style={styles.img} source={{ uri: item.image }} />
           </TouchableOpacity>
         </View>
-
+        {/* this line remove the alert for key props */}
+        
         <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
-        <Image style={{ marginLeft: 9 }} source={item['rating']} />
+        {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
 
       </View>
     )
@@ -48,6 +49,7 @@ export default class App extends Component {
       snapshot.forEach((child) => {
         if(child.val().food_id != "3"){
           li.push({
+            key: child.key,
             title: child.val().title,
             image: child.val().image,
             image2: child.val().image2,
@@ -60,7 +62,7 @@ export default class App extends Component {
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
             subpagephone: child.val().subpagephone,
-            rating: child.val().rating,
+            // rating: child.val().rating,
             type: child.val().type,
             foodtype: child.val().foodtype,
             text: child.val().text,
@@ -212,7 +214,9 @@ export default class App extends Component {
         <FlatList style={{ width: '100%' }}
           data={shuffle(this.state.list)}
           renderItem={this._renderItem}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => {
+            return item.key;
+          }}
           numColumns={numColumns}
         />
       </View>

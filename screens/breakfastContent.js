@@ -14,7 +14,7 @@ const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
 export default function Break({ route, navigation }) {
-  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place} = route.params;
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, key } = route.params;
 
   var picture = [image, image2]
 
@@ -49,7 +49,7 @@ export default function Break({ route, navigation }) {
           {
             renderIf(image2)(
               picture.map((item, index) => (
-                <Image style={styles.img} source={{ uri: item }} />
+                  <Image style={styles.img} key={index} source={{ uri: item }} />
               ))
             )
           }
@@ -107,6 +107,7 @@ export default function Break({ route, navigation }) {
                 <YoutubePlayer
                   height={220}
                   videoId={video}
+                  play ={false}
                 />
               </View>
             </View>
