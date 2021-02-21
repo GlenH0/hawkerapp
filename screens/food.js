@@ -22,7 +22,7 @@ export default function Food({navigation}) {
       backAction
     );
 
-    return () => backHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    // return () => backHandler.removeEventListener("hardwareBackPress", handleBackButton);
   }, []);
 
     return (

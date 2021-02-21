@@ -1,52 +1,54 @@
 import firebase from '../firebase/fb'
-import React, {Component} from 'react';
-import {View,Text, FlatList, Dimensions, TouchableOpacity,Image, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 
 import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
 import renderIf from 'render-if';
 
+import _ from 'lodash'
+
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
-export default class App extends Component{
+export default class App extends Component {
 
- constructor(props){
-   super(props);
-   this.state={ 
-    list:[],
-    searchText: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [],
+      searchText: '',
+      check: false
+    }
   }
-  
-}
 
- _renderItem = ({item, index}) => {
-     
-   return (
-     <View style={{flex:1}}>
-      
-       <View>
-         <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-           <Image style={styles.img} source={{uri: item.image}}/>
-         </TouchableOpacity>
-       </View>
+  _renderItem = ({ item, index }) => {
 
-       <Text numberOfLines={1} style={{paddingLeft:10}}>{item.title}</Text>
-       <Image style={{marginLeft:9}} source={item['rating']} />
+    return (
+      <View style={{ flex: 1 }}>
 
-     </View>
-   )
-  
- }
+        <View>
+          <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
+            <Image style={styles.img} source={{ uri: item.image }} />
+          </TouchableOpacity>
+        </View>      
+        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
+        {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
+      </View>
+    )
+  }
 
-  componentDidMount(){
-    firebase.database().ref('foodBreak').on('value', (snapshot) =>{
+  componentDidMount() {
+    firebase.database().ref('foodBreak').on('value', (snapshot) => {
       var li = []
-      snapshot.forEach((child)=>{
-       if(child.val().food_id == "3"){
-         li.push({
+      snapshot.forEach((child) => {
+        if(child.val().food_id == "3"){
+          li.push({
+            key: child.key,
             title: child.val().title,
-            image:child.val().image,
+            image: child.val().image,
+            image2: child.val().image2,
+            image3: child.val().image3,
             video: child.val().video,
             subpage: child.val().subpage,
             subpageadd: child.val().subpageadd,
@@ -55,154 +57,223 @@ export default class App extends Component{
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
             subpagephone: child.val().subpagephone,
-            rating: child.val().rating             
+            // rating: child.val().rating,
+            type: child.val().type,
+            foodtype: child.val().foodtype,
+            text: child.val().text,
+            link: child.val().link,
+            phone: child.val().phone,
+            place:child.val().place
           })
-       }
-    })
-   this.setState({list:li})
-  })
- }
-
- componentWillUnmount() {
-   this._isMounted = false;
- }
-
- searchData(searchText) {
-  const newData = this.state.list.filter(item => 
-    {
-    const itemData = item.title.toUpperCase();
-    const textData = searchText.toUpperCase();
-    return itemData.indexOf(textData) > -1
-  }
-  );
-    if(searchText){
-      this.setState({
-        list: newData,
-        searchText: searchText
-        })  
-    }
-    else{
-      this.componentDidMount();
-      this.setState({
-        searchText:''
+        }
       })
+      this.setState({ list: li, inMemory: li })
+    })
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  handleSearch = (text) => {
+    const filter = this.state.inMemory.filter(
+      list => {
+        let title = list.title.toLowerCase()
+        let search = text.toLowerCase()
+
+        return title.indexOf(search) > -1
+      }
+    )
+    this.setState({ list: filter, searchText: text })
+  }
+
+  handleFilter = () => {
+    this.setState({ check: true })
+    if (this.state.check == true) {
+      this.setState({ list: this.state.inMemory, check: false })
     }
   }
 
-  
- 
- render(){
+  handleHalal = () => {
+    this.setState({ list: this.state.inMemory.filter(x => x.type === 'halal') })
+    console.log(this.state.check)
+  }
 
-  //  const filteredData = this.state.searchText
-  //  ? this.state.list.filter(x =>
-  //      x.title.toLowerCase().includes(this.state.searchText.toLowerCase())
-  //    )
-  //  : this.state.list;
+  handleFoodType = () => {
+    // this.setState({list: this.state.inMemory, check: false})
+    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'noodle') })
+    console.log(this.state.check)
+  }
 
-  
+  handleFoodRice = () => {
+    // this.setState({list: this.state.inMemory, check: false})
+    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'rice') })
+    console.log(this.state.check)
+  }
 
-   const {navigation} = this.props
+  handleFoodTypeW = () => {
+    // this.setState({list: this.state.inMemory, check: false})
+    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'western') })
+    console.log(this.state.check)
+  }
 
-  return(
-    <View style={styles.container}>
+  render() {
+    const { navigation } = this.props
+    return (
+      <View style={styles.container}>
 
-         <View style={{justifyContent:'center', alignItems:'center', paddingTop: 10}}>
-          <View style={{width: '95%'}}>
-            
-            <Searchbar
-              placeholder="What's in mind today?"
-              onChangeText={searchText => this.searchData(searchText)}
-              value={this.state.searchText}
-            />
+        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+          <View style={{ width: '95%' }}>
+            {
+              renderIf(this.state.check == false)(
+                <Searchbar
+                  placeholder="What's in mind today?"
+                  onChangeText={(text) => this.handleSearch(text)}
+                  value={this.state.searchText}
+                />
+              )
+            }
           </View>
-         </View>
+        </View>
 
-         {renderIf(this.state.searchText === '')(
-            <View>
-              <Text style={{paddingLeft: 10, paddingTop: 10, fontFamily:'latoR', color:'#808080'}}>Suggested filters:</Text>
-            <TouchableOpacity
-            onPress={() => navigation.navigate('filterDessert')}
-            style={styles.btnTab}
-            >
-              <Text style={{fontFamily:'latoR'}}>Halal</Text>
-            </TouchableOpacity>
+        {renderIf(this.state.searchText == '')(
+          <View>
+            <Text style={{ paddingLeft: 10, paddingTop: 10, fontFamily: 'latoR', color: '#808080' }}>Suggested filters:</Text>
+            <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                onPress={this.handleFilter}
+                style={styles.btnTab}
+              >
+                {renderIf(this.state.check == true)(
+                  <Text style={{ fontFamily: 'latoR' }}>Back</Text>
+                )}
+                {renderIf(this.state.check == false)(
+                  <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
+                )}
+              </TouchableOpacity>
+
+              {
+                renderIf(this.state.check == false)(
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('filterLunch')}
+                    style={styles.btnTab}
+                  >
+                    <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
+                  </TouchableOpacity>
+                )
+              }
+
+              {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                  onPress={this.handleFoodType}
+                  style={styles.btnTab}
+                >
+                  <Text style={{ fontFamily: 'latoR' }}>Noodle</Text>
+                </TouchableOpacity>
+              )}
+              {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                  onPress={this.handleHalal}
+                  style={styles.btnTab}
+                >
+                  <Text style={{ fontFamily: 'latoR' }}>Halal</Text>
+                </TouchableOpacity>
+              )}
+              {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                  onPress={this.handleFoodRice}
+                  style={styles.btnTab}
+                >
+                  <Text style={{ fontFamily: 'latoR' }}>Rice</Text>
+                </TouchableOpacity>
+              )}
+              {renderIf(this.state.check == true)(
+                <TouchableOpacity
+                  onPress={this.handleFoodTypeW}
+                  style={styles.btnTab}
+                >
+                  <Text style={{ fontFamily: 'latoR' }}>Western</Text>
+                </TouchableOpacity>
+              )}
+            </ScrollView>
           </View>
-          )}
+        )}
 
-          {renderIf(this.state.list == '')(
-            <View>
-              <Text style={{padding: 10}}>Ops! No results found</Text>
-            </View>
-          )}
+        <View style={{flexDirection:'row', padding: 10}}> 
+          <Text style={{fontWeight:'bold'}}>{this.state.list.length}</Text>
+          <Text> food items available</Text>
+        </View>
+
+        {renderIf(this.state.list == '')(
+          <View>
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+          </View>
+        )}
 
 
-       <FlatList style={{width:'100%'}}
+        <FlatList style={{ width: '100%' }}
           data={shuffle(this.state.list)}
-         //  keyExtractor={(item)=>item.key}
-         //  renderItem={({item})=>{
-         //     return(
-         //        <View>
-         //           <Text>{item.name} {item.na}</Text>
-         //        </View>)
-         //     }}
-         renderItem={this._renderItem}
-         keyExtractor={(item, index) => index.toString() }
-         numColumns={numColumns}
-             />
-     </View>
-  )}
+          renderItem={this._renderItem}
+          keyExtractor={(item, index) => {
+            return item.key;
+          }}
+          numColumns={numColumns}
+        />
+      </View>
+    )
+  }
 }
- const styles = StyleSheet.create({
-    
-    container:{
-      flex: 1,
- 
-    },
-    itemStyle: {   
-      // shadow 
-      shadowOffset: { width: 12, height: 12 },
-      shadowColor: 'black',
-      shadowOpacity: 1,
-      elevation: 3,
-      backgroundColor : "#fff", 
+const styles = StyleSheet.create({
 
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 100,
-      flex: 1,
-      margin: 10,
-      height: WIDTH/numColumns,    
-      borderRadius: 12
-      
-    },
-    itemText: {
-      color: 'white',
-      fontSize: 30
-    },
-    img:{
-      resizeMode:'cover',
-      width: '100%',
-      height:'100%',
-      overflow:'hidden',
-      borderRadius: 10,
-      
-    },
-    btnTab:{
-      width: 70,
-      flexDirection:'row',
-      padding: 10,
-      justifyContent:'center',
-      backgroundColor:'white',
-      borderRadius:30,
-      margin: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.23,
-      shadowRadius: 2.62,
+  container: {
+    flex: 1,
 
-      elevation: 4,
-    }
-  });
+  },
+  itemStyle: {
+    // shadow 
+    shadowOffset: { width: 12, height: 12 },
+    shadowColor: 'black',
+    shadowOpacity: 1,
+    elevation: 3,
+    backgroundColor: "#fff",
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
+    flex: 1,
+    margin: 10,
+    height: WIDTH / numColumns,
+    borderRadius: 12
+
+  },
+  itemText: {
+    color: 'white',
+    fontSize: 30
+  },
+  img: {
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    borderRadius: 10,
+
+  },
+  btnTab: {
+    width: 110,
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
+    margin: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  }
+});

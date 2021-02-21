@@ -7,12 +7,11 @@ async function getReview(params) {
     await page.goto(`https://www.hungrygowhere.com/search-results/${plusStr}`)
     await page.click('a.close')
     await page.click('img.lazy')
-    // await page.click('a[id].see-all.no-line')
+    // await page.click('.truncate-30words > a.see-all')
     await page.screenshot({path: 'example.png'});
     let reviews = await page.evaluate(()=>
-    Array.from(document.querySelectorAll('div.truncate-30words')).map((partner) => partner.textContent)
+    Array.from(document.querySelectorAll('.truncate-30words > a.see-all')).map((partner) => partner.textContent)
     )
-    console.log()
     console.log(reviews)
     await browser.close()
 

@@ -20,7 +20,6 @@ export default class App extends Component {
       searchText: '',
       check: false
     }
-
   }
 
   _renderItem = ({ item, index }) => {
@@ -32,15 +31,11 @@ export default class App extends Component {
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             <Image style={styles.img} source={{ uri: item.image }} />
           </TouchableOpacity>
-        </View>
-        {/* this line remove the alert for key props */}
-        
+        </View>      
         <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
         {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
-
       </View>
     )
-
   }
 
   componentDidMount() {
@@ -163,7 +158,7 @@ export default class App extends Component {
                     onPress={() => navigation.navigate('filterLunch')}
                     style={styles.btnTab}
                   >
-                    <Text style={{ fontFamily: 'latoR' }}>Random</Text>
+                    <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
                   </TouchableOpacity>
                 )
               }
@@ -204,9 +199,20 @@ export default class App extends Component {
           </View>
         )}
 
+        <View style={{flexDirection:'row', padding: 10}}> 
+          <Text style={{fontWeight:'bold'}}>{this.state.list.length}</Text>
+          <Text> food items available</Text>
+        </View>
+
         {renderIf(this.state.list == '')(
-          <View>
-            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+          <View style={{justifyContent:'center', alignItems:'center'}}>
+            {/* <Text style={{ padding: 10 }}>Ops! No results found</Text> */}
+            <Image
+        style={{width: "80%", height: "80%", resizeMode:'contain'}}
+        source={{
+          uri: 'https://www.buzzdine.com/img/not-found.png',
+        }}
+      />
           </View>
         )}
 
@@ -259,7 +265,7 @@ const styles = StyleSheet.create({
 
   },
   btnTab: {
-    width: 100,
+    width: 110,
     flexDirection: 'row',
     padding: 10,
     justifyContent: 'center',

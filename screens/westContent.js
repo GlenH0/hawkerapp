@@ -1,37 +1,41 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Linking, FlatList, Dimensions } from "react-native";
 import {globalStyles, images} from '../styles/global';
-// import Card from '../shared/card';
 import YoutubePlayer from "react-native-youtube-iframe";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { dataList } from '../array/data';
-
 import firebase from '../firebase/fb'
+import { shuffle } from 'lodash';
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
-
 export default function West({ route, navigation }) {
-    const {  title, video, rating, add, image, time, phone, lat, long, place} = route.params;
+    const {  title, video, rating, add, subpageimg, time, phone, lat, long, place, image} = route.params;
 
     const [list, setList] = useState([])
 
     useEffect(()=>{
       firebase.database().ref('foodBreak').on('value', (snapshot) => {
-        console.log(snapshot.val())
+        // console.log(snapshot.val())
         var li = []
         snapshot.forEach((child) => {
           if(child.val().food_id != "3"){
             li.push({
+              // key: child.key,
               title: child.val().title,
               image: child.val().image,
-              place:child.val().place
+              place:child.val().place,
+              image2: child.val().image2,
+              subpage: child.val().subpage,
+              subpageadd: child.val().subpageadd,
+              subpageimg: child.val().subpageimg,
+              subpagetime: child.val().subpagetime,
+              subpagelat: child.val().subpagelat,
+              subpagelong: child.val().subpagelong,
+              subpagephone: child.val().subpagephone,
             })
           }
         })
@@ -51,7 +55,7 @@ export default function West({ route, navigation }) {
             </View>
       
             <Text numberOfLines={1} style={{paddingLeft:10}}>{item.title}</Text>
-            <Image style={{marginLeft:9}} source={item.rating} />
+
           </View>
         )
       }
@@ -127,14 +131,14 @@ export default function West({ route, navigation }) {
                         )
                       }
                       
-                      {
+                      {/* {
                         renderIf(video)(
                         <YoutubePlayer 
                           height={240}
                           videoId={video}
                         />
                         )
-                      }
+                      } */}
 
                       {/* <View style={{alignItems:'center'}}>
                         <View style={styles.desContent}>

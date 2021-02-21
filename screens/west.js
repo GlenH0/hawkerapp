@@ -46,7 +46,7 @@ export default class App extends Component {
     firebase.database().ref('hawker').on('value', (snapshot) => {
       var li = []
       snapshot.forEach((child) => {
-        if(child.val().food_id != "3"){
+        if(child.val().key > 0 && child.val().key <14){
           li.push({
             key: child.key,
             title: child.val().title,

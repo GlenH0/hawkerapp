@@ -1,11 +1,18 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking } from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, SafeAreaView } from "react-native";
 import { globalStyles, images } from '../styles/global';
 // import Card from '../shared/card';
 import YoutubePlayer from "react-native-youtube-iframe";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
+
+//fb icon
+import { Entypo } from '@expo/vector-icons';
+//location icon
+import { MaterialIcons } from '@expo/vector-icons';
+// opening hour icon
+import { Ionicons } from '@expo/vector-icons';
 
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
@@ -15,6 +22,8 @@ const height = width * 0.65;
 
 export default function Break({ route, navigation }) {
   const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, key } = route.params;
+
+  //Review API call here 
 
   var picture = [image, image2]
 
@@ -83,25 +92,45 @@ export default function Break({ route, navigation }) {
         <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
             <Text style={styles.desc}>Description</Text>
-            <Text style={{ color: '#2f2f2f', fontFamily: 'latoR' }}>{text}</Text>
-            {
-              renderIf(link)(
-                <Text style={{color:'#4286f4', paddingTop: 10}} onPress={()=>{Linking.openURL('fb://page/'+ link);}}>Facebook Page</Text>
-              )
-            }
             
+            {/* phone */}
             {
               renderIf(phone)(
-                <Text style={{color:'#4286f4', paddingTop:10}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>{phone}</Text>
+                <View style={{flexDirection:'row', paddingTop:10, paddingBottom:10}}>
+                  <Entypo name="old-phone" size={24} color="black" style={{top: 7}}/>
+                  <View>
+                    <Text style={{color:'grey'}}>    Phone</Text>
+                   <Text style={{color:'#4286f4', paddingTop:3}} onPress={()=>{Linking.openURL('tel:'+ phone);}}>    {phone}</Text>
+                  </View>
+                </View>
               )
             }
-            {console.log(link)}
+            {/* to include new variable address */}
+            {/* description/opening hr from dB */}
+                <View style={{flexDirection:'row', paddingTop:10, paddingBottom:10}}>
+                  <Ionicons name="time-sharp" size={24} color="black" style={{top: 7}}/>
+                  <View>
+                    <Text style={{color:'grey'}}>    Opening Hours</Text>
+                    <Text style={{ color: '#2f2f2f', fontFamily: 'latoR', lineHeight: 30 }}>     {text}</Text>
+                  </View>
+                </View>
+            
+            {/* socials */}
+            {
+              renderIf(link)(
+                <TouchableOpacity>
+                  <Entypo name="facebook-with-circle" style ={{paddingLeft: 30}} size={44} color="#3b5998" onPress={()=>{Linking.openURL('fb://page/'+ link);}}/>
+                </TouchableOpacity>
+              )
+            }
           </View>
         </View>
+        
+        {/* video may be convert into pop out screen */}
 
-        {
+        {/* {
           renderIf(video)(
-            <View style={{ alignItems: 'center' }}>
+            // <View style={{ alignItems: 'center' }}>
               <View style={styles.videoContent}>
                 <Text style={styles.desc}>Reviews</Text>
                 <YoutubePlayer
@@ -110,13 +139,14 @@ export default function Break({ route, navigation }) {
                   play ={false}
                 />
               </View>
-            </View>
+            // </View>
           )
-        }
+        } */}
 
         <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
             <Text style={styles.desc}>Where to find them?</Text>
+           
             <TouchableOpacity onPress={() => navigation.navigate('hawkerDetail', {
               // key: subpage,
               title: subpage,
@@ -128,7 +158,10 @@ export default function Break({ route, navigation }) {
               long: subpagelong,
               place: place
             })}>
-              <Text style={{ color: '#4286f4', fontFamily: 'latoR' }}>{subpage}</Text>
+               <View style ={{flexDirection:'row'}}>
+                <MaterialIcons name="place" size={24} color="#c71521"/>
+                <Text style={{ color: '#4286f4', fontFamily: 'latoR', top: 4 }}>{subpage}</Text>
+               </View>
             </TouchableOpacity >
 
             {
@@ -140,8 +173,9 @@ export default function Break({ route, navigation }) {
             }
           </View>
         </View>
+            {/* replacing with review soon... */}
 
-        <View style={{ alignItems: 'center' }}>
+        {/* <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
             <Text style={styles.rate}>Rate this food </Text>
             <Text style={styles.rateText}>Tell others what you think</Text>
@@ -154,7 +188,7 @@ export default function Break({ route, navigation }) {
             />
 
           </View>
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );
@@ -240,7 +274,9 @@ const styles = StyleSheet.create({
     fontFamily: 'latoR'
   },
   videoContent: {
-    width: '90%',
+    width: '95%',
+    justifyContent: 'center',
+    paddingLeft: 20
   },
 
 });

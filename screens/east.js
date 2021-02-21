@@ -1,148 +1,171 @@
+import firebase from '../firebase/fb'
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, FlatList, Dimensions, TouchableOpacity, Button } from "react-native";
+import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+
+import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
-import { useState } from 'react/cjs/react.development';
-import {dataList2} from '../array/dataCentre';
 import renderIf from 'render-if';
-import { NavigationContainer } from '@react-navigation/native';
+
+import _ from 'lodash'
 
 const numColumns = 1
 const WIDTH = Dimensions.get("window").width;
 
-
-
 export default class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
+      list: [],
       searchText: '',
-    };
-   
+      check: false
+    }
+
   }
-    _renderItem = ({item, index}) => {
-      return (
-        <View style={{flex:1}}>
-         
+
+  _renderItem = ({ item, index }) => {
+
+    return (
+      <View style={{ flex: 1 }}>
+
+        <View>
+          <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('hawkerDetail', item)}>
+            <Image style={styles.img} source={{ uri: item.image }} />
+          </TouchableOpacity>
+        </View>
+
+        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
+        <Image style={{ marginLeft: 9 }} source={item['rating']} />
+
+      </View>
+    )
+
+  }
+
+  componentDidMount() {
+    firebase.database().ref('hawker').on('value', (snapshot) => {
+      var li = []
+      snapshot.forEach((child) => {
+        if(child.val().key > 13 && child.val().key <24){
+          li.push({
+            key: child.key,
+            title: child.val().title,
+            image: child.val().image,
+            add: child.val().add,
+            lat: child.val().lat,
+            long: child.val().long,
+            time: child.val().time,
+            place: child.val().place,
+            rating: child.val().rating
+          })
+        }
+      })
+      this.setState({ list: li, inMemory: li })
+    })
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  handleSearch = (text) => {
+    const filter = this.state.inMemory.filter(
+      list => {
+        let title = list.title.toLowerCase()
+        let search = text.toLowerCase()
+
+        return title.indexOf(search) > -1
+      }
+    )
+    this.setState({ list: filter, searchText: text })
+  }
+
+  render() {
+    const { navigation } = this.props
+    return (
+      <View style={styles.container}>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+          <View style={{ width: '95%' }}>
+            {
+              renderIf(this.state.check == false)(
+                <Searchbar
+                  placeholder="Search for Hawker..."
+                  onChangeText={(text) => this.handleSearch(text)}
+                  value={this.state.searchText}
+                />
+              )
+            }
+          </View>
+        </View>
+
+        {renderIf(this.state.list == '')(
           <View>
-            <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('hawkerDetail', item)}>
-              <Image style={styles.img} source={item.image}/>
-            </TouchableOpacity>
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
           </View>
+        )}
 
-          <Text style={{paddingLeft:10, fontFamily:'latoB'}}>{item.key}</Text>
-          <Image style={{marginLeft:9}} source={item.rating} />
-
-        </View>
-      )
-    }
-
-    FlatListItemSeparator = () => {
-      return (
-        <View
-          style={{
-            height:20,
-            width: "100%",
-          }}
+        <FlatList style={{ width: '100%' }}
+          data={this.state.list}
+          renderItem={this._renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={numColumns}
         />
-      );
-    }
-  
-    render(){
-      const filteredData = this.state.searchText
-      ? dataList2.filter(x =>
-          x.key.toLowerCase().includes(this.state.searchText.toLowerCase())
-        )
-      : dataList2;
-
-      const {navigation} = this.props
-
-      return (
-        <View style={styles.container}>
-         
-         <View style={{justifyContent:'center', alignItems:'center', paddingTop: 10}}>
-          <View style={{width: '95%'}}>
-            
-            <Searchbar
-              placeholder="Search for Hawker..."
-              onChangeText={text => this.setState({ searchText: text })}
-              value={this.state.searchText}
-              style={{marginBottom: 10}}
-            />
-          </View>
-         </View>
-
-          {renderIf(filteredData == '')(
-            <View>
-              <Text style={{padding: 10}}>Ops! No results found</Text>
-            </View>
-          )}
-          
-            <FlatList
-            data={filteredData}
-            renderItem={this._renderItem}
-            keyExtractor={(item, index)=> (index.toString())}
-            ItemSeparatorComponent = { this.FlatListItemSeparator }
-            numColumns={numColumns}
-          />
-          
-          
-        </View>
-      );
-    }
+      </View>
+    )
   }
+}
+const styles = StyleSheet.create({
 
-  const styles = StyleSheet.create({
-    
-    container:{
-      flex: 1,
- 
-    },
-    itemStyle: {   
-      // shadow 
-      shadowOffset: { width: 12, height: 12 },
-      shadowColor: 'black',
-      shadowOpacity: 1,
-      elevation: 3,
-      backgroundColor : "#fff", 
+  container: {
+    flex: 1,
 
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 100,
-      flex: 1,
-      margin: 10,
-      marginTop: 0,
-      height: WIDTH/2,    
-      borderRadius: 12
-      
-    },
-    itemText: {
-      color: 'white',
-      fontSize: 30
-    },
-    img:{
-      resizeMode:'cover',
-      width: '100%',
-      height:'100%',
-      overflow:'hidden',
-      borderRadius: 10,
-      
-    },
-    btnTab:{
-      width: 70,
-      flexDirection:'row',
-      padding: 10,
-      justifyContent:'center',
-      backgroundColor:'white',
-      borderRadius:30,
-      margin: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.23,
-      shadowRadius: 2.62,
+  },
+  itemStyle: {
+    // shadow 
+    shadowOffset: { width: 12, height: 12 },
+    shadowColor: 'black',
+    shadowOpacity: 1,
+    elevation: 3,
+    backgroundColor: "#fff",
 
-      elevation: 4,
-    }
-  });
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
+    flex: 1,
+    margin: 10,
+    height: WIDTH / 2,
+    borderRadius: 12
+
+  },
+  itemText: {
+    color: 'white',
+    fontSize: 30
+  },
+  img: {
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    borderRadius: 10,
+
+  },
+  btnTab: {
+    width: 70,
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 30,
+    margin: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  }
+});
