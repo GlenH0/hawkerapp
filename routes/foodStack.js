@@ -95,7 +95,7 @@ export default FoodStack = () => {
 
 <Screen name="filterLunch" component={FilterLunch}
    options={{
-    headerTitle: 'Halal',
+    headerTitle: 'Food-o-miser',
     headerStyle: { backgroundColor: '#ff5959'},
     headerTitleStyle: {
       color: 'white',
