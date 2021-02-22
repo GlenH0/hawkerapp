@@ -109,7 +109,7 @@ export default class FilterDessert extends React.Component {
         />
       {/* randomiser button */}
       <View style={{justiftyContent:"center", alignItems:"center"}}>
-          <TouchableOpacity onPress={this.refreshScreen} style={{position:'absolute', zIndex:100, bottom:30, right: 0, backgroundColor:'#ff5959',borderBottomLeftRadius: 10, borderTopLeftRadius: 10, }}>
+          <TouchableOpacity onPress={this.refreshScreen} style={styles.dice}>
             <Animated.View style={animatedStyle}>
               <FontAwesome5 name="dice-three" size={44} color="white" style={{ left:0, padding: 10, }}/>
             </Animated.View>
@@ -166,5 +166,23 @@ const styles = StyleSheet.create({
   },
   btnTabActive: {
     backgroundColor: 'blue'
+  },
+  dice: {
+    position:'absolute', 
+    zIndex:100, 
+    bottom:30, 
+    right: 0, 
+    backgroundColor:'#ff5959',
+    borderBottomLeftRadius: 10, 
+    borderTopLeftRadius: 10, 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+    
+    elevation: 9,
   }
 })
