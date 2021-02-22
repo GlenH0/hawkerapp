@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, SafeAreaView } from "react-native";
 import { globalStyles, images } from '../styles/global';
 // import Card from '../shared/card';
@@ -6,6 +6,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
+import firebase from '../firebase/fb'
 
 //fb icon
 import { Entypo } from '@expo/vector-icons';
@@ -13,6 +14,8 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 // opening hour icon
 import { Ionicons } from '@expo/vector-icons';
+// for unit no.
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
@@ -21,7 +24,7 @@ const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
 export default function Break({ route, navigation }) {
-  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, key } = route.params;
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, unit, description,descriptionIndex } = route.params;
 
   //Review API call here 
 
@@ -36,6 +39,41 @@ export default function Break({ route, navigation }) {
       if(slide !== state){
         setState(slide);
       }
+  }
+
+  const [list, setList] = useState([])
+  useEffect(()=>{
+    firebase.database().ref('description').on('value', (snapshot) => {
+      console.log(snapshot.val())
+      var li = []
+      snapshot.forEach((child) => {
+        
+          li.push({
+            // key: child.key,
+            text: child.val().text,
+            description: child.val().description,
+            index: child.val().index
+          })
+        
+      })
+      setList(li)
+    })
+  }, [])
+  {console.log(list[1])}
+  // {console.log(description)}
+
+  const Hi = () => {
+    return list.map(function(news, i){
+      if(descriptionIndex == i){
+        return(
+          <View key={i}>
+            <View>
+              <Text>{news.text}</Text>
+            </View>
+          </View>
+        );
+      }
+    });
   }
 
   return (
@@ -92,6 +130,19 @@ export default function Break({ route, navigation }) {
         <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
             <Text style={styles.desc}>Description</Text>
+            {/* this is for description */}
+            {
+              renderIf(description)(
+                <View style={{width: 330}}>
+                  <Text>{description}</Text>
+                </View>
+              )
+            }
+            {
+              renderIf(!description)(
+                <Hi/>
+              )
+            }
             
             {/* phone */}
             {
@@ -105,13 +156,24 @@ export default function Break({ route, navigation }) {
                 </View>
               )
             }
-            {/* to include new variable address */}
+            {/* to include new variable unit */}
+            {
+              renderIf(unit)(
+                <View style={{flexDirection:'row', paddingTop:10, paddingBottom:10}}>
+                  <FontAwesome5 name="store" size={20} color="black" style={{top: 7}}/>
+                  <View style={{paddingLeft: 15, width: 200}}>
+                    <Text style={{color:'grey'}}>Unit no.</Text>
+                   <Text style={{color:'black', paddingTop:3}}>{unit}</Text>
+                  </View>
+                </View>
+              )
+            }
             {/* description/opening hr from dB */}
                 <View style={{flexDirection:'row', paddingTop:10, paddingBottom:10}}>
                   <Ionicons name="time-sharp" size={24} color="black" style={{top: 7}}/>
-                  <View>
-                    <Text style={{color:'grey'}}>    Opening Hours</Text>
-                    <Text style={{ color: '#2f2f2f', fontFamily: 'latoR', lineHeight: 30 }}>     {text}</Text>
+                  <View style={{paddingLeft: 15, width: 300}}>
+                    <Text style={{color:'grey'}}>Opening Hours</Text>
+                    <Text style={{ color: '#2f2f2f', fontFamily: 'latoR', lineHeight: 30 }}>{text}</Text>
                   </View>
                 </View>
             
@@ -119,7 +181,7 @@ export default function Break({ route, navigation }) {
             {
               renderIf(link)(
                 <TouchableOpacity>
-                  <Entypo name="facebook-with-circle" style ={{paddingLeft: 30}} size={44} color="#3b5998" onPress={()=>{Linking.openURL('fb://page/'+ link);}}/>
+                  <Entypo name="facebook-with-circle" style ={{paddingLeft: 0}} size={44} color="#3b5998" onPress={()=>{Linking.openURL('fb://page/'+ link);}}/>
                 </TouchableOpacity>
               )
             }

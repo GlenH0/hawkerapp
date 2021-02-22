@@ -57,13 +57,15 @@ export default class App extends Component {
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
             subpagephone: child.val().subpagephone,
-            // rating: child.val().rating,
+            unit: child.val().unit,
             type: child.val().type,
             foodtype: child.val().foodtype,
             text: child.val().text,
             link: child.val().link,
             phone: child.val().phone,
-            place:child.val().place
+            place:child.val().place,
+            description: child.val().description,
+            descriptionIndex: child.val().descriptionIndex
           })
         }
       })
