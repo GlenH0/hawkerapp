@@ -75,7 +75,7 @@ export default class FilterDessert extends React.Component {
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
             subpagephone: child.val().subpagephone,
-            rating: child.val().rating,
+            // rating: child.val().rating,
             type: child.val().type,
             foodtype: child.val().foodtype
           })
