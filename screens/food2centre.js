@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking } from "react-native";
 import { globalStyles, images } from '../styles/global';
 // import Card from '../shared/card';
-import YoutubePlayer from "react-native-youtube-iframe";
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';

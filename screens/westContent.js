@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Linking, FlatList, Dimensions } from "react-native";
 import {globalStyles, images} from '../styles/global';
-import YoutubePlayer from "react-native-youtube-iframe";
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
