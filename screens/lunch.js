@@ -22,6 +22,7 @@ export default class App extends Component {
       active: null,
       interactionsComplete: false
     }
+    this._isMounted = false;
   }
 
   _renderItem = ({ item, index }) => {
@@ -79,6 +80,7 @@ export default class App extends Component {
         })
       }, 300);
     });
+    this._ismounted = true;
   }
 
   componentWillUnmount() {

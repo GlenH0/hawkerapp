@@ -44,6 +44,7 @@ export default function Break({ route, navigation }) {
   }
   // this is for description (relation)
   const [list, setList] = useState([])
+
   useEffect(() => {
     firebase.database().ref('description').on('value', (snapshot) => {
       
@@ -81,18 +82,17 @@ export default function Break({ route, navigation }) {
     return list.map(function (desGroup, i) {
       if (descriptionIndex == i) {
         return (
-          <View key={i}>
-            <View>
-            <ReadMore
-                    numberOfLines={3}
-                    renderTruncatedFooter={this.renderTruncatedFooter}
-                    renderRevealedFooter={this.renderRevealedFooter}
-                    >
-                    <Text style={{padding: 10, paddingTop: 0}}>
-                      {desGroup.text}
-                    </Text>
-                  </ReadMore>
-            </View>
+          <View key={i} style={{padding: 10, paddingTop: 0}}>
+            {/* currently got glitch issue when read more is here */}
+            {/* <ReadMore
+              numberOfLines={3}
+              renderTruncatedFooter={this.renderTruncatedFooter}
+              renderRevealedFooter={this.renderRevealedFooter}
+              > */}
+              <Text style={{padding: 10, paddingTop: 0}}>
+                {desGroup.text}
+              </Text>
+            {/* </ReadMore> */}
           </View>
         );
       }
@@ -163,13 +163,13 @@ export default function Break({ route, navigation }) {
             {/* this is for description */}
             {
               renderIf(description)(
-                <View>
+                <View style={{padding: 10, paddingTop: 0}}>
                   <ReadMore
                     numberOfLines={3}
                     renderTruncatedFooter={this.renderTruncatedFooter}
                     renderRevealedFooter={this.renderRevealedFooter}
                     >
-                    <Text style={{padding: 10, paddingTop: 0}}>
+                    <Text >
                       {description}
                     </Text>
                   </ReadMore>

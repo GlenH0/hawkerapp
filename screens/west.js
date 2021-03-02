@@ -1,6 +1,6 @@
 import firebase from '../firebase/fb'
 import React, { Component } from 'react';
-import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, InteractionManager } from 'react-native';
 
 import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
@@ -18,9 +18,10 @@ export default class App extends Component {
     this.state = {
       list: [],
       searchText: '',
-      check: false
+      check: false,
+      interactionsComplete: false
     }
-
+    this._isMounted = false;
   }
 
   _renderItem = ({ item, index }) => {
@@ -43,25 +44,32 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    firebase.database().ref('hawker').on('value', (snapshot) => {
-      var li = []
-      snapshot.forEach((child) => {
-        if(child.val().key > 0 && child.val().key <14){
-          li.push({
-            key: child.key,
-            title: child.val().title,
-            image: child.val().image,
-            add: child.val().add,
-            lat: child.val().lat,
-            long: child.val().long,
-            time: child.val().time,
-            place: child.val().place,
-            rating: child.val().rating
-          })
-        }
-      })
-      this.setState({ list: li, inMemory: li })
-    })
+    InteractionManager.runAfterInteractions(() => {
+      setTimeout(() => {
+        firebase.database().ref('hawker').on('value', (snapshot) => {
+          
+              var li = []
+              snapshot.forEach((child) => {
+                if(child.val().key > 0 && child.val().key <14){
+                  li.push({
+                    key: child.key,
+                    title: child.val().title,
+                    image: child.val().image,
+                    add: child.val().add,
+                    lat: child.val().lat,
+                    long: child.val().long,
+                    time: child.val().time,
+                    place: child.val().place,
+                    rating: child.val().rating
+                  })
+                }
+              })
+              this.setState({ list: li, inMemory: li })
+              this.setState({interactionsComplete: true});
+            })
+      }, 300);
+    });
+    this._ismounted = true;
   }
 
   componentWillUnmount() {
@@ -81,6 +89,14 @@ export default class App extends Component {
   }
 
   render() {
+    // this is for loading screen
+    if (!this.state.interactionsComplete) {
+      return(
+        <View style={{flex: 1, flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+          <Image style={{width: 100, height: 100, justifyContent:'center', alignItems:'center'}} source={{uri: 'https://static.wixstatic.com/media/f54231_d3dd84d75266417783445703b5659914~mv2.gif'}}/>
+        </View>
+      )
+    }
     const { navigation } = this.props
     return (
       <View style={styles.container}>
