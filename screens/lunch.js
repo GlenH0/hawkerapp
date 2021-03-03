@@ -1,5 +1,5 @@
 import firebase from '../firebase/fb'
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView, InteractionManager } from 'react-native';
 
 import { shuffle } from "lodash";
@@ -11,7 +11,7 @@ import _ from 'lodash'
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
-export default class App extends Component {
+export default class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -32,7 +32,8 @@ export default class App extends Component {
 
         <View>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            <Image style={styles.img} source={{ uri: item.image }} />
+            {/* potential fast loading solution for image */}
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
         <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
@@ -48,7 +49,7 @@ export default class App extends Component {
         firebase.database().ref('foodBreak').on('value', (snapshot) => {
           var li = []
           snapshot.forEach((child) => {
-            if(child.val().food_id != "3"){
+            if(child.val().food_id != "3" && child.val().food_id != "4"){
               li.push({
                 key: child.key,
                 title: child.val().title,
@@ -173,6 +174,7 @@ export default class App extends Component {
                 onPress={this.handleFilter}
                 style={styles.btnTab}
               >
+                {/* to be replaced by another page to prevent confusion */}
                 {renderIf(this.state.check == true)(
                   <Text style={{ fontFamily: 'latoR' }}>Back</Text>
                 )}
