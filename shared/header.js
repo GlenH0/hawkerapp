@@ -31,14 +31,13 @@ const styles = StyleSheet.create({
 
     headerText: {
         fontFamily: 'sat',
-        fontSize: 26,
+        fontSize: 18,
         color: '#fff',
-        letterSpacing: 1,
     },
 
     icon: {
         position: 'absolute',
-        left: 16,
+        left: 0,
         color: '#fff'
     },
     headerTitle: {
