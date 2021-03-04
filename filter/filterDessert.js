@@ -45,7 +45,7 @@ export default class FilterDessert extends React.Component {
     return (
       <View style={{ flex: 1 }}>
 
-        <View>
+        <View style={{height:180}}>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             <Image style={styles.img} source={{uri: item.image}} />
           </TouchableOpacity>
@@ -62,7 +62,7 @@ export default class FilterDessert extends React.Component {
     firebase.database().ref('foodBreak').once('value').then(snapshot=> {
       var li = []
       snapshot.forEach((child) => {
-        if(child.val().food_id == "3"){
+        if(child.val().food_id != "4"){
           li.push({
             title: child.val().title,
             image: child.val().image,
@@ -75,9 +75,15 @@ export default class FilterDessert extends React.Component {
             subpagelat: child.val().subpagelat,
             subpagelong: child.val().subpagelong,
             subpagephone: child.val().subpagephone,
-            // rating: child.val().rating,
+            unit: child.val().unit,
             type: child.val().type,
-            foodtype: child.val().foodtype
+            foodtype: child.val().foodtype,
+            text: child.val().text,
+            link: child.val().link,
+            phone: child.val().phone,
+            place:child.val().place,
+            description: child.val().description,
+            descriptionIndex: child.val().descriptionIndex
           })
         }
       })
@@ -97,7 +103,7 @@ export default class FilterDessert extends React.Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={{padding:10}}> <Text style={{fontWeight:'bold'}}>10</Text> food items available</Text>
+        <Text style={{padding:10, fontSize: 16}}> Your 10 picks for today!</Text>
         <FlatList
         // this was previous halal filter
           // data={dessertData.filter(data => data.status === 'Halal').map(filteredData => (filteredData))}
