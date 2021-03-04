@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from "@react-navigation/stack";
 import Food from "../screens/food";
 
 import Header from '../shared/header';
@@ -13,6 +13,8 @@ import MainCentreTabScreen from './mainCentre';
 import West from '../screens/westContent';
 import FoodtoCentre from '../screens/food2centre'
 import FilterDessert from "../filter/filterDessert";
+import FoodFilter from "../filter/foodFilter";
+import BFoodFilter from "../filter/BfoodFilter"
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -45,35 +47,40 @@ export default FoodStack = () => {
       //   headerTintColor:'white'
       // }}
       options={{
-        headerShown: false
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}
     />
 
     <Screen name="Lunch/Dinner" component={MainTabScreen}
       options={{
-        headerShown: false
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}
     />
 
     <Screen name="Dessert" component={MainTabScreen}
       options={{
-        headerShown: false
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}
     />
 
 <Screen name="Drink" component={MainTabScreen}
       options={{
-        headerShown: false
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}
     />
 
 <Screen name="break" component={Break}
    options={{
-    headerTitle: 'Details',
+    headerTitle: 'Food Details',
     headerStyle: { backgroundColor: '#ff5959'},
+    cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     headerTitleStyle: {
       color: 'white',
-      fontSize: 22,
+      fontSize: 18,
       fontFamily:"sat"
     },
     headerTintColor:'white'
@@ -84,9 +91,10 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Halal',
     headerStyle: { backgroundColor: '#ff5959'},
+    cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
     headerTitleStyle: {
       color: 'white',
-      fontSize: 22,
+      fontSize: 18,
       fontFamily:"sat"
     },
     headerTintColor:'white'
@@ -97,9 +105,10 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Food-o-miser',
     headerStyle: { backgroundColor: '#ff5959'},
+    cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
     headerTitleStyle: {
       color: 'white',
-      fontSize: 22,
+      fontSize: 18,
       fontFamily:"sat"
     },
     headerTintColor:'white'
@@ -110,9 +119,10 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Randomiser',
     headerStyle: { backgroundColor: '#ff5959'},
+    cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
     headerTitleStyle: {
       color: 'white',
-      fontSize: 22,
+      fontSize: 18,
       fontFamily:"sat"
     },
     headerTintColor:'white'
@@ -128,11 +138,11 @@ export default FoodStack = () => {
 
 <Screen name="hawkerDetail" component={West}
         options={{
-          headerTitle: 'Details',
+          headerTitle: 'Hawker Details',
           headerStyle: { backgroundColor: '#ff5959'},
           headerTitleStyle: {
             color: 'white',
-            fontSize: 22,
+            fontSize: 18,
             fontFamily:"sat"
           },
           headerTintColor:'white'
@@ -140,17 +150,44 @@ export default FoodStack = () => {
       />
 <Screen name="food2centre" component={FoodtoCentre}
       options={{
-        headerTitle: 'Details',
+        headerTitle: 'Food Details',
         headerStyle: { backgroundColor: '#ff5959'},
+        cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
+          fontFamily:"sat"
+        },
+        headerTintColor:'white'
+      }}
+/>
+<Screen name="foodfilter" component={FoodFilter}
+      options={{
+        headerTitle: 'Filter',
+        headerStyle: { backgroundColor: '#ff5959'},
+        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white'
       }}
 />
 
+<Screen name="bfoodfilter" component={BFoodFilter}
+      options={{
+        headerTitle: 'Filter',
+        headerStyle: { backgroundColor: '#ff5959'},
+        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        headerTitleStyle: {
+          color: 'white',
+          fontSize: 18,
+          fontFamily:"sat"
+        },
+        headerTintColor:'white'
+      }}
+/>
     </Navigator>
   );
 }

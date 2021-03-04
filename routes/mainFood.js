@@ -32,7 +32,7 @@ function BreakfastP() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white'
@@ -52,7 +52,7 @@ function LunchP() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white'
@@ -72,7 +72,7 @@ function DessertP() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white'
@@ -92,7 +92,7 @@ function DrinkP() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white'
