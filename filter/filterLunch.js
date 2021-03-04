@@ -12,7 +12,7 @@ const WIDTH = Dimensions.get("window").width;
 // const numOfFood = 3;
 // const random = Math.ceil(Math.random() * numOfFood)
 
-export default class FilterDessert extends React.Component {
+export default class FilterDessert extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
