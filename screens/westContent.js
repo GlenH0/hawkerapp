@@ -217,7 +217,7 @@ export default function West({ route, navigation }) {
     },
     rec:{
       fontFamily:'sat',
-      fontSize: 22,
+      fontSize: 16,
       textAlign: 'center',
       color:'#3a3b3c',
     },

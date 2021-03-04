@@ -1,5 +1,5 @@
 import firebase from '../firebase/fb'
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView, InteractionManager } from 'react-native';
 
 import { shuffle } from "lodash";
@@ -11,7 +11,7 @@ import _ from 'lodash'
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
-export default class App extends Component {
+export default class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -32,7 +32,8 @@ export default class App extends Component {
 
         <View>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            <Image style={styles.img} source={{ uri: item.image }} />
+            {/* potential fast loading solution for image */}
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
         <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
@@ -97,45 +98,7 @@ export default class App extends Component {
       }
     )
     this.setState({ list: filter, searchText: text })
-  }
-
-  handleFilter = () => {
-    this.setState({ check: true })
-    if (this.state.check == true) {
-      this.setState({ list: this.state.inMemory, check: false })
-    }
-    this.setState({ active: null })
-  }
-
-  handleHalal = () => {
-    this.setState({ list: this.state.inMemory.filter(x => x.type === 'halal') })
-    // to scroll back up to the top
     this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 1 })
-  }
-
-  handleFoodType = () => {
-    // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'noodle') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 0 })
-  }
-
-  handleFoodRice = () => {
-    // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'rice') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 2 })
-  }
-
-  handleFoodTypeW = () => {
-    // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'western') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 3 })
   }
 
   render() {
@@ -170,59 +133,20 @@ export default class App extends Component {
             <Text style={{ paddingLeft: 10, paddingTop: 10, fontFamily: 'latoR', color: '#808080' }}>Suggested filters:</Text>
             <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
               <TouchableOpacity
-                onPress={this.handleFilter}
+                onPress={() => navigation.navigate('bfoodfilter')}
                 style={styles.btnTab}
               >
-                {renderIf(this.state.check == true)(
-                  <Text style={{ fontFamily: 'latoR' }}>Back</Text>
-                )}
-                {renderIf(this.state.check == false)(
+                {/* to be replaced by another page to prevent confusion */}
+
                   <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
-                )}
               </TouchableOpacity>
 
-              {
-                renderIf(this.state.check == false)(
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('filterLunch')}
+                    onPress={() => navigation.navigate('filter')}
                     style={styles.btnTab}
                   >
                     <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
                   </TouchableOpacity>
-                )
-              }
-
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleFoodType}
-                  style={this.state.active === 0 ? styles.btnActive : styles.btnTab }>
-                
-                  <Text style={this.state.active === 0 ? styles.textActive : styles.textNorm }>Noodle</Text>
-                </TouchableOpacity>
-              )}
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleHalal}
-                  style={this.state.active === 1 ? styles.btnActive : styles.btnTab }>
-                  <Text style={this.state.active === 1 ? styles.textActive : styles.textNorm }>Halal</Text>
-                </TouchableOpacity>
-              )}
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleFoodRice}
-                  style={this.state.active === 2 ? styles.btnActive : styles.btnTab }
-                >
-                  <Text style={this.state.active === 2 ? styles.textActive : styles.textNorm }>Rice</Text>
-                </TouchableOpacity>
-              )}
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleFoodTypeW}
-                  style={this.state.active === 3 ? styles.btnActive : styles.btnTab }
-                >
-                  <Text style={this.state.active === 3 ? styles.textActive : styles.textNorm }>Western</Text>
-                </TouchableOpacity>
-              )}
             </ScrollView>
           </View>
         )}
@@ -243,7 +167,6 @@ export default class App extends Component {
       />
           </View>
         )}
-
 
         <FlatList style={{ width: '100%' }}
           data={shuffle(this.state.list)}

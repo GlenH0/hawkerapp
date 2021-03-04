@@ -285,9 +285,9 @@ export default function Break({ route, navigation }) {
               long: subpagelong,
               place: place
             })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', width: 250, height: 50 }}>
                 <MaterialIcons name="place" size={24} color="#c71521" />
-                <Text style={{ color: '#4286f4', fontFamily: 'latoR', top: 4 }}>{subpage}</Text>
+                <Text style={{ color: '#4286f4', fontFamily: 'latoR', top: 4}}>{subpage}</Text>
               </View>
             </TouchableOpacity >
 
