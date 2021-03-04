@@ -36,7 +36,7 @@ export default class App extends PureComponent {
             <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
+        <Text numberOfLines={1} style={{ padding:25, paddingTop: 0, paddingBottom: -15}}>{item.title}</Text>
         {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
       </View>
     )
@@ -141,12 +141,12 @@ export default class App extends PureComponent {
                   <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
               </TouchableOpacity>
 
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() => navigation.navigate('filterLunch')}
                     style={styles.btnTab}
                   >
                     <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
             </ScrollView>
           </View>
         )}

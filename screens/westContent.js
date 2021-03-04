@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, Linking, FlatList, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Image, Linking, FlatList, Dimensions } from "react-native";
 import {globalStyles, images} from '../styles/global';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -7,9 +7,9 @@ import renderIf from 'render-if';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 
 import firebase from '../firebase/fb'
-import { shuffle } from 'lodash';
 
-const numColumns = 2
+
+const numColumns = 1
 const WIDTH = Dimensions.get("window").width;
 
 export default function West({ route, navigation }) {
@@ -22,7 +22,6 @@ export default function West({ route, navigation }) {
         // console.log(snapshot.val())
         var li = []
         snapshot.forEach((child) => {
-          if(child.val().food_id != "3"){
             li.push({
               // key: child.key,
               title: child.val().title,
@@ -47,7 +46,6 @@ export default function West({ route, navigation }) {
               descriptionIndex: child.val().descriptionIndex,
               video: child.val().video,
             })
-          }
         })
         setList(li)
       })
@@ -56,15 +54,14 @@ export default function West({ route, navigation }) {
     const _renderItem = ({item, index}) => {
       if(item['place'] === place && item.place !== undefined){
         return (
-          <View style={{flex:1, backgroundColor:'white'}}>
-            
+          <View style={{flex:1, backgroundColor:'white',}}>
             <View>
               <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('food2centre', item )}>
                 <Image style={styles.img} source={{uri: item.image}}/>
               </TouchableOpacity>
             </View>
       
-            <Text numberOfLines={1} style={{paddingLeft:10}}>{item.title}</Text>
+            <Text numberOfLines={1} style={{padding:15, paddingTop:0, paddingBottom: 15}}>{item.title}</Text>
 
           </View>
         )
@@ -73,15 +70,16 @@ export default function West({ route, navigation }) {
           
     return (   
         <FlatList 
+                
                 data={list}
                 renderItem={_renderItem}
                 keyExtractor={(item, index)=> (index.toString())}
-                numColumns={numColumns}
+                numColumns= {numColumns}
                 
                 ListHeaderComponent={ <>   
                   <View style={styles.boxImg}>
                     <View style={styles.imgContainer}>
-                      <Image style={styles.img} source={{uri: image}}/>
+                      <Image style={{width:'100%', height: 250}} source={{uri: image}}/>
                     </View>
                   </View>
                   <View  style={styles.view}>
@@ -140,35 +138,7 @@ export default function West({ route, navigation }) {
                           <Text style={styles.desc}>Reviews</Text>
                         )
                       }
-                      
-                      {/* {
-                        renderIf(video)(
-                        <YoutubePlayer 
-                          height={240}
-                          videoId={video}
-                        />
-                        )
-                      } */}
 
-                      {/* <View style={{alignItems:'center'}}>
-                        <View style={styles.desContent}>
-                          <Text style={styles.descDirection}>How to get there?</Text>
-                          <View style={{paddingBottom: 10}}>
-                            <View style={styles.iconText}>
-                              <Icon style={{paddingRight: 5}} name="train" color={'#FF4343'} size={26} />
-                              <Text style={styles.transport}>Nearest MRT/LRT</Text>
-                            </View>
-                            <Text style={styles.transportText}>{mrt}</Text>
-                          </View>
-
-                          <View style={styles.iconText}>
-                            <Icon style={{paddingRight: 5}} name="bus" color={'#FF4343'} size={26} />
-                            <Text style={styles.transport}>By Bus</Text>
-                          </View>
-                          <Text style={styles.transportText}>{bus}</Text>
-                        </View>
-                      </View>   */}
-       
                   </View>
 
                   
@@ -190,14 +160,13 @@ export default function West({ route, navigation }) {
     },
     boxImg:{
       alignItems:'center',
-      
     },
     img:{
         resizeMode:'cover',
         width: '100%',
-        height: 300,
-        // borderRadius: 4,
-        //  overflow:'hidden', 
+        height: "100%",
+        borderRadius: 4,
+         overflow:'hidden', 
     },
     imgContainer:{
       width:"100%",
@@ -217,7 +186,7 @@ export default function West({ route, navigation }) {
     },
     rec:{
       fontFamily:'sat',
-      fontSize: 16,
+      fontSize: 14,
       textAlign: 'center',
       color:'#3a3b3c',
     },
@@ -273,15 +242,15 @@ export default function West({ route, navigation }) {
       shadowOpacity: 1,
       elevation: 3,
       backgroundColor : "#fff", 
-
+      
       alignItems: 'center',
       justifyContent: 'center',
       height: 100,
       flex: 1,
       margin: 10,
-      height: WIDTH/numColumns,    
+      height: 140, 
       borderRadius: 12,
-      overflow:'hidden'
+      
     },
     btmRec:{
       backgroundColor:'white',

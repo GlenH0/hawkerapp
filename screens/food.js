@@ -37,21 +37,21 @@ export default function Food({navigation}) {
           <TouchableOpacity onPress={() => navigation.navigate('Lunch/Dinner')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/lunch.png')} style={styles.image}/>
-                <Text style={styles.text}>LUNCH/DINNER</Text>
+                {/* <Text style={styles.text}>LUNCH/DINNER</Text> */}
             </View>
           </TouchableOpacity>
           
           <TouchableOpacity onPress={() => navigation.navigate('Dessert')}>
             <View style={styles.responsiveBox }>                  
                 <Image source={require('../assets/des.png')} style={styles.image}/>
-                <Text style={styles.text}>DESSERT</Text>
+                {/* <Text style={styles.text}>DESSERT</Text> */}
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Drink')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/dri.png')} style={styles.image}/>
-                <Text style={styles.text}>DRINKS</Text>
+                {/* <Text style={styles.text}>DRINKS</Text> */}
             </View>
           </TouchableOpacity>
         
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     height: heightPercentageToDP('24%'),
     flexDirection: 'column',
     justifyContent: 'space-around',
-    paddingTop: 5,
+    paddingTop: 0,
   },
   text: {
     position: 'absolute',

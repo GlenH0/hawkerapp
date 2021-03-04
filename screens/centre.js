@@ -8,35 +8,35 @@ export default function Centre({navigation}) {
           <TouchableOpacity onPress={() => navigation.navigate('North')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/amk.png')} style={styles.image}/>
-                <Text style={styles.text}>NORTH</Text>
+                {/* <Text style={styles.text}>NORTH</Text> */}
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('NorthE')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/Chomp-Chomp-1.jpg')} style={styles.image}/>
-                <Text style={styles.text}>NORTH EAST</Text>
+                {/* <Text style={styles.text}>NORTH EAST</Text> */}
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Central')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/bugis.png')} style={styles.image}/>
-                <Text style={styles.text}>CENTRAL</Text>
+                {/* <Text style={styles.text}>CENTRAL</Text> */}
             </View>
           </TouchableOpacity>
           
           <TouchableOpacity onPress={() => navigation.navigate('East')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/bed.png')} style={styles.image}/>
-                <Text style={styles.text}>EAST</Text>
+                {/* <Text style={styles.text}>EAST</Text> */}
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('West')}>
             <View style={styles.responsiveBox}>                  
                 <Image source={require('../assets/blhawk.png')} style={styles.image}/>
-                <Text style={styles.text}>WEST</Text>
+                {/* <Text style={styles.text}>WEST</Text> */}
             </View>
           </TouchableOpacity>
  
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     height: heightPercentageToDP('19%'),
     flexDirection: 'column',
     justifyContent: 'space-around',
-    paddingTop: 5, 
+    paddingTop: 0, 
   },
   text: {
     position: 'absolute',
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   image:{
       width:'100%',
       height: '100%',
-      opacity: 0.7,
       backgroundColor:'black',
   }
 });

@@ -165,67 +165,7 @@ export default class App extends Component {
           </View>
         </View>
 
-        {renderIf(this.state.searchText == '')(
-          <View>
-            <Text style={{ paddingLeft: 10, paddingTop: 10, fontFamily: 'latoR', color: '#808080' }}>Suggested filters:</Text>
-            <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
-              {/* <TouchableOpacity
-                onPress={this.handleFilter}
-                style={styles.btnTab}
-              >
-                {renderIf(this.state.check == true)(
-                  <Text style={{ fontFamily: 'latoR' }}>Back</Text>
-                )}
-                {renderIf(this.state.check == false)(
-                  <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
-                )}
-              </TouchableOpacity> */}
-
-              {
-                renderIf(this.state.check == false)(
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('filterDessert')}
-                    style={styles.btnTab}
-                  >
-                    <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
-                  </TouchableOpacity>
-                )
-              }
-
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleFoodType}
-                  style={this.state.active === 0 ? styles.btnActive : styles.btnTab }>
-                
-                  <Text style={this.state.active === 0 ? styles.textActive : styles.textNorm }>Noodle</Text>
-                </TouchableOpacity>
-              )}
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleHalal}
-                  style={this.state.active === 1 ? styles.btnActive : styles.btnTab }>
-                  <Text style={this.state.active === 1 ? styles.textActive : styles.textNorm }>Halal</Text>
-                </TouchableOpacity>
-              )}
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleFoodRice}
-                  style={this.state.active === 2 ? styles.btnActive : styles.btnTab }
-                >
-                  <Text style={this.state.active === 2 ? styles.textActive : styles.textNorm }>Rice</Text>
-                </TouchableOpacity>
-              )}
-              {renderIf(this.state.check == true)(
-                <TouchableOpacity
-                  onPress={this.handleFoodTypeW}
-                  style={this.state.active === 3 ? styles.btnActive : styles.btnTab }
-                >
-                  <Text style={this.state.active === 3 ? styles.textActive : styles.textNorm }>Western</Text>
-                </TouchableOpacity>
-              )}
-            </ScrollView>
-          </View>
-        )}
+       
 
         <View style={{flexDirection:'row', padding: 10}}> 
           <Text style={{fontWeight:'bold'}}>{this.state.list.length}</Text>

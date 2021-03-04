@@ -140,13 +140,13 @@ export default class App extends PureComponent {
 
                   <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
               </TouchableOpacity>
-
+{/* 
                   <TouchableOpacity
                     onPress={() => navigation.navigate('filter')}
                     style={styles.btnTab}
                   >
                     <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
             </ScrollView>
           </View>
         )}
