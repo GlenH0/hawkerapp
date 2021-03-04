@@ -77,7 +77,6 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Food Details',
     headerStyle: { backgroundColor: '#ff5959'},
-    cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     headerTitleStyle: {
       color: 'white',
       fontSize: 18,
@@ -91,7 +90,6 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Halal',
     headerStyle: { backgroundColor: '#ff5959'},
-    cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
     headerTitleStyle: {
       color: 'white',
       fontSize: 18,
@@ -117,7 +115,7 @@ export default FoodStack = () => {
 
 <Screen name="filterDessert" component={FilterDessert}
    options={{
-    headerTitle: 'Randomiser',
+    headerTitle: 'Food-o-miser',
     headerStyle: { backgroundColor: '#ff5959'},
     cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
     headerTitleStyle: {
@@ -152,7 +150,7 @@ export default FoodStack = () => {
       options={{
         headerTitle: 'Food Details',
         headerStyle: { backgroundColor: '#ff5959'},
-        cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         headerTitleStyle: {
           color: 'white',
           fontSize: 18,

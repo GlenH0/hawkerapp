@@ -29,7 +29,7 @@ function NorthSide() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white' }}
@@ -48,7 +48,7 @@ function NorthESide() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white' }}
@@ -67,7 +67,7 @@ function CentralSide() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white' }}
@@ -86,7 +86,7 @@ function EastSide() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white' }}
@@ -107,7 +107,7 @@ function WestSide() {
         headerStyle: { backgroundColor: '#ff5959'}, 
         headerTitleStyle: {
           color: 'white',
-          fontSize: 22,
+          fontSize: 18,
           fontFamily:"sat"
         },
         headerTintColor:'white' }}
