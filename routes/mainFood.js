@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackHandler, Text} from 'react-native';
+import {BackHandler, Text, View} from 'react-native';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
@@ -13,6 +13,7 @@ import LunchPage from '../screens/lunch'
 import DessertPage from '../screens/dessert'
 import DrinkPage from '../screens/drink'
 import FilterDessert from '../filter/filterDessert'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -124,8 +125,8 @@ const MainTabScreen = ({route}) => (
       initialRouteName={route.name}
       activeColor="#ff5959"
       inactiveColor="#d3d3d3"
-      style={{ backgroundColor: 'tomato' }}
       backBehavior = 'Hawker Food'
+      style={{position: 'relative'}}
     >
       <Tab.Screen
         name="Breakfast"
