@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, Button 
 import { globalStyles, images } from '../styles/global';
 import Modal from 'react-native-modal';
 import YoutubePlayer from "react-native-youtube-iframe";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import firebase from '../firebase/fb'

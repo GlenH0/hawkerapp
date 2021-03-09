@@ -9,7 +9,7 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import firebase from '../firebase/fb'
 
 
-const numColumns = 1
+const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
 export default function West({ route, navigation }) {

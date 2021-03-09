@@ -122,6 +122,7 @@ export default class App extends PureComponent {
                   placeholder="What's in mind today?"
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
+                  style={{borderRadius: 20, width: "95%", alignSelf:'center', margin:5}}
                 />
               )
             }
@@ -175,7 +176,7 @@ export default class App extends PureComponent {
             return item.key;
           }}
           numColumns={numColumns}
-          ref={(ref) => { this.flatListRef = ref; }}
+          ref={(ref) => { this.flatListRef}}
         />
       </View>
     )

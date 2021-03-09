@@ -109,6 +109,7 @@ export default class App extends Component {
                   placeholder="Search for Hawker..."
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
+                  style={{ borderRadius: 20, width: "95%", alignSelf: 'center', margin: 5 }}
                 />
               )
             }

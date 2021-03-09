@@ -26,14 +26,13 @@ export default class App extends PureComponent {
   }
 
   _renderItem = ({ item, index }) => {
-
     return (
-      <View style={{ flex: 1 }}>
+      <View  key={item.key} style={{ flex: 1 }}>
 
         <View>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            {/* potential fast loading solution for image */}
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
+            {/* solution for fast loading */}
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto'/>
           </TouchableOpacity>
         </View>      
         <Text numberOfLines={1} style={{ padding:25, paddingTop: 0, paddingBottom: -15}}>{item.title}</Text>
@@ -41,10 +40,9 @@ export default class App extends PureComponent {
       </View>
     )
   }
-
-  componentDidMount() {
-    
-    InteractionManager.runAfterInteractions(() => {
+  // solution to faster loading
+  async componentDidMount() {
+    await InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         firebase.database().ref('foodBreak').on('value', (snapshot) => {
           var li = []
@@ -122,6 +120,7 @@ export default class App extends PureComponent {
                   placeholder="What's in mind today?"
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
+                  style={{borderRadius: 20, width: "95%", alignSelf:'center', margin:5}}
                 />
               )
             }

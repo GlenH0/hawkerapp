@@ -47,26 +47,25 @@ export default class App extends Component {
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         firebase.database().ref('hawker').on('value', (snapshot) => {
-          
-              var li = []
-              snapshot.forEach((child) => {
-                if(child.val().key > 0 && child.val().key <14){
-                  li.push({
-                    key: child.key,
-                    title: child.val().title,
-                    image: child.val().image,
-                    add: child.val().add,
-                    lat: child.val().lat,
-                    long: child.val().long,
-                    time: child.val().time,
-                    place: child.val().place,
-                    rating: child.val().rating
-                  })
-                }
+
+          var li = []
+          snapshot.forEach((child) => {
+            if (child.val().key > 0 && child.val().key < 14) {
+              li.push({
+                key: child.key,
+                title: child.val().title,
+                image: child.val().image,
+                add: child.val().add,
+                lat: child.val().lat,
+                long: child.val().long,
+                time: child.val().time,
+                place: child.val().place
               })
-              this.setState({ list: li, inMemory: li })
-              this.setState({interactionsComplete: true});
-            })
+            }
+          })
+          this.setState({ list: li, inMemory: li })
+          this.setState({ interactionsComplete: true });
+        })
       }, 300);
     });
     this._ismounted = true;
@@ -91,9 +90,9 @@ export default class App extends Component {
   render() {
     // this is for loading screen
     if (!this.state.interactionsComplete) {
-      return(
-        <View style={{flex: 1, flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-          <Image style={{width: 100, height: 100, justifyContent:'center', alignItems:'center'}} source={{uri: 'https://static.wixstatic.com/media/f54231_d3dd84d75266417783445703b5659914~mv2.gif'}}/>
+      return (
+        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Image style={{ width: 100, height: 100, justifyContent: 'center', alignItems: 'center' }} source={{ uri: 'https://static.wixstatic.com/media/f54231_d3dd84d75266417783445703b5659914~mv2.gif' }} />
         </View>
       )
     }
@@ -109,6 +108,7 @@ export default class App extends Component {
                   placeholder="Search for Hawker..."
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
+                  style={{ borderRadius: 20, width: "95%", alignSelf: 'center', margin: 5 }}
                 />
               )
             }

@@ -159,6 +159,7 @@ export default class App extends Component {
                   placeholder="What's in mind today?"
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
+                  style={{borderRadius: 20, width: "95%", alignSelf:'center', margin:5}}
                 />
               )
             }
