@@ -19,7 +19,7 @@ export default class FilterDessert extends React.Component {
       list: [],
       num:1,
       lastRefresh: Date(Date.now()).toString(),
-      animatedValue: new Animated.Value(0)
+      animatedValue: new Animated.Value(0),
     };
     this.refreshScreen = this.refreshScreen.bind(this)
   }
@@ -117,7 +117,7 @@ export default class FilterDessert extends React.Component {
       <View style={{justiftyContent:"center", alignItems:"center"}}>
           <TouchableOpacity onPress={this.refreshScreen} style={styles.dice}>
             <Animated.View style={animatedStyle}>
-              <FontAwesome5 name="dice-three" size={44} color="white" style={{ left:0, padding: 10, }}/>
+              <FontAwesome5 name="dice-three" size={44} color="white" style={{ padding: 10, }}/>
             </Animated.View>
           </TouchableOpacity>
       </View>
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     height: 250,
-    borderRadius: 12
+    borderRadius: 12,
 
   },
   itemText: {
@@ -176,11 +176,12 @@ const styles = StyleSheet.create({
   dice: {
     position:'absolute', 
     zIndex:100, 
-    bottom:30, 
-    right: 0, 
+    bottom:20, 
+    right: 10, 
     backgroundColor:'#ff5959',
-    borderBottomLeftRadius: 10, 
-    borderTopLeftRadius: 10, 
+    // borderBottomLeftRadius: 10, 
+    // borderTopLeftRadius: 10, 
+    borderRadius: 25,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -189,6 +190,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
     
-    elevation: 9,
+    elevation: 10,
   }
 })
