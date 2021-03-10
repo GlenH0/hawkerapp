@@ -11,7 +11,7 @@ const getFonts = () => Font.loadAsync({
     'latoR': require('./assets/fonts/Lato-Regular.ttf'),
     'latoB': require('./assets/fonts/Lato-Bold.ttf'),
     'lob': require('./assets/fonts/Lobster-Regular.ttf'),
-    'sat': require('./assets/fonts/Mob.otf'),
+    'sat': require('./assets/fonts/PoetsenOne-Regular.ttf'),
     'play': require('./assets/fonts/SpaceGrotesk-VariableFont_wght.ttf'),
     'playB': require('./assets/fonts/MartelSans-Bold.ttf'),
   });
