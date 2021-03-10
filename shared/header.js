@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
+import renderIf from 'render-if';
 
 export default function Header({ title, navigation }) {
 
@@ -12,9 +14,14 @@ export default function Header({ title, navigation }) {
         <View style={styles.header}>
             <MaterialIcons name='menu' size={32} onPress={openMenu} style={styles.icon}/>
             
-            <View style={styles.headerTitle}>
+            {/* <View style={styles.headerTitle}>
                 <Text style={styles.headerText}>{title}</Text>
-            </View>
+            </View> */}
+            {
+                renderIf(title !== 'About')(
+                    <Image style={styles.logo} source={require('../assets/logo.png')}/>
+                )
+            }
         </View>
     );
 }
@@ -26,13 +33,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingRight: 40,
+        paddingRight: 25,
     },
 
     headerText: {
         fontFamily: 'sat',
         fontSize: 18,
-        color: '#fff',
+        color: 'white',
+        letterSpacing:-1
     },
 
     icon: {
@@ -43,5 +51,11 @@ const styles = StyleSheet.create({
     headerTitle: {
         flexDirection:'row',
 
+    },
+    logo: {
+        width: 55,
+        height: 55,
+        // position: 'absolute',
+        
     }
 });
