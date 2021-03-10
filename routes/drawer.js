@@ -10,6 +10,7 @@ import CentreStack from "./centreStack";
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -23,16 +24,16 @@ export default function App() {
         drawerStyle={{
           backgroundColor: '#fff',
           width: 230,
+          // flexDirection: 'row',
+          // alignItems: 'flex-end',
         }}
         // drawerContent={props => <DrawerContent {...props}/>}
       >
         <Drawer.Screen name="Hawker Food" component={FoodStack}
           options={{
             drawerLabel: 'Hawker Food',
-            drawerIcon: (({focused}) => <Icon name="food-fork-drink" size={30} color="#4E1111" />)
-            
+            drawerIcon: (({focused}) => <Icon name="food-fork-drink" size={30} color="#4E1111" />),
           }}
-          
         />
         <Drawer.Screen name="Hawker Centres" component={CentreStack} 
           options={{
