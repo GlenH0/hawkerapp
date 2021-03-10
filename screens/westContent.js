@@ -13,7 +13,7 @@ const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
 export default function West({ route, navigation }) {
-    const {  title, video, rating, add, subpageimg, time, phone, lat, long, place, image} = route.params;
+    const {  title, video, rating, add, time, phone, lat, long, place, image} = route.params;
 
     const [list, setList] = useState([])
 
@@ -51,10 +51,21 @@ export default function West({ route, navigation }) {
       })
     }, [])
 
+    // const formatData = (list, numColumns) => {
+    //   const numberOfFullRows = Math.floor(list.length / numColumns)
+
+    //   let numberOfElementsLastRow = list.length - (numberOfFullRows * numColumns)
+    //   while (numberOfElementsLastRow !== numColumns){
+    //     list.push({key: `blank-${numberOfElementsLastRow}`, empty: true})
+    //     numberOfElementsLastRow = numberOfElementsLastRow + 1;
+    //   }
+    //   return list
+    // }
+
     const _renderItem = ({item, index}) => {
       if(item['place'] === place && item.place !== undefined){
         return (
-          <View style={{flex:1, backgroundColor:'white',}}>
+          <View style={{flex:1, backgroundColor:'white'}}>
             <View>
               <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('food2centre', item )}>
                 <Image style={styles.img} source={{uri: item.image}}/>
@@ -75,6 +86,7 @@ export default function West({ route, navigation }) {
                 renderItem={_renderItem}
                 keyExtractor={(item, index)=> (index.toString())}
                 numColumns= {numColumns}
+                columnWrapperStyle={{justifyContent:'space-between', alignItems:'flex-start'}}
                 
                 ListHeaderComponent={ <>   
                   <View style={styles.boxImg}>
@@ -163,8 +175,8 @@ export default function West({ route, navigation }) {
     },
     img:{
         resizeMode:'cover',
-        width: '100%',
-        height: "100%",
+        width: '90%',
+        height: "90%",
         borderRadius: 4,
          overflow:'hidden', 
     },
@@ -242,13 +254,11 @@ export default function West({ route, navigation }) {
       shadowOpacity: 1,
       elevation: 3,
       backgroundColor : "#fff", 
-      
       alignItems: 'center',
-      justifyContent: 'center',
-      height: 100,
+      justifyContent:'center',
+      height: 190,
       flex: 1,
       margin: 10,
-      height: 140, 
       borderRadius: 12,
       
     },

@@ -26,25 +26,23 @@ export default class App extends PureComponent {
   }
 
   _renderItem = ({ item, index }) => {
-
     return (
-      <View style={{ flex: 1 }}>
+      <View  key={item.key} style={{ flex: 1 }}>
 
         <View>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            {/* potential fast loading solution for image */}
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
+            {/* solution for fast loading */}
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto'/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
+        <Text numberOfLines={1} style={{ padding:25, paddingTop: 0, paddingBottom: -15}}>{item.title}</Text>
         {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
       </View>
     )
   }
-
-  componentDidMount() {
-    
-    InteractionManager.runAfterInteractions(() => {
+  // solution to faster loading
+  async componentDidMount() {
+    await InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         firebase.database().ref('foodBreak').on('value', (snapshot) => {
           var li = []
@@ -134,16 +132,16 @@ export default class App extends PureComponent {
             <Text style={{ paddingLeft: 10, paddingTop: 10, fontFamily: 'latoR', color: '#808080' }}>Suggested filters:</Text>
             <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('bfoodfilter')}
+                onPress={() => navigation.navigate('foodfilter')}
                 style={styles.btnTab}
               >
                 {/* to be replaced by another page to prevent confusion */}
 
                   <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
               </TouchableOpacity>
-{/* 
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('filter')}
+
+                  {/* <TouchableOpacity
+                    onPress={() => navigation.navigate('filterLunch')}
                     style={styles.btnTab}
                   >
                     <Text style={{ fontFamily: 'latoR' }}>Food-o-miser</Text>
@@ -176,7 +174,7 @@ export default class App extends PureComponent {
             return item.key;
           }}
           numColumns={numColumns}
-          ref={(ref) => { this.flatListRef}}
+          ref={(ref) => { this.flatListRef = ref; }}
         />
       </View>
     )

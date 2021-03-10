@@ -116,13 +116,13 @@ export default function Food({navigation}) {
 
     return (
       
-      <View>
+      <View style={{backgroundColor:"white"}}>
         {/* search bar */}
          <Searchbar
             placeholder="What's in mind today?"
             onChangeText={(text) => handleSearch(text)}
             value={searchText}
-            style={{borderRadius: 20, width: "95%", alignSelf:'center', margin:5}}
+            style={{borderRadius: 20, width: "95%", alignSelf:'center', marginTop:15}}
             
           />
         
@@ -133,6 +133,7 @@ export default function Food({navigation}) {
                 numColumns= {numColumns}
                 onScrollBeginDrag={Keyboard.dismiss}
                 ref={flatListRef}
+                style={{backgroundColor:"white"}}
 
                 ListHeaderComponent={ <>  
                     <View>
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: "100%",
-    height: HEIGHT 
+    height: HEIGHT * 1.05
   },
   responsiveBox: {
     width: widthPercentageToDP('95%'),
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     margin: 10,
     marginTop: 0,
-    top: -18
+    top: -25
   },
   text: {
     position: 'absolute',
