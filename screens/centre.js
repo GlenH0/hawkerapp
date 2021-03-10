@@ -9,7 +9,6 @@ import { shuffle } from "lodash";
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
-const HEIGHT = Dimensions.get("window").height;
 
 export default function Centre({ navigation }) {
 
@@ -17,6 +16,26 @@ export default function Centre({ navigation }) {
   const [memory, setMemory] = useState([])
   const [searchText, setSearchText] = useState('')
 
+  useEffect(() => {
+    firebase.database().ref('hawker').on('value', (snapshot) => {
+      var li = []
+      snapshot.forEach((child) => {
+        li.push({
+          key: child.val().key,
+          title: child.val().title,
+          image: child.val().image,
+          add: child.val().add,
+          lat: child.val().lat,
+          long: child.val().long,
+          time: child.val().time,
+          place: child.val().place,
+          rank: child.val().rank
+        })
+      })
+      setList(li)
+      setMemory(li)
+    })
+  }, [])
 
   const handleSearch = (text) => {
 
@@ -30,8 +49,6 @@ export default function Centre({ navigation }) {
     )
     setSearchText(text)
     setList(filter)
-    // flatListRef.scrollToOffset({ animated: true, offset: 0 });
-
   }
 
   const _renderItem = ({ item, index }) => {
@@ -101,28 +118,6 @@ export default function Centre({ navigation }) {
   }
 
 
-  useEffect(() => {
-    firebase.database().ref('hawker').on('value', (snapshot) => {
-
-      var li = []
-      snapshot.forEach((child) => {
-        li.push({
-          key: child.val().key,
-          title: child.val().title,
-          image: child.val().image,
-          add: child.val().add,
-          lat: child.val().lat,
-          long: child.val().long,
-          time: child.val().time,
-          place: child.val().place,
-          rank: child.val().rank
-        })
-      })
-      setList(li)
-      setMemory(li)
-    })
-  }, [])
-
   // when clear text, will return to top of page
   const flatListRef = useRef(0)
 
@@ -152,74 +147,79 @@ export default function Centre({ navigation }) {
         ref={flatListRef}
 
         ListHeaderComponent={<>
-          <View>
-            {
-              renderIf(searchText=='')(
-                <View>
-                  <Text style={styles.title}>Best Hawker Centres</Text>
-                  <FlatList
-                    data={shuffle(list)}
-                    renderItem={_renderItem5}
-                    keyExtractor={(item, index) => (index.toString())}
-                    onScrollBeginDrag={Keyboard.dismiss}
-                    horizontal={true}
-                  />
-                  <View
-                    style={{
-                      borderBottomColor: '#e3e5e5',
-                      borderBottomWidth: 1,
-                    }}
-                  />
-                </View>
-              )
-            }
+         {
+           renderIf(searchText === '')(
+            <View>
+              <View>
+              <ScrollView horizontal={true}>
 
-            {
-              renderIf(searchText=='')(
-                <View>
               <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.navigate('Central')}>
-                  <View style={styles.responsiveBox}>
-                    <Image source={require('../assets/bugis.png')} style={styles.image} />
-                    {/* <Text style={styles.text}>CENTRAL</Text> */}
-                  </View>
-                </TouchableOpacity>
+              {/* <TouchableOpacity disabled>
+                    <View style={styles.responsiveBox}>
+                      <Image source={require('../assets/board.png')} style={styles.image} />
+                      <Text style={styles.text}>WEST</Text>
+                    </View>
+                  </TouchableOpacity> */}
 
-                <TouchableOpacity onPress={() => navigation.navigate('North')}>
-                  <View style={styles.responsiveBox}>
-                    <Image source={require('../assets/amk.png')} style={styles.image} />
-                    {/* <Text style={styles.text}>NORTH</Text> */}
-                  </View>
-                </TouchableOpacity>
+                  
 
-                <TouchableOpacity onPress={() => navigation.navigate('NorthE')}>
-                  <View style={styles.responsiveBox}>
-                    <Image source={require('../assets/Chomp-Chomp-1.jpg')} style={styles.image} />
-                    {/* <Text style={styles.text}>NORTH EAST</Text> */}
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('West')}>
-                  <View style={styles.responsiveBox}>
-                    <Image source={require('../assets/blhawk.png')} style={styles.image} />
-                    {/* <Text style={styles.text}>WEST</Text> */}
-                  </View>
-                </TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigation.navigate('North')}>
+                    <View style={styles.responsiveBox}>
+                      <Image source={require('../assets/amk.png')} style={styles.image} />
+                    </View>
+                    <Text style={styles.text}>North</Text>
+                  </TouchableOpacity>
 
-                <TouchableOpacity disabled>
-                  <View style={styles.responsiveBox}>
-                    <Image source={require('../assets/board.png')} style={styles.image} />
-                    {/* <Text style={styles.text}>WEST</Text> */}
-                  </View>
-                </TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigation.navigate('NorthE')}>
+                    <View style={styles.responsiveBox}>
+                      <Image source={require('../assets/Chomp-Chomp-1.jpg')} style={styles.image} />
+                    </View>
+                    <Text style={styles.text}>North East</Text>
+                  </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('East')}>
-                  <View style={styles.responsiveBox}>
-                    <Image source={require('../assets/bed.png')} style={styles.image} />
-                    {/* <Text style={styles.text}>EAST</Text> */}
-                  </View>
-                </TouchableOpacity>
-              </View>
+                  <TouchableOpacity onPress={() => navigation.navigate('Central')}>
+                    <View style={styles.responsiveBox}>
+                      <Image source={require('../assets/bugis.png')} style={styles.image} />
+                    </View>
+                    <Text style={styles.text}>Central</Text>
+                  </TouchableOpacity>
 
+                  <TouchableOpacity onPress={() => navigation.navigate('East')}>
+                    <View style={styles.responsiveBox}>
+                      <Image source={require('../assets/bed.png')} style={styles.image} />
+                    </View>
+                    <Text style={styles.text}>East</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => navigation.navigate('West')}>
+                    <View style={styles.responsiveBox}>
+                      <Image source={require('../assets/blhawk.png')} style={styles.image} />
+                    </View>
+                    <Text style={styles.text}>West</Text>
+                  </TouchableOpacity>
+
+                  
+                  
+                </View>
+              </ScrollView>
+
+          <View
+            style={{
+              borderBottomColor: '#e3e5e5',
+              borderBottomWidth: 1,
+            }}
+          />
+        </View>
+         
+              <View>
+              <Text style={styles.title}>Best Hawker Centres</Text>
+              <FlatList
+                data={shuffle(list)}
+                renderItem={_renderItem5}
+                keyExtractor={(item, index) => (index.toString())}
+                onScrollBeginDrag={Keyboard.dismiss}
+                horizontal={true}
+              />
               <View
                 style={{
                   borderBottomColor: '#e3e5e5',
@@ -227,49 +227,42 @@ export default function Centre({ navigation }) {
                 }}
               />
             </View>
-              )
-            }
 
-            {
-              renderIf(searchText=='')(
-                <View>
-                  <Text style={styles.title}>West Side Favourites</Text>
-                  <FlatList
-                    data={shuffle(list)}
-                    renderItem={_renderItem1}
-                    keyExtractor={(item, index) => (index.toString())}
-                    onScrollBeginDrag={Keyboard.dismiss}
-                    horizontal={true}
-                  />
-                  <View
-                    style={{
-                      borderBottomColor: '#e3e5e5',
-                      borderBottomWidth: 1,
-                    }}
-                  />
-                  <Text style={styles.title}>East Side Finest</Text>
-                  <FlatList
-                    data={shuffle(list)}
-                    renderItem={_renderItem2}
-                    keyExtractor={(item, index) => (index.toString())}
-                    onScrollBeginDrag={Keyboard.dismiss}
-                    horizontal={true}
-                  />
-                  <Text></Text>
-                  <Text></Text>
-                </View>
-              )
-            }
-
-          </View>
-
+              <View>
+              <Text style={styles.title}>West Side Favourites</Text>
+              <FlatList
+                data={shuffle(list)}
+                renderItem={_renderItem1}
+                keyExtractor={(item, index) => (index.toString())}
+                onScrollBeginDrag={Keyboard.dismiss}
+                horizontal={true}
+              />
+              <View
+                style={{
+                  borderBottomColor: '#e3e5e5',
+                  borderBottomWidth: 1,
+                }}
+              />
+              <Text style={styles.title}>East Side Finest</Text>
+              <FlatList
+                data={shuffle(list)}
+                renderItem={_renderItem2}
+                keyExtractor={(item, index) => (index.toString())}
+                onScrollBeginDrag={Keyboard.dismiss}
+                horizontal={true}
+              />
+              <Text></Text>
+              <Text></Text>
+            </View>
+            </View>
+           )
+         }
         </>}
       />
     </View>
 
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -281,28 +274,32 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginLeft: 25,
+    
   },
   responsiveBox: {
-    width: widthPercentageToDP('30%'),
-    height: heightPercentageToDP('8%'),
+    width: widthPercentageToDP('32.4%'),
+    height: heightPercentageToDP('9.6%'),
     justifyContent: 'space-around',
     margin: 5,
     top: 10,
+    marginRight: -13,
+    marginLeft: -10,
   },
   text: {
-    position: 'absolute',
-    color: 'white',
+    // position: 'absolute',
+    color: '#676767',
     textAlign: 'center',
-    top: '35%',
-    left: 0,
-    right: 0,
-    fontSize: 32,
-    fontFamily: 'jetbrains-var'
+    margin: 5,
+    fontSize: 12,
+    fontFamily: 'latoB',
+    right: 26,
+    top: 5
   },
   image: {
-    width: '100%',
+    width: '60%',
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 100,
     overflow: "hidden"
   },
   itemStyle: {
@@ -328,14 +325,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     elevation: 3,
     backgroundColor: "#fff",
-
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
     flex: 1,
     margin: 10,
     height: WIDTH / 2,
-    borderRadius: 12
+    borderRadius: 12,
+    marginRight: 0
   },
   itemStyle2: {
     // shadow 
@@ -351,6 +348,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: 200,
     borderRadius: 12,
+    marginRight: 0
   },
   img: {
     resizeMode: 'cover',
@@ -366,7 +364,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     fontSize: 18,
     color: '#5a5a5a',
-    letterSpacing: -1,
     paddingTop: 10
   },
   foodName: {
