@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import Centre from "../screens/centre";
 
 import Header from '../shared/header';
@@ -65,6 +65,7 @@ export default CentreStack = () => {
         options={{
           headerTitle: 'Details',
           headerStyle: { backgroundColor: '#ff5959'},
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerTitleStyle: {
             color: 'white',
             fontSize: 18,
@@ -78,6 +79,7 @@ export default CentreStack = () => {
       options={{
         headerTitle: 'Details',
         headerStyle: { backgroundColor: '#ff5959'},
+        cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         headerTitleStyle: {
           color: 'white',
           fontSize: 18,

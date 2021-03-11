@@ -5,8 +5,6 @@ import Food from "../screens/food";
 
 import Header from '../shared/header';
 import Break from '../screens/breakfastContent'
-import Filter from '../filter/filter'
-import FilterLunch from '../filter/filterLunch'
 
 import MainTabScreen from './mainFood';
 import MainCentreTabScreen from './mainCentre';
@@ -14,7 +12,6 @@ import West from '../screens/westContent';
 import FoodtoCentre from '../screens/food2centre'
 import FilterDessert from "../filter/filterDessert";
 import FoodFilter from "../filter/foodFilter";
-import BFoodFilter from "../filter/BfoodFilter"
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -77,7 +74,7 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Food Details',
     headerStyle: { backgroundColor: '#ff5959'},
-    cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     headerTitleStyle: {
       color: 'white',
       fontSize: 18,
@@ -139,7 +136,7 @@ export default FoodStack = () => {
         options={{
           headerTitle: 'Hawker Details',
           headerStyle: { backgroundColor: '#ff5959'},
-          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
           headerTitleStyle: {
             color: 'white',
             fontSize: 18,
