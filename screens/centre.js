@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, FlatList, Keyboard, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, FlatList, Keyboard, ScrollView, } from 'react-native';
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 
 import { Searchbar } from 'react-native-paper';
 import firebase from '../firebase/fb'
 import renderIf from 'render-if';
 import { shuffle } from "lodash";
+
+import {globalStyles} from '../styles/global';
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
@@ -15,6 +17,7 @@ export default function Centre({ navigation }) {
   const [list, setList] = useState([])
   const [memory, setMemory] = useState([])
   const [searchText, setSearchText] = useState('')
+  
 
   useEffect(() => {
     firebase.database().ref('hawker').on('value', (snapshot) => {
@@ -57,7 +60,7 @@ export default function Centre({ navigation }) {
         <View style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle1} onPress={() => navigation.navigate('hawkerDetail', item)}>
-              <Image style={styles.img} source={{ uri: item.image }} />
+              <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
             </TouchableOpacity>
           </View>
 
@@ -74,7 +77,7 @@ export default function Centre({ navigation }) {
         <View style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
-              <Image style={styles.img} source={{ uri: item.image }} />
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
             </TouchableOpacity>
           </View>
 
@@ -91,7 +94,7 @@ export default function Centre({ navigation }) {
         <View style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
-              <Image style={styles.img} source={{ uri: item.image }} />
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
             </TouchableOpacity>
           </View>
 
@@ -119,13 +122,13 @@ export default function Centre({ navigation }) {
 
 
   // when clear text, will return to top of page
-  const flatListRef = useRef(0)
+  // const flatListRef = useRef(0)
 
-  useEffect(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
-    }
-  })
+  // useEffect(() => {
+  //   if (flatListRef.current) {
+  //     flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+  //   }
+  // })
 
   return (
     <View style={{ backgroundColor: 'white' }}>
@@ -141,10 +144,13 @@ export default function Centre({ navigation }) {
       <FlatList
         data={shuffle(list)}
         renderItem={_renderItem}
-        keyExtractor={(item, index) => (index.toString())}
+        keyExtractor={(item, index) => {
+          return item.key;
+        }}
         numColumns={numColumns}
         onScrollBeginDrag={Keyboard.dismiss}
-        ref={flatListRef}
+        // ref={flatListRef}
+        extraData={useState([])}
 
         ListHeaderComponent={<>
          {
@@ -154,15 +160,7 @@ export default function Centre({ navigation }) {
               <ScrollView horizontal={true}>
 
               <View style={styles.container}>
-              {/* <TouchableOpacity disabled>
-                    <View style={styles.responsiveBox}>
-                      <Image source={require('../assets/board.png')} style={styles.image} />
-                      <Text style={styles.text}>WEST</Text>
-                    </View>
-                  </TouchableOpacity> */}
-
-                  
-
+       
                   <TouchableOpacity onPress={() => navigation.navigate('North')}>
                     <View style={styles.responsiveBox}>
                       <Image source={require('../assets/amk.png')} style={styles.image} />
@@ -219,6 +217,8 @@ export default function Centre({ navigation }) {
                 keyExtractor={(item, index) => (index.toString())}
                 onScrollBeginDrag={Keyboard.dismiss}
                 horizontal={true}
+                extraData={useState}
+                removeClippedSubviews
               />
               <View
                 style={{
@@ -236,6 +236,8 @@ export default function Centre({ navigation }) {
                 keyExtractor={(item, index) => (index.toString())}
                 onScrollBeginDrag={Keyboard.dismiss}
                 horizontal={true}
+                extraData={useState}
+                removeClippedSubviews
               />
               <View
                 style={{
@@ -250,6 +252,8 @@ export default function Centre({ navigation }) {
                 keyExtractor={(item, index) => (index.toString())}
                 onScrollBeginDrag={Keyboard.dismiss}
                 horizontal={true}
+                extraData={useState}
+                removeClippedSubviews
               />
               <Text></Text>
               <Text></Text>
@@ -308,7 +312,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 1,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#f6f6f6",
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
@@ -324,7 +328,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 1,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#f6f6f6",
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
@@ -340,7 +344,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 1,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#f6f6f6",
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
@@ -352,8 +356,8 @@ const styles = StyleSheet.create({
   },
   img: {
     resizeMode: 'cover',
-    width: '100%',
-    height: '100%',
+    width: '90%',
+    height: '90%',
     overflow: 'hidden',
     borderRadius: 10,
 

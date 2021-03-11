@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, Button 
 import { globalStyles, images } from '../styles/global';
 import Modal from 'react-native-modal';
 import YoutubePlayer from "react-native-youtube-iframe";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import firebase from '../firebase/fb'
@@ -82,14 +82,14 @@ export default function Break({ route, navigation }) {
     return list.map(function (desGroup, i) {
       if (descriptionIndex == i) {
         return (
-          <View key={i} style={{padding: 10, paddingTop: 0}}>
+          <View key={i}>
             {/* currently got glitch issue when read more is here */}
             {/* <ReadMore
               numberOfLines={3}
               renderTruncatedFooter={this.renderTruncatedFooter}
               renderRevealedFooter={this.renderRevealedFooter}
               > */}
-              <Text style={{padding: 10, paddingTop: 0}}>
+              <Text style={{paddingTop: 5, paddingBottom: 10}}>
                 {desGroup.text}
               </Text>
             {/* </ReadMore> */}
@@ -107,7 +107,7 @@ export default function Break({ route, navigation }) {
 
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: 'white'}}>
       <View style={styles.imgContainer}>
         <ScrollView
           pagingEnabled
@@ -131,6 +131,7 @@ export default function Break({ route, navigation }) {
             )
           }
         </ScrollView>
+
         <View style={styles.scrolldot}>
           {
             renderIf(image2)(
@@ -143,19 +144,20 @@ export default function Break({ route, navigation }) {
       </View>
 
       <View style={styles.view}>
-        <View style={{ paddingLeft: 20, paddingBottom: 10, width: '90%' }}>
+        <View style={{ paddingLeft: 20, paddingBottom: 10, width: '95%' }}>
           <Text style={styles.name}>{title}</Text>
           
         </View>
-
-        <View
+        
+        {/* horizontal line */}
+        {/* <View
           style={{
             borderBottomColor: '#aeaeae',
             borderBottomWidth: 1,
             marginBottom: 12
 
           }}
-        />
+        /> */}
 
         <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
@@ -163,13 +165,14 @@ export default function Break({ route, navigation }) {
             {/* this is for description */}
             {
               renderIf(description)(
-                <View style={{padding: 10, paddingTop: 0}}>
+                <View>
                   <ReadMore
                     numberOfLines={3}
-                    renderTruncatedFooter={this.renderTruncatedFooter}
-                    renderRevealedFooter={this.renderRevealedFooter}
+                    // undo later
+                    // renderTruncatedFooter={this.renderTruncatedFooter}
+                    // renderRevealedFooter={this.renderRevealedFooter}
                     >
-                    <Text >
+                    <Text style={{paddingTop: 5, paddingBottom: 5}}>
                       {description}
                     </Text>
                   </ReadMore>
@@ -189,7 +192,7 @@ export default function Break({ route, navigation }) {
                   <Entypo name="old-phone" size={24} color="black" style={{ top: 7 }} />
                   <View>
                     <Text style={{ color: 'grey' }}>    Phone</Text>
-                    <Text style={{ color: '#4286f4', paddingTop: 3 }} onPress={() => { Linking.openURL('tel:' + phone); }}>    {phone}</Text>
+                    <Text style={{ color: '#4286f4', paddingTop: 3, fontFamily:'latoB' }} onPress={() => { Linking.openURL('tel:' + phone); }}>    {phone}</Text>
                   </View>
                 </View>
               )
@@ -201,7 +204,7 @@ export default function Break({ route, navigation }) {
                   <FontAwesome5 name="store" size={20} color="black" style={{ top: 7 }} />
                   <View style={{ paddingLeft: 15, width: 200 }}>
                     <Text style={{ color: 'grey' }}>Unit no.</Text>
-                    <Text style={{ color: 'black', paddingTop: 3 }}>{unit}</Text>
+                    <Text style={{ color: 'black', paddingTop: 3, fontFamily:'latoB' }}>{unit}</Text>
                   </View>
                 </View>
               )
@@ -213,7 +216,7 @@ export default function Break({ route, navigation }) {
                   <Ionicons name="time-sharp" size={24} color="black" style={{ top: 7 }} />
                   <View style={{ paddingLeft: 15, width: 300 }}>
                     <Text style={{ color: 'grey' }}>Opening Hours</Text>
-                    <Text style={{ color: '#2f2f2f', fontFamily: 'latoR', lineHeight: 30 }}>{text}</Text>
+                    <Text style={{ color: '#2f2f2f', fontFamily: 'latoB', lineHeight: 30 }}>{text}</Text>
                   </View>
                 </View>
               )
@@ -263,30 +266,9 @@ export default function Break({ route, navigation }) {
                       
                     </View>
                   </Modal>
-
                 </View>
-              
-           
           </View>
-        </View>
-
-        
-        {/* replacing with review soon... */}
-
-        {/* <View style={{ alignItems: 'center' }}>
-          <View style={styles.desContent}>
-            <Text style={styles.rate}>Rate this food </Text>
-            <Text style={styles.rateText}>Tell others what you think</Text>
-            <AirbnbRating
-              count={5}
-              reviews={["Terrible", "Meh", "OK", "Good", "Wow"]}
-              defaultRating={0}
-              size={44}
-              tintColor='white'
-            />
-
-          </View>
-        </View> */}
+        </View> 
       </View>
     </ScrollView>
   );
@@ -296,10 +278,11 @@ const styles = StyleSheet.create({
 
   view: {
     padding: 10,
-  },
-  boxImg: {
-    // alignItems:'center',
-
+    backgroundColor:'white',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    position:'relative',
+    top: -27
   },
   img: {
     resizeMode: 'cover',
@@ -316,7 +299,7 @@ const styles = StyleSheet.create({
   },
   imgContainer: {
     width: width,
-    height: height
+    height: height,
   },
   scrolldot: {
     flexDirection: 'row',
@@ -327,49 +310,29 @@ const styles = StyleSheet.create({
   },
   dots: {
     color: '#888',
-    margin: 2
+    margin: 2,
+    top:-30
   },
   dotsActive: {
     color: 'white',
-    margin: 2
+    margin: 2,
+    top:-30
   },
   name: {
     paddingTop: 10,
-    fontSize: 24,
-    fontFamily: 'playB',
+    fontSize: 21,
+    fontFamily: 'latoB',
     includeFontPadding: false,
-    lineHeight: 35
+    lineHeight: 35,
   },
   desc: {
-    fontFamily: 'playB',
-    fontSize: 16,
+    fontFamily: 'latoB',
+    fontSize: 15,
     paddingBottom: 5
   },
   desContent: {
     width: '90%',
-    padding: 10,
-
-    backgroundColor: '#E2DEDE',
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
     marginBottom: 20,
-  },
-  rate: {
-    fontFamily: 'latoB',
-    fontSize: 16,
-    textAlign: 'center'
-  },
-  rateText: {
-    color: '#8d8d8d',
-    textAlign: 'center',
-    fontFamily: 'latoR'
   },
   videoContent: {
     width: '100%',

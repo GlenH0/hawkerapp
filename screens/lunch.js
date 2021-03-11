@@ -1,12 +1,14 @@
 import firebase from '../firebase/fb'
 import React, { PureComponent } from 'react';
-import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView, InteractionManager } from 'react-native';
+import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView, InteractionManager, Keyboard } from 'react-native';
 
 import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
 import renderIf from 'render-if';
 
 import _ from 'lodash'
+
+import {globalStyles} from '../styles/global';
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
@@ -30,13 +32,13 @@ export default class App extends PureComponent {
       <View  key={item.key} style={{ flex: 1 }}>
 
         <View>
-          <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
+          <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             {/* solution for fast loading */}
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto'/>
+            <Image style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto'/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={{ padding:25, paddingTop: 0, paddingBottom: -15}}>{item.title}</Text>
-        {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
+        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
+        
       </View>
     )
   }
@@ -110,7 +112,7 @@ export default class App extends PureComponent {
     }
     const { navigation } = this.props
     return (
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
 
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
           <View style={{ width: '95%' }}>
@@ -133,11 +135,11 @@ export default class App extends PureComponent {
             <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('foodfilter')}
-                style={styles.btnTab}
+                style={globalStyles.button}
               >
                 {/* to be replaced by another page to prevent confusion */}
-
-                  <Text style={{ fontFamily: 'latoR' }}>View Filters</Text>
+                <Text style={globalStyles.buttonFilter}>Filters</Text>
+                  <Image style={globalStyles.filterImg} source={require('../assets/filter.png')}/>
               </TouchableOpacity>
 
                   {/* <TouchableOpacity
@@ -151,8 +153,8 @@ export default class App extends PureComponent {
         )}
 
         <View style={{flexDirection:'row', padding: 10}}> 
-          <Text style={{fontWeight:'bold'}}>{this.state.list.length}</Text>
-          <Text> food items available</Text>
+          <Text style={globalStyles.foodNum}>{this.state.list.length}</Text>
+          <Text style={globalStyles.foodNumText}> food items available</Text>
         </View>
 
         {renderIf(this.state.list == '')(
@@ -175,6 +177,7 @@ export default class App extends PureComponent {
           }}
           numColumns={numColumns}
           ref={(ref) => { this.flatListRef = ref; }}
+          onScrollBeginDrag={Keyboard.dismiss}
         />
       </View>
     )
@@ -182,80 +185,4 @@ export default class App extends PureComponent {
 }
 const styles = StyleSheet.create({
 
-  container: {
-    flex: 1,
-
-  },
-  itemStyle: {
-    // shadow 
-    shadowOffset: { width: 12, height: 12 },
-    shadowColor: 'black',
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#fff",
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 100,
-    flex: 1,
-    margin: 10,
-    height: WIDTH / numColumns,
-    borderRadius: 12
-
-  },
-  itemText: {
-    color: 'white',
-    fontSize: 30
-  },
-  img: {
-    resizeMode: 'cover',
-    width: '100%',
-    height: '100%',
-    overflow: 'hidden',
-    borderRadius: 10,
-
-  },
-  btnTab: {
-    width: 110,
-    flexDirection: 'row',
-    padding: 10,
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 30,
-    margin: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
-  },
-  btnActive: {
-    width: 110,
-    flexDirection: 'row',
-    padding: 10,
-    justifyContent: 'center',
-    backgroundColor: '#ff5959',
-    borderRadius: 30,
-    margin: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
-  },
-  textNorm: {
-    fontFamily: 'latoR',
-    color: 'black'
-  },
-  textActive: { 
-    fontFamily: 'latoR',
-    color: 'white'
-  }
 });
