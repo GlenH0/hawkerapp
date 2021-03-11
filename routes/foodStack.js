@@ -77,6 +77,7 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Food Details',
     headerStyle: { backgroundColor: '#ff5959'},
+    cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
     headerTitleStyle: {
       color: 'white',
       fontSize: 18,
@@ -86,7 +87,7 @@ export default FoodStack = () => {
   }}
 />
 
-<Screen name="filter" component={Filter}
+{/* <Screen name="filter" component={Filter}
    options={{
     headerTitle: 'Halal',
     headerStyle: { backgroundColor: '#ff5959'},
@@ -97,9 +98,9 @@ export default FoodStack = () => {
     },
     headerTintColor:'white'
   }}
-/>
+/> */}
 
-<Screen name="filterLunch" component={FilterLunch}
+{/* <Screen name="filterLunch" component={FilterLunch}
    options={{
     headerTitle: 'Food-o-miser',
     headerStyle: { backgroundColor: '#ff5959'},
@@ -111,7 +112,7 @@ export default FoodStack = () => {
     },
     headerTintColor:'white'
   }}
-/>
+/> */}
 
 <Screen name="filterDessert" component={FilterDessert}
    options={{
@@ -138,6 +139,7 @@ export default FoodStack = () => {
         options={{
           headerTitle: 'Hawker Details',
           headerStyle: { backgroundColor: '#ff5959'},
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
           headerTitleStyle: {
             color: 'white',
             fontSize: 18,
@@ -173,7 +175,7 @@ export default FoodStack = () => {
       }}
 />
 
-<Screen name="bfoodfilter" component={BFoodFilter}
+{/* <Screen name="bfoodfilter" component={BFoodFilter}
       options={{
         headerTitle: 'Filter',
         headerStyle: { backgroundColor: '#ff5959'},
@@ -185,7 +187,7 @@ export default FoodStack = () => {
         },
         headerTintColor:'white'
       }}
-/>
+/> */}
     </Navigator>
   );
 }
