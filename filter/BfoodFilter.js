@@ -7,6 +7,7 @@ import { Searchbar } from 'react-native-paper';
 import renderIf from 'render-if';
 
 import _ from 'lodash'
+import { globalStyles } from '../styles/global';
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
@@ -31,12 +32,12 @@ export default class FoodFilter extends PureComponent {
       <View style={{ flex: 1 }}>
 
         <View>
-          <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
+          <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             {/* potential fast loading solution for image */}
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
+            <Image style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
+        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
         {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
       </View>
     )

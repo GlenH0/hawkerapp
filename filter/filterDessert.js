@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { render } from 'react-dom';
+
 import { StyleSheet, Text, View, Dimensions, FlatList, TouchableOpacity, Button, Image, Animated } from 'react-native';
-import { dessertData } from '../array/dataDessert'
+
 import firebase from '../firebase/fb'
 import { shuffle } from "lodash";
 import { FontAwesome5 } from '@expo/vector-icons';
+import { globalStyles } from '../styles/global';
 
-const numColumns = 1
-const WIDTH = Dimensions.get("window").width;
+const numColumns = 2
 
 // const numOfFood = 3;
 // const random = Math.ceil(Math.random() * numOfFood)
@@ -46,13 +46,12 @@ export default class FilterDessert extends React.Component {
       <View style={{ flex: 1 }}>
 
         <View style={{height:180}}>
-          <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            <Image style={styles.img} source={{uri: item.image}} />
+          <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
+            <Image style={globalStyles.img} source={{uri: item.image}} />
           </TouchableOpacity>
         </View>
 
-        <Text numberOfLines={1} style={{ paddingLeft: 10, paddingBottom: 10 }}>{item.title}</Text>
-        {/* <Image style={{ marginLeft: 9 }} source={item.rating} /> */}
+        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
 
       </View>
     )
@@ -102,11 +101,10 @@ export default class FilterDessert extends React.Component {
       ]
     }
     return (
-      <View style={styles.container}>
-        <Text style={{padding:10, fontSize: 16}}> Your 10 picks for today!</Text>
+      <View style={globalStyles.container}>
+        <Text style={styles.top10}> Your 10 picks for today!</Text>
         <FlatList
-        // this was previous halal filter
-          // data={dessertData.filter(data => data.status === 'Halal').map(filteredData => (filteredData))}
+        
           data={shuffle(this.state.list).slice(0,10)}
           renderItem={this._renderItem}
           keyExtractor={(item, index) => (index.toString())}
@@ -129,50 +127,7 @@ export default class FilterDessert extends React.Component {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-  },
-  itemStyle: {
-    // shadow 
-    shadowOffset: { width: 12, height: 12 },
-    shadowColor: 'black',
-    shadowOpacity: 1,
-    elevation: 3,
-    backgroundColor: "#fff",
-
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 100,
-    flex: 1,
-    margin: 10,
-    height: 250,
-    borderRadius: 12,
-
-  },
-  itemText: {
-    color: 'white',
-    fontSize: 30
-  },
-  img: {
-    resizeMode: 'cover',
-    width: '100%',
-    height: '100%',
-    overflow: 'hidden',
-    borderRadius: 10,
-
-  },
-  btnTab: {
-    width: Dimensions.get('window').width / 3.5,
-    flexDirection: 'row',
-    borderWidth: 0.5,
-    borderColor: 'red',
-    padding: 10,
-    justifyContent: 'center'
-  },
-  btnTabActive: {
-    backgroundColor: 'blue'
-  },
+ 
   dice: {
     position:'absolute', 
     zIndex:100, 
@@ -191,5 +146,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5.46,
     
     elevation: 10,
+  },
+  top10: {
+    padding:10, 
+    fontSize: 20, 
+    fontFamily: 'play', 
+    textAlign:'center',
   }
 })

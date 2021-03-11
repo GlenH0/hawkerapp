@@ -8,6 +8,8 @@ import renderIf from 'render-if';
 
 import _ from 'lodash'
 
+import {globalStyles} from '../styles/global';
+
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
@@ -31,13 +33,12 @@ export default class FoodFilter extends PureComponent {
       <View style={{ flex: 1 }}>
 
         <View>
-          <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
+          <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             {/* potential fast loading solution for image */}
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
+            <Image style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
-        {/* <Image style={{ marginLeft: 9 }} source={item['rating']} /> */}
+        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
       </View>
     )
   }
@@ -193,8 +194,8 @@ export default class FoodFilter extends PureComponent {
         )}
 
         <View style={{flexDirection:'row', padding: 10}}> 
-          <Text style={{fontWeight:'bold'}}>{this.state.list.length}</Text>
-          <Text> {this.state.foodName} food items available</Text>
+          <Text style={globalStyles.foodNum}>{this.state.list.length} {this.state.foodName}</Text>
+          <Text style={globalStyles.foodNumText}>  food items available</Text>
         </View>
 
         {renderIf(this.state.list == '')(
