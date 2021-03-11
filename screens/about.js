@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     content:{
         width: '85%',
-        paddingTop: 20,
+        paddingTop: 15,
         fontSize: 16,
         fontFamily:'latoR',
         color: 'black'
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     head: {
         width: '85%',
         paddingTop: 50,
-        fontSize: 32,
+        fontSize: 26,
         fontFamily:'sat'
     },
     logo: {
