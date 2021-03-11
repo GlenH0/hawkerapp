@@ -138,7 +138,7 @@ export default class FoodFilter extends PureComponent {
     }
     const { navigation } = this.props
     return (
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
 
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
           <View style={{ width: '95%' }}>
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
 
   },
   btnTab: {
-    width: 110,
+    width: 90,
     flexDirection: 'row',
     padding: 10,
     justifyContent: 'center',
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   btnActive: {
-    width: 110,
+    width: 90,
     flexDirection: 'row',
     padding: 10,
     justifyContent: 'center',
@@ -295,11 +295,11 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   textNorm: {
-    fontFamily: 'latoR',
+    fontFamily: 'latoB',
     color: 'black'
   },
   textActive: { 
-    fontFamily: 'latoR',
+    fontFamily: 'latoB',
     color: 'white'
   }
 });
