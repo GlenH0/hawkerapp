@@ -13,9 +13,9 @@ import { Ionicons } from '@expo/vector-icons';
 const numColumns = 1
 const WIDTH = Dimensions.get("window").width;
 
-export default function West({ route, navigation }) {
+export default function West({ route, navigation, navigation: {goBack} }) {
   const { title, video, rating, add, time, phone, lat, long, place, image } = route.params;
-
+  const [loaded, setLoaded] = useState(false)
   const [list, setList] = useState([])
 
   useEffect(() => {
@@ -53,17 +53,21 @@ export default function West({ route, navigation }) {
     })
   }, [])
 
+  const imageLoaded = () => {
+    setLoaded(true)
+  }
+
   const _renderItem = ({ item, index }) => {
     if (JSON.stringify(item.place) == JSON.stringify(place)) {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View key={item.key} style={{ flex: 1, backgroundColor: 'white' }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('food2centre', item)}>
-              <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
+              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={{ paddingLeft: 15, paddingBottom: 25, width: 170, fontSize: 14, color: '#676767', fontFamily: 'latoB', }}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={{ paddingLeft: 15, paddingBottom: 25, width: 170, fontSize: 14, color: '#676767', fontFamily: 'latoB', }}>{item.title}</Text>
         </View>
       )
     }
@@ -80,6 +84,14 @@ export default function West({ route, navigation }) {
           </View>
         </View>
 
+        {/* cross button */}
+        <View>
+            <View style={styles.outerCrossBtn}>
+            {/* <Entypo name="circle-with-cross" size={26} color="white" /> */}
+            <Ionicons name="chevron-back" size={26} color="white" style={styles.crossBtn} onPress={() => goBack()}/>
+            </View>
+         </View>
+
         <View style={styles.view}>
           <View style={{ paddingLeft: 20, paddingBottom: 10, width: '90%', paddingTop: 15 }}>
             <Text style={styles.name}>{title}</Text>
@@ -92,6 +104,8 @@ export default function West({ route, navigation }) {
               renderItem={_renderItem}
               keyExtractor={(item, index) => (index.toString())}
               horizontal={true}
+              initialNumToRender={2}
+              maxToRenderPerBatch={4}
             />
           </View>
 
@@ -99,8 +113,6 @@ export default function West({ route, navigation }) {
 
           <View>
             <View >
-              {/* <Text style={styles.btmRec}>Address</Text>
-              <Text style={{fontFamily:'latoR'}}>{add}</Text> */}
 
               <View style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, paddingLeft: 15 }}>
                 <Ionicons name="ios-pin" size={24} color="#ff5959" style={{ top: 7 }} />
@@ -120,12 +132,6 @@ export default function West({ route, navigation }) {
                   </View>
                 </View>
               )}
-              {/* {renderIf(phone)(
-                <View>
-                  <Text style={styles.desc}>Phone Number</Text>
-                  <Text style={{ color: '#4286f4', paddingLeft: 10 }} onPress={() => { Linking.openURL('tel:' + phone); }}>{phone}</Text>
-                </View>
-              )} */}
             </View>
           </View>
 
@@ -272,5 +278,21 @@ const styles = StyleSheet.create({
     fontFamily: 'latoB',
     fontSize: 16,
     bottom: -2
+  },
+  crossBtn:{
+    justifyContent:'center',
+    alignSelf:'center',
+  },
+  outerCrossBtn: {
+    height:40, width: 40, backgroundColor:'red',
+    flexDirection: 'row',
+    position: 'absolute',
+    top: -210,
+    left: 20,
+    margin: 3,
+    justifyContent:'center',
+    alignSelf:'center',
+    backgroundColor: '#3d3d3d96',
+    borderRadius: 20,
   }
 });

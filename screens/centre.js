@@ -17,7 +17,7 @@ export default function Centre({ navigation }) {
   const [list, setList] = useState([])
   const [memory, setMemory] = useState([])
   const [searchText, setSearchText] = useState('')
-  
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     firebase.database().ref('hawker').on('value', (snapshot) => {
@@ -40,6 +40,10 @@ export default function Centre({ navigation }) {
     })
   }, [])
 
+  const imageLoaded = () => {
+    setLoaded(true)
+  }
+
   const handleSearch = (text) => {
 
     const filter = memory.filter(
@@ -60,11 +64,11 @@ export default function Centre({ navigation }) {
         <View style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle1} onPress={() => navigation.navigate('hawkerDetail', item)}>
-              <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
+              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={{padding: 15, paddingTop: 0, paddingBottom: 15}}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={{padding: 15, paddingTop: 0, paddingBottom: 15}}>{item.title}</Text>
         </View>
       )
     }
@@ -77,11 +81,11 @@ export default function Centre({ navigation }) {
         <View style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
+            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={styles.foodName}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={styles.foodName}>{item.title}</Text>
         </View>
       )
     }
@@ -89,16 +93,32 @@ export default function Centre({ navigation }) {
 
   const _renderItem2 = ({ item, index }) => {
     // for east
-    if (item.key > 13 && item.rank == 'best' || item.rank == 'best10') {
+    if ((item.key > 13 && item.key < 35 ) && ( item.rank == 'best' || item.rank == 'best10')) {
       return (
         <View style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
-            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
+            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={styles.foodName}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={styles.foodName}>{item.title}</Text>
+        </View>
+      )
+    }
+  }
+
+  const _renderItem3 = ({ item, index }) => {
+    if ((item.rank == 'best' || item.rank == 'best10') && item.key > 34) {
+      return (
+        <View style={{ flex: 1, backgroundColor: 'white', }}>
+          <View>
+            <TouchableOpacity style={styles.itemStyle2} onPress={() => navigation.navigate('hawkerDetail', item)}>
+            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
+            </TouchableOpacity>
+          </View>
+
+          <Text key={item.key} numberOfLines={1} style={styles.foodName}>{item.title}</Text>
         </View>
       )
     }
@@ -107,14 +127,14 @@ export default function Centre({ navigation }) {
   const _renderItem5 = ({ item, index }) => {
     if (item.rank == 'best10') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white', }}>
+        <View key={item.key} style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle2} onPress={() => navigation.navigate('hawkerDetail', item)}>
-              <Image style={styles.img} source={{ uri: item.image }} />
+            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
             </TouchableOpacity>
           </View>
 
-          <Text numberOfLines={1} style={styles.foodName}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={styles.foodName}>{item.title}</Text>
         </View>
       )
     }
@@ -141,23 +161,35 @@ export default function Centre({ navigation }) {
         style={{ borderRadius: 20, width: "95%", alignSelf: 'center', margin: 5}}
       />
 
+      {renderIf(list == '')(
+          <View style={{justifyContent:'center', alignItems:'center'}}>
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+            {/* <Image
+        style={{width: "80%", height: "80%", resizeMode:'contain'}}
+        source={{
+          uri: 'https://www.buzzdine.com/img/not-found.png',
+        }}
+      /> */}
+          </View>
+      )}
+
       <FlatList
         data={shuffle(list)}
         renderItem={_renderItem}
-        keyExtractor={(item, index) => {
-          return item.key;
-        }}
+        keyExtractor={(item, index) => index.toString()}
         numColumns={numColumns}
         onScrollBeginDrag={Keyboard.dismiss}
         // ref={flatListRef}
         extraData={useState([])}
+        initialNumToRender={4}
+        maxToRenderPerBatch={8}
 
         ListHeaderComponent={<>
          {
            renderIf(searchText === '')(
             <View>
               <View>
-              <ScrollView horizontal={true}>
+              <ScrollView>
 
               <View style={styles.container}>
        
@@ -166,13 +198,6 @@ export default function Centre({ navigation }) {
                       <Image source={require('../assets/amk.png')} style={styles.image} />
                     </View>
                     <Text style={styles.text}>North</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={() => navigation.navigate('NorthE')}>
-                    <View style={styles.responsiveBox}>
-                      <Image source={require('../assets/Chomp-Chomp-1.jpg')} style={styles.image} />
-                    </View>
-                    <Text style={styles.text}>North East</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => navigation.navigate('Central')}>
@@ -195,9 +220,6 @@ export default function Centre({ navigation }) {
                     </View>
                     <Text style={styles.text}>West</Text>
                   </TouchableOpacity>
-
-                  
-                  
                 </View>
               </ScrollView>
 
@@ -208,8 +230,7 @@ export default function Centre({ navigation }) {
             }}
           />
         </View>
-         
-              <View>
+            <View>
               <Text style={styles.title}>Best Hawker Centres</Text>
               <FlatList
                 data={shuffle(list)}
@@ -217,8 +238,10 @@ export default function Centre({ navigation }) {
                 keyExtractor={(item, index) => (index.toString())}
                 onScrollBeginDrag={Keyboard.dismiss}
                 horizontal={true}
-                extraData={useState}
-                removeClippedSubviews
+                // extraData={useState}
+                // removeClippedSubviews
+                initialNumToRender={3}
+                maxToRenderPerBatch={5}
               />
               <View
                 style={{
@@ -236,8 +259,10 @@ export default function Centre({ navigation }) {
                 keyExtractor={(item, index) => (index.toString())}
                 onScrollBeginDrag={Keyboard.dismiss}
                 horizontal={true}
-                extraData={useState}
-                removeClippedSubviews
+                // extraData={useState}
+                // removeClippedSubviews
+                initialNumToRender={3}
+                maxToRenderPerBatch={5}
               />
               <View
                 style={{
@@ -252,8 +277,29 @@ export default function Centre({ navigation }) {
                 keyExtractor={(item, index) => (index.toString())}
                 onScrollBeginDrag={Keyboard.dismiss}
                 horizontal={true}
-                extraData={useState}
-                removeClippedSubviews
+                // extraData={useState}
+                // removeClippedSubviews
+                initialNumToRender={3}
+                maxToRenderPerBatch={5}
+              />
+
+              <View
+                style={{
+                  borderBottomColor: '#e3e5e5',
+                  borderBottomWidth: 1,
+                }}
+              />
+              <Text style={styles.title}>Central Gem</Text>
+              <FlatList
+                data={shuffle(list)}
+                renderItem={_renderItem3}
+                keyExtractor={(item, index) => (index.toString())}
+                onScrollBeginDrag={Keyboard.dismiss}
+                horizontal={true}
+                // extraData={useState}
+                // removeClippedSubviews
+                initialNumToRender={3}
+                maxToRenderPerBatch={5}
               />
               <Text></Text>
               <Text></Text>
@@ -277,18 +323,16 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingBottom: 20,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginLeft: 25,
-    
   },
   responsiveBox: {
-    width: widthPercentageToDP('32.4%'),
-    height: heightPercentageToDP('9.6%'),
-    justifyContent: 'space-around',
-    margin: 5,
+    // width: widthPercentageToDP('32.4%'),
+    // height: heightPercentageToDP('9.6%'),
+    width: 100,
+    height: 60,
+    justifyContent: 'center',
+    alignItems:'center',
+    // margin: 5,
     top: 10,
-    marginRight: -13,
-    marginLeft: -10,
   },
   text: {
     // position: 'absolute',
@@ -297,7 +341,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 12,
     fontFamily: 'latoB',
-    right: 26,
     top: 5
   },
   image: {

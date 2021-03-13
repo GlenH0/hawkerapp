@@ -1,5 +1,5 @@
 import firebase from '../firebase/fb'
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, Keyboard, InteractionManager } from 'react-native';
 
 import { shuffle } from "lodash";
@@ -13,7 +13,7 @@ import {globalStyles} from '../styles/global';
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
-export default class App extends Component {
+export default class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -22,22 +22,27 @@ export default class App extends Component {
       searchText: '',
       check: false,
       active: null,
-      interactionsComplete: false
+      interactionsComplete: false,
+      loaded: false
     }
     this._isMounted = false;
+  }
+
+  imageLoaded = () => {
+    this.setState({ loaded: true })
   }
 
   _renderItem = ({ item, index }) => {
 
     return (
-      <View style={{ flex: 1 }}>
+      <View key={item.key} style={{ flex: 1 }}>
 
         <View>
           <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            <Image style={globalStyles.img} source={{ uri: item.image }} />
+            <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={this.imageLoaded}/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
+        <Text key={item.key} numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
       </View>
     )
   }
@@ -174,13 +179,13 @@ export default class App extends Component {
 
         {renderIf(this.state.list == '')(
           <View style={{justifyContent:'center', alignItems:'center'}}>
-            {/* <Text style={{ padding: 10 }}>Ops! No results found</Text> */}
-            <Image
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+            {/* <Image
         style={{width: "80%", height: "80%", resizeMode:'contain'}}
         source={{
           uri: 'https://www.buzzdine.com/img/not-found.png',
         }}
-      />
+      /> */}
           </View>
         )}
 
@@ -194,6 +199,8 @@ export default class App extends Component {
           numColumns={numColumns}
           ref={(ref) => { this.flatListRef = ref; }}
           onScrollBeginDrag={Keyboard.dismiss}
+          initialNumToRender={3}
+          maxToRenderPerBatch={10}
         />
       </View>
     )

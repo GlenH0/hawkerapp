@@ -22,9 +22,14 @@ export default class App extends PureComponent {
       searchText: '',
       check: false,
       active: null,
-      interactionsComplete: false
+      interactionsComplete: false,
+      loaded: false
     }
     this._isMounted = false;
+  }
+
+  imageLoaded = () => {
+    this.setState({ loaded: true })
   }
 
   _renderItem = ({ item, index }) => {
@@ -34,10 +39,10 @@ export default class App extends PureComponent {
         <View>
           <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             {/* solution for fast loading */}
-            <Image style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto'/>
+            <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={this.imageLoaded}/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
+        <Text key={item.key} numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
         
       </View>
     )
@@ -159,13 +164,13 @@ export default class App extends PureComponent {
 
         {renderIf(this.state.list == '')(
           <View style={{justifyContent:'center', alignItems:'center'}}>
-            {/* <Text style={{ padding: 10 }}>Ops! No results found</Text> */}
-            <Image
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+            {/* <Image
         style={{width: "80%", height: "80%", resizeMode:'contain'}}
         source={{
           uri: 'https://www.buzzdine.com/img/not-found.png',
         }}
-      />
+      /> */}
           </View>
         )}
 
@@ -178,6 +183,8 @@ export default class App extends PureComponent {
           numColumns={numColumns}
           ref={(ref) => { this.flatListRef = ref; }}
           onScrollBeginDrag={Keyboard.dismiss}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
         />
       </View>
     )

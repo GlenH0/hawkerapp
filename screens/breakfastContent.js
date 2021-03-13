@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, Button } from "react-native";
-import { globalStyles, images } from '../styles/global';
+
 import Modal from 'react-native-modal';
 import YoutubePlayer from "react-native-youtube-iframe";
 
@@ -19,13 +19,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import ReadMore from 'react-native-read-more-text';
 
-import { Rating, AirbnbRating } from 'react-native-ratings';
-
 // for img in slider
 const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
-export default function Break({ route, navigation }) {
+export default function Break({ route, navigation: {goBack}, navigation }) {
   const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, unit, description, descriptionIndex } = route.params;
 
   //Review API call here 
@@ -89,7 +87,7 @@ export default function Break({ route, navigation }) {
               renderTruncatedFooter={this.renderTruncatedFooter}
               renderRevealedFooter={this.renderRevealedFooter}
               > */}
-              <Text style={{paddingTop: 5, paddingBottom: 10}}>
+              <Text style={{paddingTop: 5, paddingBottom: 20}}>
                 {desGroup.text}
               </Text>
             {/* </ReadMore> */}
@@ -132,6 +130,14 @@ export default function Break({ route, navigation }) {
           }
         </ScrollView>
 
+        {/* cross button */}
+        <View>
+            <View style={styles.outerCrossBtn}>
+            {/* <Entypo name="circle-with-cross" size={26} color="white" /> */}
+            <Ionicons name="chevron-back" size={26} color="white" style={styles.crossBtn} onPress={() => goBack()}/>
+            </View>
+         </View>
+
         <View style={styles.scrolldot}>
           {
             renderIf(image2)(
@@ -146,18 +152,8 @@ export default function Break({ route, navigation }) {
       <View style={styles.view}>
         <View style={{ paddingLeft: 20, paddingBottom: 10, width: '95%' }}>
           <Text style={styles.name}>{title}</Text>
-          
         </View>
         
-        {/* horizontal line */}
-        {/* <View
-          style={{
-            borderBottomColor: '#aeaeae',
-            borderBottomWidth: 1,
-            marginBottom: 12
-
-          }}
-        /> */}
 
         <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
@@ -172,7 +168,7 @@ export default function Break({ route, navigation }) {
                     // renderTruncatedFooter={this.renderTruncatedFooter}
                     // renderRevealedFooter={this.renderRevealedFooter}
                     >
-                    <Text style={{paddingTop: 5, paddingBottom: 5}}>
+                    <Text style={{paddingTop: 5, paddingBottom: 20}}>
                       {description}
                     </Text>
                   </ReadMore>
@@ -223,7 +219,7 @@ export default function Break({ route, navigation }) {
             }
 
             {/* socials */}
-                <View style={{ width: 100, flexDirection: 'row' }}>
+                <View style={{ width: 100, flexDirection: 'row', paddingBottom: 10 }}>
                   {/* fb */}
                   {
                     renderIf(link)(
@@ -261,9 +257,6 @@ export default function Break({ route, navigation }) {
                           />
                         </View>
                       </View>
-
-                      {/* <Button title="Return"  /> */}
-                      
                     </View>
                   </Modal>
                 </View>
@@ -360,7 +353,7 @@ const styles = StyleSheet.create({
   desc: {
     fontFamily: 'latoB',
     fontSize: 15,
-    paddingBottom: 5
+    paddingBottom: 10
   },
   desContent: {
     width: '90%',
@@ -370,5 +363,21 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
   },
+  crossBtn:{
+    justifyContent:'center',
+    alignSelf:'center',
+  },
+  outerCrossBtn: {
+    height:40, width: 40, backgroundColor:'red',
+    flexDirection: 'row',
+    position: 'absolute',
+    top: -230,
+    left: 20,
+    margin: 3,
+    justifyContent:'center',
+    alignSelf:'center',
+    backgroundColor: '#3d3d3d96',
+    borderRadius: 20,
+  }
 
 });

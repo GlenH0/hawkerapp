@@ -8,6 +8,8 @@ import renderIf from 'render-if';
 
 import _ from 'lodash'
 
+import { globalStyles} from '../styles/global';
+
 const numColumns = 1
 const WIDTH = Dimensions.get("window").width;
 
@@ -35,9 +37,7 @@ export default class App extends Component {
           </TouchableOpacity>
         </View>
 
-        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
-        <Image style={{ marginLeft: 9 }} source={item['rating']} />
-
+        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
       </View>
     )
 
@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
   },
   img: {
     resizeMode: 'cover',
-    width: '100%',
-    height: '100%',
+    width: '95%',
+    height: '90%',
     overflow: 'hidden',
     borderRadius: 10,
 

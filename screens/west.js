@@ -6,6 +6,8 @@ import { shuffle } from "lodash";
 import { Searchbar } from 'react-native-paper';
 import renderIf from 'render-if';
 
+import { globalStyles} from '../styles/global';
+
 import _ from 'lodash'
 
 const numColumns = 1
@@ -19,9 +21,14 @@ export default class App extends Component {
       list: [],
       searchText: '',
       check: false,
-      interactionsComplete: false
+      interactionsComplete: false,
+      loaded: false
     }
     this._isMounted = false;
+  }
+
+  imageLoaded = () => {
+    this.setState({ loaded: true })
   }
 
   _renderItem = ({ item, index }) => {
@@ -31,13 +38,11 @@ export default class App extends Component {
 
         <View>
           <TouchableOpacity style={styles.itemStyle} onPress={() => this.props.navigation.navigate('hawkerDetail', item)}>
-            <Image style={styles.img} source={{ uri: item.image }} />
+            <Image style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={this.imageLoaded} />
           </TouchableOpacity>
         </View>
 
-        <Text numberOfLines={1} style={{ paddingLeft: 10 }}>{item.title}</Text>
-        <Image style={{ marginLeft: 9 }} source={item['rating']} />
-
+        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
       </View>
     )
 
@@ -160,8 +165,8 @@ const styles = StyleSheet.create({
   },
   img: {
     resizeMode: 'cover',
-    width: '100%',
-    height: '100%',
+    width: '95%',
+    height: '90%',
     overflow: 'hidden',
     borderRadius: 10,
 

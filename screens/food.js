@@ -7,6 +7,8 @@ import firebase from '../firebase/fb'
 import renderIf from 'render-if';
 import { shuffle } from "lodash";
 
+import {globalStyles} from '../styles/global';
+
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -37,6 +39,7 @@ export default function Food({navigation}) {
   const [list, setList] = useState([])
   const [memory, setMemory] = useState([])
   const [searchText, setSearchText] = useState('')
+  const [loaded, setLoaded] = useState(false)
   
 
   const handleSearch = (text) => {
@@ -55,17 +58,21 @@ export default function Food({navigation}) {
     
   }
 
+  const imageLoaded = () => {
+    setLoaded(true)
+  }
+
   const _renderItem = ({item, index}) => {
      if(searchText !== ''){
       return (
-        <View style={{flex:1, backgroundColor:'white',}}>
+        <View key={item.key} style={{flex:1, backgroundColor:'white',}}>
           <View>
-            <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('break', item )}>
-              <Image style={styles.img} source={{uri: item.image}}/>
+            <TouchableOpacity style={globalStyles.itemStyle} onPress={() => navigation.navigate('break', item )}>
+              <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
             </TouchableOpacity>
           </View>
     
-          <Text numberOfLines={1} style={{padding:15, paddingTop:0, paddingBottom: 15}}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
         </View>
       )
      }
@@ -125,6 +132,27 @@ export default function Food({navigation}) {
             style={{borderRadius: 20, width: "95%", alignSelf:'center', marginTop:15}}
             
           />
+          {/* item count */}
+          {
+            renderIf(searchText)(
+              <View style={{flexDirection:'row', padding: 10}}> 
+                <Text style={globalStyles.foodNum}>{list.length}</Text>
+                <Text style={globalStyles.foodNumText}> food items available</Text>
+              </View>
+            )
+          }
+
+        {renderIf(list == '')(
+            <View style={{justifyContent:'center', alignItems:'center'}}>
+              <Text style={{ padding: 10 }}>Ops! No results found</Text>
+              {/* <Image
+          style={{width: "80%", height: "80%", resizeMode:'contain'}}
+          source={{
+            uri: 'https://www.buzzdine.com/img/not-found.png',
+          }}
+        /> */}
+            </View>
+        )}
         
               <FlatList 
                 data={shuffle(list)}
@@ -133,7 +161,9 @@ export default function Food({navigation}) {
                 numColumns= {numColumns}
                 onScrollBeginDrag={Keyboard.dismiss}
                 ref={flatListRef}
-                style={{backgroundColor:"white"}}
+                style={searchText?{backgroundColor:"white", marginBottom: 50}:null}
+                initialNumToRender={4}
+                maxToRenderPerBatch={10}
 
                 ListHeaderComponent={ <>  
                     <View>
