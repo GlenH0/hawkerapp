@@ -30,15 +30,15 @@ export default class FoodFilter extends PureComponent {
   _renderItem = ({ item, index }) => {
 
     return (
-      <View style={{ flex: 1 }}>
+      <View key={item.key} style={{ flex: 1 }}>
 
         <View>
           <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             {/* potential fast loading solution for image */}
-            <Image style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
+            <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
-        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
+        <Text key={item.key} numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
       </View>
     )
   }
@@ -219,6 +219,8 @@ export default class FoodFilter extends PureComponent {
           }}
           numColumns={numColumns}
           ref={(ref) => { this.flatListRef = ref; }}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
         />
       </View>
     )

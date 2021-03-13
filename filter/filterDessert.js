@@ -12,16 +12,21 @@ const numColumns = 2
 // const numOfFood = 3;
 // const random = Math.ceil(Math.random() * numOfFood)
 
-export default class FilterDessert extends React.Component {
+export default class FilterDessert extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       list: [],
+      loaded: false,
       num:1,
       lastRefresh: Date(Date.now()).toString(),
       animatedValue: new Animated.Value(0),
     };
     this.refreshScreen = this.refreshScreen.bind(this)
+  }
+
+  imageLoaded = () => {
+    this.setState({ loaded: true })
   }
 
   refreshScreen() {
@@ -43,15 +48,15 @@ export default class FilterDessert extends React.Component {
 
   _renderItem = ({ item, index }) => {
     return (
-      <View style={{ flex: 1 }}>
+      <View key={item.key} style={{ flex: 1 }}>
 
         <View style={{height:180}}>
           <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            <Image style={globalStyles.img} source={{uri: item.image}} />
+            <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={this.imageLoaded} />
           </TouchableOpacity>
         </View>
 
-        <Text numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
+        <Text key={item.key} numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
 
       </View>
     )
@@ -110,6 +115,8 @@ export default class FilterDessert extends React.Component {
           keyExtractor={(item, index) => (index.toString())}
           numColumns={numColumns}  
           ref={(ref) => { this.flatListRef = ref; }}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
         />
       {/* randomiser button */}
       <View style={{justiftyContent:"center", alignItems:"center"}}>
@@ -148,7 +155,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   top10: {
-    padding:10, 
+    padding:20, 
     fontSize: 20, 
     fontFamily: 'play', 
     textAlign:'center',
