@@ -38,25 +38,6 @@ function NorthSide() {
   );
 }
 
-function NorthESide() {
-  return (
-    <NE.Navigator>
-      <NE.Screen
-        name="North East"
-        component={NorthE}
-        options={{ tabBarLabel: 'North East',
-        headerStyle: { backgroundColor: '#ff5959'}, 
-        headerTitleStyle: {
-          color: 'white',
-          fontSize: 18,
-          fontFamily:"sat"
-        },
-        headerTintColor:'white' }}
-      />
-    </NE.Navigator>
-  );
-}
-
 function CentralSide() {
   return (
     <NE.Navigator>
@@ -140,19 +121,7 @@ const MainCentreTabScreen = ({route}) => (
         }}
         
       />
-      <Tab.Screen
-        name= "NorthE"
-        component={NorthESide}
-        options={{
-          tabBarLabel: 'North East',
-          tabBarColor: 'white',
-          tabBarIcon: ({ color }) => (
-            <Icon name="alpha-n-circle-outline" color={color} size={26} />
-          ),
-          
-        }}
-      />
-      
+
       <Tab.Screen
         name="Central"
         component={CentralSide}

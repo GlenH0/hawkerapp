@@ -65,6 +65,7 @@ export default CentreStack = () => {
         options={{
           headerTitle: 'Details',
           headerStyle: { backgroundColor: '#ff5959'},
+          headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerTitleStyle: {
             color: 'white',
@@ -78,6 +79,7 @@ export default CentreStack = () => {
     <Screen name="food2centre" component={FoodtoCentre}
       options={{
         headerTitle: 'Details',
+        headerShown: false,
         headerStyle: { backgroundColor: '#ff5959'},
         cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         headerTitleStyle: {

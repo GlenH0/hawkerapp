@@ -1,5 +1,5 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {Button} from 'react-native';
 import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from "@react-navigation/stack";
 import Food from "../screens/food";
 
@@ -74,6 +74,7 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Food Details',
     headerStyle: { backgroundColor: '#ff5959'},
+    headerShown: false,
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     headerTitleStyle: {
       color: 'white',
@@ -136,6 +137,7 @@ export default FoodStack = () => {
         options={{
           headerTitle: 'Hawker Details',
           headerStyle: { backgroundColor: '#ff5959'},
+          headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
           headerTitleStyle: {
             color: 'white',
@@ -149,6 +151,7 @@ export default FoodStack = () => {
       options={{
         headerTitle: 'Food Details',
         headerStyle: { backgroundColor: '#ff5959'},
+        headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         headerTitleStyle: {
           color: 'white',
