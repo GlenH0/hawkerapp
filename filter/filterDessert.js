@@ -7,6 +7,9 @@ import { shuffle } from "lodash";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { globalStyles } from '../styles/global';
 
+import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
+
 const numColumns = 2
 
 // const numOfFood = 3;
@@ -21,6 +24,8 @@ export default class FilterDessert extends React.PureComponent {
       num:1,
       lastRefresh: Date(Date.now()).toString(),
       animatedValue: new Animated.Value(0),
+      input : this.props.key,
+      place: 'all'
     };
     this.refreshScreen = this.refreshScreen.bind(this)
   }
@@ -49,7 +54,7 @@ export default class FilterDessert extends React.PureComponent {
   _renderItem = ({ item, index }) => {
     return (
       <View key={item.key} style={{ flex: 1 }}>
-
+        
         <View style={{height:180}}>
           <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
             <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={this.imageLoaded} />
@@ -62,36 +67,56 @@ export default class FilterDessert extends React.PureComponent {
     )
   }
 
+  filter = () => {  
+       if(this.state.place == 'west'){
+        this.setState({ list: this.state.inMemory.filter(x => x.key < 109) })
+       }
+       else if(this.state.place =='east'){
+        this.setState({ list: this.state.inMemory.filter(x => x.key > 109 && x.key < 195) })
+       }
+       else if(this.state.place =='all'){
+        this.setState({ list: this.state.list})
+       }
+       else if(this.state.place =='north'){
+        this.setState({ list: this.state.inMemory.filter(x => x.key > 195 && x.key < 222) })
+       }
+       else if(this.state.place =='central'){
+        this.setState({ list: this.state.inMemory.filter(x =>  x.key > 223) })
+       }
+  }
+
+
   componentDidMount() {
     firebase.database().ref('foodBreak').once('value').then(snapshot=> {
       var li = []
       snapshot.forEach((child) => {
-        if(child.val().food_id != "4"){
-          li.push({
-            title: child.val().title,
-            image: child.val().image,
-            image2: child.val().image2,
-            video: child.val().video,
-            subpage: child.val().subpage,
-            subpageadd: child.val().subpageadd,
-            subpageimg: child.val().subpageimg,
-            subpagetime: child.val().subpagetime,
-            subpagelat: child.val().subpagelat,
-            subpagelong: child.val().subpagelong,
-            subpagephone: child.val().subpagephone,
-            unit: child.val().unit,
-            type: child.val().type,
-            foodtype: child.val().foodtype,
-            text: child.val().text,
-            link: child.val().link,
-            phone: child.val().phone,
-            place:child.val().place,
-            description: child.val().description,
-            descriptionIndex: child.val().descriptionIndex
-          })
-        }
+       
+            li.push({
+              key: child.val().key,
+              title: child.val().title,
+              image: child.val().image,
+              image2: child.val().image2,
+              video: child.val().video,
+              subpage: child.val().subpage,
+              subpageadd: child.val().subpageadd,
+              subpageimg: child.val().subpageimg,
+              subpagetime: child.val().subpagetime,
+              subpagelat: child.val().subpagelat,
+              subpagelong: child.val().subpagelong,
+              subpagephone: child.val().subpagephone,
+              unit: child.val().unit,
+              type: child.val().type,
+              foodtype: child.val().foodtype,
+              text: child.val().text,
+              link: child.val().link,
+              phone: child.val().phone,
+              place:child.val().place,
+              description: child.val().description,
+              descriptionIndex: child.val().descriptionIndex,
+              food_id: child.val().food_id
+            })
       })
-      this.setState({ list: li})
+      this.setState({ list: li, inMemory: li })
     })  
   }
   
@@ -108,9 +133,33 @@ export default class FilterDessert extends React.PureComponent {
     return (
       <View style={globalStyles.container}>
         <Text style={styles.top10}> Your 10 picks for today!</Text>
+
+        <DropDownPicker
+            items={[
+                {label: 'All', value: 'all', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
+                {label: 'West', value: 'west', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
+                {label: 'East', value: 'east', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
+                {label: 'North', value: 'north', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
+                {label: 'Central', value: 'central', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
+            ]}
+            defaultValue={this.state.place}
+            containerStyle={{height: 50}}
+            style={{backgroundColor: '#fafafa', width:'50%', alignSelf:'center', marginBottom: 15}}
+            itemStyle={{
+                justifyContent: 'flex-start', height: 40
+            }}
+            activeLabelStyle={{color:"red"}}
+            labelStyle={{color: "black"}}
+            dropDownStyle={{backgroundColor: '#fafafa', width:'50%', alignSelf:'center'}}
+            onChangeItem={(item) => this.setState({
+                place: item.value
+            },this.filter)} 
+            
+        />
+        {console.log(this.state.country)}
+
         <FlatList
-        
-          data={shuffle(this.state.list).slice(0,10)}
+          data={shuffle(this.state.list).slice(0,10)} 
           renderItem={this._renderItem}
           keyExtractor={(item, index) => (index.toString())}
           numColumns={numColumns}  

@@ -1,6 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import {globalStyles} from '../styles/global';
+import YoutubePlayer from "react-native-youtube-iframe";
+
+import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
+
+import { Entypo } from '@expo/vector-icons';
 
 const HEIGHT = Dimensions.get("window").height;
 
@@ -8,24 +13,40 @@ export default function About({navigation}){
     return(
         <View style={styles.container}>
             <Image style={styles.image} source={require('../assets/wok.jpg')}/>
+
+            <View>
+                <View style={styles.outerCrossBtn}>
+                {/* <Entypo name="circle-with-cross" size={26} color="white" /> */}
+                <Entypo name="menu" size={26} color="white" style={styles.crossBtn} onPress={() => navigation.openDrawer()}/>
+                </View>
+            </View>
             
            <View style={styles.whiteBox}>
                 <View style={styles.box}>
                     <Text style={styles.head}>About</Text>
                     <Text style={styles.content}>EH! Hawker Leh app aims to spread and reach out to individuals who are interested in the different aspects of Singapore's Hawker Culture, from the breakdown of common drinks and dishes to the ways of enjoying it.
                     </Text>
-                </View>
+
+                    </View>
+
+                    <View style={styles.video}>
+                        <YoutubePlayer
+                            height={240}
+                            videoId={"l1gcm8g5EHY"}
+                            play={false}
+                        />
+                    </View>
 
                 <Image style={styles.logo} source={require('../assets/logo.png')}/>
 
-                <View style={styles.imgBox}>
+                {/* <View style={styles.imgBox}>
                     <Image style={styles.wok} source={require('../assets/wokhei.jpg')}/>
                 </View>
                 <View style={styles.imgBox1}>
                     <Image style={styles.wok} source={require('../assets/kway.jpg')}/>
                 </View>
       
-                {/* <View style={styles.btnBox}>
+                 <View style={styles.btnBox}>
                     <TouchableOpacity onPress={() => navigation.navigate('Hawker Centres')}>
                         <Text style={styles.button}>Hawker Centres</Text>
                     </TouchableOpacity>
@@ -33,7 +54,7 @@ export default function About({navigation}){
                     <TouchableOpacity onPress={() => navigation.navigate('Hawker Food')}>
                         <Text style={styles.button}>Hawker Food</Text>
                     </TouchableOpacity>
-                </View> */}
+                </View>  */}
 
            </View>
            
@@ -43,7 +64,8 @@ export default function About({navigation}){
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1
+        flex: 1,
+        height:'100%'
     },
     image:{
         width:"100%",
@@ -86,12 +108,11 @@ const styles = StyleSheet.create({
     },
     whiteBox:{
         backgroundColor: 'white',
-        height: "100%",
         position:'absolute',
         borderTopLeftRadius: 85,
-        top: 250,
-        width: "100%",
-        
+        top: "29%",
+        width: widthPercentageToDP('100%'),
+        height: heightPercentageToDP('100%'),
     },
     head: {
         width: '85%',
@@ -157,5 +178,27 @@ const styles = StyleSheet.create({
         left: 110,
         top: 290,
         position: 'absolute'
+    },
+    video:{
+        width:'85%', 
+        justifyContent:'center', 
+        alignSelf:'center',
+        paddingTop: 30,
+    },
+    crossBtn:{
+      justifyContent:'center',
+      alignSelf:'center',
+    },
+    outerCrossBtn: {
+      height:40, width: 40, backgroundColor:'red',
+      flexDirection: 'row',
+      position: 'absolute',
+      top: -280,
+      left: 15,
+      margin: 3,
+      justifyContent:'center',
+      alignSelf:'center',
+      backgroundColor: '#3d3d3d96',
+      borderRadius: 20,
     }
 })

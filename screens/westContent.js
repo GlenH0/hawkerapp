@@ -108,9 +108,7 @@ export default function West({ route, navigation, navigation: {goBack} }) {
               maxToRenderPerBatch={4}
             />
           </View>
-
-
-
+          
           <View>
             <View >
 

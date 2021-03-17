@@ -23,6 +23,7 @@ export default class FoodFilter extends PureComponent {
       active: null,
       interactionsComplete: false,
       foodName: 'noodle',
+      arrayFilter: []
     }
     this._isMounted = false;
   }
@@ -85,7 +86,6 @@ export default class FoodFilter extends PureComponent {
         })
       }, 300);
     });
-    this._ismounted = true;
   }
 
   componentWillUnmount() {
@@ -120,11 +120,11 @@ export default class FoodFilter extends PureComponent {
 
   handleFoodTypeW = () => {
     // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'western') })
+    this.setState({ list: this.state.inMemory.filter(x => x.type === 'chicken') })
     // to scroll back up to the top
     this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
     this.setState({ active: 3 })
-    this.state.foodName = "western"
+    this.state.foodName = "chicken"
   }
 
   render() {
@@ -186,7 +186,7 @@ export default class FoodFilter extends PureComponent {
                   onPress={this.handleFoodTypeW}
                   style={this.state.active === 3 ? styles.btnActive : styles.btnTab }
                 >
-                  <Text style={this.state.active === 3 ? styles.textActive : styles.textNorm }>Western</Text>
+                  <Text style={this.state.active === 3 ? styles.textActive : styles.textNorm }>Chicken</Text>
                 </TouchableOpacity>
             
             </ScrollView>
@@ -200,13 +200,7 @@ export default class FoodFilter extends PureComponent {
 
         {renderIf(this.state.list == '')(
           <View style={{justifyContent:'center', alignItems:'center'}}>
-            {/* <Text style={{ padding: 10 }}>Ops! No results found</Text> */}
-            <Image
-        style={{width: "80%", height: "80%", resizeMode:'contain'}}
-        source={{
-          uri: 'https://www.buzzdine.com/img/not-found.png',
-        }}
-      />
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
           </View>
         )}
 

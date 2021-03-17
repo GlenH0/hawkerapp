@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, FlatList, Keyboard, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image, FlatList, Keyboard, ScrollView } from 'react-native';
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 
 import { Searchbar } from 'react-native-paper';
@@ -7,7 +7,8 @@ import firebase from '../firebase/fb'
 import renderIf from 'render-if';
 import { shuffle } from "lodash";
 
-import {globalStyles} from '../styles/global';
+import { globalStyles } from '../styles/global';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
@@ -19,9 +20,18 @@ export default function Centre({ navigation }) {
   const [searchText, setSearchText] = useState('')
   const [loaded, setLoaded] = useState(false)
 
+  const NoData = ({ item }) => {
+    return (
+      <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{ padding: 10,}}>Ops! No results found</Text>
+      </View>
+    );
+  };
+
   useEffect(() => {
     firebase.database().ref('hawker').on('value', (snapshot) => {
       var li = []
+
       snapshot.forEach((child) => {
         li.push({
           key: child.val().key,
@@ -35,6 +45,7 @@ export default function Centre({ navigation }) {
           rank: child.val().rank
         })
       })
+
       setList(li)
       setMemory(li)
     })
@@ -59,16 +70,16 @@ export default function Centre({ navigation }) {
   }
 
   const _renderItem = ({ item, index }) => {
-    if (searchText !== '') {
+    if (searchText != '') {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white', }}>
+        <View key={item.key} style={{ flex: 1, backgroundColor: 'white'}}>
           <View>
-            <TouchableOpacity style={styles.itemStyle1} onPress={() => navigation.navigate('hawkerDetail', item)}>
-              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
+            <TouchableOpacity style={globalStyles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
+              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded} />
             </TouchableOpacity>
           </View>
 
-          <Text key={item.key} numberOfLines={1} style={{padding: 15, paddingTop: 0, paddingBottom: 15}}>{item.title}</Text>
+          <Text key={item.key} numberOfLines={1} style={globalStyles.foodTitle}>{item.title}</Text>
         </View>
       )
     }
@@ -76,12 +87,12 @@ export default function Centre({ navigation }) {
 
   const _renderItem1 = ({ item, index }) => {
     // for west
-    if (item.key < 14 && item.rank == 'best') {
+    if ((item.key < 14) && (item.rank == 'best') && !searchText) {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white', }}>
+        <View key={item.key} style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
-            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
+              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' />
             </TouchableOpacity>
           </View>
 
@@ -93,28 +104,12 @@ export default function Centre({ navigation }) {
 
   const _renderItem2 = ({ item, index }) => {
     // for east
-    if ((item.key > 13 && item.key < 35 ) && ( item.rank == 'best' || item.rank == 'best10')) {
+    if ((item.key > 13 && item.key < 35) && (item.rank == 'best' || item.rank == 'best10') && !searchText) {
       return (
-        <View style={{ flex: 1, backgroundColor: 'white', }}>
+        <View key={item.key} style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle} onPress={() => navigation.navigate('hawkerDetail', item)}>
-            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
-            </TouchableOpacity>
-          </View>
-
-          <Text key={item.key} numberOfLines={1} style={styles.foodName}>{item.title}</Text>
-        </View>
-      )
-    }
-  }
-
-  const _renderItem3 = ({ item, index }) => {
-    if ((item.rank == 'best' || item.rank == 'best10') && item.key > 34) {
-      return (
-        <View style={{ flex: 1, backgroundColor: 'white', }}>
-          <View>
-            <TouchableOpacity style={styles.itemStyle2} onPress={() => navigation.navigate('hawkerDetail', item)}>
-            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
+              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded} />
             </TouchableOpacity>
           </View>
 
@@ -125,12 +120,12 @@ export default function Centre({ navigation }) {
   }
 
   const _renderItem5 = ({ item, index }) => {
-    if (item.rank == 'best10') {
+    if (!searchText && (item.rank == 'best10')) {
       return (
         <View key={item.key} style={{ flex: 1, backgroundColor: 'white', }}>
           <View>
             <TouchableOpacity style={styles.itemStyle2} onPress={() => navigation.navigate('hawkerDetail', item)}>
-            <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded}/>
+              <Image key={item.key} style={styles.img} source={{ uri: item.image, cache: 'force-cache' }} resizeMethod='auto' onLoadStart={imageLoaded} />
             </TouchableOpacity>
           </View>
 
@@ -151,27 +146,15 @@ export default function Centre({ navigation }) {
   // })
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
+    <View style={{ backgroundColor: 'white', height: '100%'}}>
 
       {/* search bar */}
       <Searchbar
-        placeholder="Search for Hawker..."
+        placeholder="Search for Hawker Centre..."
         onChangeText={(text) => handleSearch(text)}
         value={searchText}
-        style={{ borderRadius: 20, width: "95%", alignSelf: 'center', margin: 5}}
+        style={{ borderRadius: 20, width: "95%", alignSelf: 'center', margin: 15 }}
       />
-
-      {renderIf(list == '')(
-          <View style={{justifyContent:'center', alignItems:'center'}}>
-            <Text style={{ padding: 10 }}>Ops! No results found</Text>
-            {/* <Image
-        style={{width: "80%", height: "80%", resizeMode:'contain'}}
-        source={{
-          uri: 'https://www.buzzdine.com/img/not-found.png',
-        }}
-      /> */}
-          </View>
-      )}
 
       <FlatList
         data={shuffle(list)}
@@ -183,132 +166,135 @@ export default function Centre({ navigation }) {
         extraData={useState([])}
         initialNumToRender={4}
         maxToRenderPerBatch={8}
+        ListEmptyComponent={NoData}
 
-        ListHeaderComponent={<>
-         {
-           renderIf(searchText === '')(
+      // ListHeaderComponent={<>
+
+
+      // </>}
+      />
+
+      <ScrollView style={{ backgroundColor: 'white'}} onScrollBeginDrag={Keyboard.dismiss}>
+        {
+          renderIf(!searchText)(
             <View>
-              <View>
-              <ScrollView>
-
               <View style={styles.container}>
-       
-                  <TouchableOpacity onPress={() => navigation.navigate('North')}>
-                    <View style={styles.responsiveBox}>
-                      <Image source={require('../assets/amk.png')} style={styles.image} />
-                    </View>
-                    <Text style={styles.text}>North</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('North')}>
+                  <View style={styles.responsiveBox}>
+                    <Image source={require('../assets/amk.png')} style={styles.image} />
+                  </View>
+                  <Text style={styles.text}>North</Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => navigation.navigate('Central')}>
-                    <View style={styles.responsiveBox}>
-                      <Image source={require('../assets/bugis.png')} style={styles.image} />
-                    </View>
-                    <Text style={styles.text}>Central</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Central')}>
+                  <View style={styles.responsiveBox}>
+                    <Image source={require('../assets/bugis.png')} style={styles.image} />
+                  </View>
+                  <Text style={styles.text}>Central</Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => navigation.navigate('East')}>
-                    <View style={styles.responsiveBox}>
-                      <Image source={require('../assets/bed.png')} style={styles.image} />
-                    </View>
-                    <Text style={styles.text}>East</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('East')}>
+                  <View style={styles.responsiveBox}>
+                    <Image source={require('../assets/bed.png')} style={styles.image} />
+                  </View>
+                  <Text style={styles.text}>East</Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => navigation.navigate('West')}>
-                    <View style={styles.responsiveBox}>
-                      <Image source={require('../assets/blhawk.png')} style={styles.image} />
-                    </View>
-                    <Text style={styles.text}>West</Text>
-                  </TouchableOpacity>
-                </View>
-              </ScrollView>
+                <TouchableOpacity onPress={() => navigation.navigate('West')}>
+                  <View style={styles.responsiveBox}>
+                    <Image source={require('../assets/blhawk.png')} style={styles.image} />
+                  </View>
+                  <Text style={styles.text}>West</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        }
+        <View>
+          {
+            renderIf(!searchText)(
+              <Text style={styles.title}>Best Hawker Centres</Text>
+            )
+          }
+          <FlatList
+            data={shuffle(list)}
+            renderItem={_renderItem5}
+            keyExtractor={(item, index) => (index.toString())}
+            horizontal={true}
+            extraData={memory}
+            removeClippedSubviews
+            initialNumToRender={3}
+            maxToRenderPerBatch={5}
 
-          <View
+          />
+          {
+            renderIf(!searchText)(
+              <View
             style={{
               borderBottomColor: '#e3e5e5',
               borderBottomWidth: 1,
             }}
           />
+            )
+          }
         </View>
-            <View>
-              <Text style={styles.title}>Best Hawker Centres</Text>
-              <FlatList
-                data={shuffle(list)}
-                renderItem={_renderItem5}
-                keyExtractor={(item, index) => (index.toString())}
-                onScrollBeginDrag={Keyboard.dismiss}
-                horizontal={true}
-                // extraData={useState}
-                // removeClippedSubviews
-                initialNumToRender={3}
-                maxToRenderPerBatch={5}
-              />
-              <View
-                style={{
-                  borderBottomColor: '#e3e5e5',
-                  borderBottomWidth: 1,
-                }}
-              />
-            </View>
 
-              <View>
+        <View>
+          {
+            renderIf(!searchText)(
               <Text style={styles.title}>West Side Favourites</Text>
-              <FlatList
-                data={shuffle(list)}
-                renderItem={_renderItem1}
-                keyExtractor={(item, index) => (index.toString())}
-                onScrollBeginDrag={Keyboard.dismiss}
-                horizontal={true}
-                // extraData={useState}
-                // removeClippedSubviews
-                initialNumToRender={3}
-                maxToRenderPerBatch={5}
-              />
+            )
+          }
+          <FlatList
+            data={shuffle(list)}
+            renderItem={_renderItem1}
+            keyExtractor={(item, index) => (index.toString())}
+            horizontal={true}
+            extraData={memory}
+            removeClippedSubviews
+            initialNumToRender={3}
+            maxToRenderPerBatch={5}
+          />
+          {
+            renderIf(!searchText)(
               <View
-                style={{
-                  borderBottomColor: '#e3e5e5',
-                  borderBottomWidth: 1,
-                }}
-              />
-              <Text style={styles.title}>East Side Finest</Text>
-              <FlatList
-                data={shuffle(list)}
-                renderItem={_renderItem2}
-                keyExtractor={(item, index) => (index.toString())}
-                onScrollBeginDrag={Keyboard.dismiss}
-                horizontal={true}
-                // extraData={useState}
-                // removeClippedSubviews
-                initialNumToRender={3}
-                maxToRenderPerBatch={5}
-              />
+            style={{
+              borderBottomColor: '#e3e5e5',
+              borderBottomWidth: 1,
+            }}
+          />
+            )
+          }
+        </View>
 
+        <View>
+          {
+            renderIf(!searchText)(
+              <Text style={styles.title}>East Side Finest</Text>
+            )
+          }
+          <FlatList
+            data={shuffle(list)}
+            renderItem={_renderItem2}
+            keyExtractor={(item, index) => (index.toString())}
+            horizontal={true}
+            extraData={memory}
+            removeClippedSubviews
+            initialNumToRender={3}
+            maxToRenderPerBatch={5}
+          />
+          {
+            renderIf(!searchText)(
               <View
-                style={{
-                  borderBottomColor: '#e3e5e5',
-                  borderBottomWidth: 1,
-                }}
-              />
-              <Text style={styles.title}>Central Gem</Text>
-              <FlatList
-                data={shuffle(list)}
-                renderItem={_renderItem3}
-                keyExtractor={(item, index) => (index.toString())}
-                onScrollBeginDrag={Keyboard.dismiss}
-                horizontal={true}
-                // extraData={useState}
-                // removeClippedSubviews
-                initialNumToRender={3}
-                maxToRenderPerBatch={5}
-              />
-              <Text></Text>
-              <Text></Text>
-            </View>
-            </View>
-           )
-         }
-        </>}
-      />
+            style={{
+              borderBottomColor: '#e3e5e5',
+              borderBottomWidth: 1,
+            }}
+          />
+            )
+          }
+        </View>
+      </ScrollView>
     </View>
 
   );
@@ -325,13 +311,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   responsiveBox: {
-    // width: widthPercentageToDP('32.4%'),
-    // height: heightPercentageToDP('9.6%'),
-    width: 100,
-    height: 60,
+    width: widthPercentageToDP('25%'),
+    height: heightPercentageToDP('7.6%'),
     justifyContent: 'center',
-    alignItems:'center',
-    // margin: 5,
+    alignItems: 'center',
     top: 10,
   },
   text: {
@@ -360,8 +343,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     margin: 10,
-    height: 170,
-    width: 170,
+    height: 180,
+    width: 250,
     borderRadius: 12,
     marginRight: 0
   },
@@ -392,8 +375,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     margin: 10,
-    height: 150,
-    width: 200,
+    height: 180,
+    width: 250,
     borderRadius: 12,
     marginRight: 0
   },
@@ -403,7 +386,6 @@ const styles = StyleSheet.create({
     height: '90%',
     overflow: 'hidden',
     borderRadius: 10,
-
   },
   title: {
     fontFamily: 'latoB',
@@ -414,11 +396,11 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   foodName: {
-    paddingLeft: 15, 
-    paddingBottom: 25, 
+    paddingLeft: 15,
+    paddingBottom: 25,
     width: 170,
     fontSize: 14,
-    color:'#676767',
+    color: '#676767',
     fontFamily: 'latoB',
   }
 });

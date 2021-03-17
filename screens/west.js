@@ -103,7 +103,7 @@ export default class App extends Component {
     }
     const { navigation } = this.props
     return (
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
 
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
           <View style={{ width: '95%' }}>
@@ -121,8 +121,8 @@ export default class App extends Component {
         </View>
 
         {renderIf(this.state.list == '')(
-          <View>
-            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+          <View style={{ alignItems:'center', justifyContent:'center'}}>
+            <Text style={{ padding: 10,}}>Ops! No results found</Text>
           </View>
         )}
 
@@ -138,10 +138,6 @@ export default class App extends Component {
 }
 const styles = StyleSheet.create({
 
-  container: {
-    flex: 1,
-
-  },
   itemStyle: {
     // shadow 
     shadowOffset: { width: 12, height: 12 },

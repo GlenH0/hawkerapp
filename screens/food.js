@@ -40,6 +40,20 @@ export default function Food({navigation}) {
   const [memory, setMemory] = useState([])
   const [searchText, setSearchText] = useState('')
   const [loaded, setLoaded] = useState(false)
+
+  const NoData = ({ item }) => {
+    return (
+      <View style={{justifyContent:'center', alignItems:'center'}}>
+            <Text style={{ padding: 10 }}>Ops! No results found</Text>
+            {/* <Image
+        style={{width: "80%", height: "80%", resizeMode:'contain'}}
+        source={{
+          uri: 'https://www.buzzdine.com/img/not-found.png',
+        }}
+      /> */}
+          </View>
+    );
+  };
   
 
   const handleSearch = (text) => {
@@ -123,7 +137,7 @@ export default function Food({navigation}) {
 
     return (
       
-      <View style={{backgroundColor:"white"}}>
+      <View style={{backgroundColor:"white",  height: '100%'}}>
         {/* search bar */}
          <Searchbar
             placeholder="What's in mind today?"
@@ -141,18 +155,6 @@ export default function Food({navigation}) {
               </View>
             )
           }
-
-        {renderIf(list == '')(
-            <View style={{justifyContent:'center', alignItems:'center'}}>
-              <Text style={{ padding: 10 }}>Ops! No results found</Text>
-              {/* <Image
-          style={{width: "80%", height: "80%", resizeMode:'contain'}}
-          source={{
-            uri: 'https://www.buzzdine.com/img/not-found.png',
-          }}
-        /> */}
-            </View>
-        )}
         
               <FlatList 
                 data={shuffle(list)}
@@ -161,9 +163,10 @@ export default function Food({navigation}) {
                 numColumns= {numColumns}
                 onScrollBeginDrag={Keyboard.dismiss}
                 ref={flatListRef}
-                style={searchText?{backgroundColor:"white", marginBottom: 50}:null}
+                style={searchText?{backgroundColor:"white", width: "100%"}:null}
                 initialNumToRender={4}
                 maxToRenderPerBatch={10}
+                ListEmptyComponent={NoData}
 
                 ListHeaderComponent={ <>  
                     <View>
@@ -222,7 +225,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: "100%",
-    height: HEIGHT * 1.05
+    height: HEIGHT
   },
   responsiveBox: {
     width: widthPercentageToDP('95%'),
@@ -231,7 +234,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     margin: 10,
     marginTop: 0,
-    top: -25
   },
   text: {
     position: 'absolute',
