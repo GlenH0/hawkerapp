@@ -12,6 +12,7 @@ import West from '../screens/westContent';
 import FoodtoCentre from '../screens/food2centre'
 import FilterDessert from "../filter/filterDessert";
 import FoodFilter from "../filter/foodFilter";
+import Filter from "../filter/filter"
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -85,10 +86,11 @@ export default FoodStack = () => {
   }}
 />
 
-{/* <Screen name="filter" component={Filter}
+<Screen name="filter" component={Filter}
    options={{
-    headerTitle: 'Halal',
+    headerTitle: 'Filter',
     headerStyle: { backgroundColor: '#ff5959'},
+    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
     headerTitleStyle: {
       color: 'white',
       fontSize: 18,
@@ -96,7 +98,7 @@ export default FoodStack = () => {
     },
     headerTintColor:'white'
   }}
-/> */}
+/>
 
 {/* <Screen name="filterLunch" component={FilterLunch}
    options={{
@@ -116,7 +118,7 @@ export default FoodStack = () => {
    options={{
     headerTitle: 'Food-o-miser',
     headerStyle: { backgroundColor: '#ff5959'},
-    cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
     headerTitleStyle: {
       color: 'white',
       fontSize: 18,

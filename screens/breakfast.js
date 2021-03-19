@@ -10,6 +10,9 @@ import _ from 'lodash'
 
 import {globalStyles} from '../styles/global';
 
+import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
+
 const numColumns = 2
 const WIDTH = Dimensions.get("window").width;
 
@@ -23,7 +26,8 @@ export default class App extends PureComponent {
       check: false,
       active: null,
       interactionsComplete: false,
-      loaded: false
+      loaded: false,
+      place: 'all'
     }
     this._isMounted = false;
   }
@@ -45,6 +49,25 @@ export default class App extends PureComponent {
       </View>
     )
   }
+
+  filter = () => {  
+    if(this.state.place == 'west'){
+     this.setState({ list: this.state.filterList.filter(x => x.key < 109), inMemory:  this.state.filterList.filter(x => x.key < 109)})
+    }
+    else if(this.state.place =='east'){
+     this.setState({ list: this.state.filterList.filter(x => x.key > 109 && x.key < 195), inMemory:  this.state.filterList.filter(x => x.key > 109 && x.key < 195)})
+    }
+    else if(this.state.place =='all'){
+     this.setState({ list: this.state.memoryList, inMemory: this.state.memoryList})
+    }
+    else if(this.state.place =='north'){
+     this.setState({ list: this.state.filterList.filter(x => x.key > 195 && x.key < 222), inMemory: this.state.filterList.filter(x => x.key > 195 && x.key < 222) })
+    }
+    else if(this.state.place =='central'){
+     this.setState({ list: this.state.filterList.filter(x =>  x.key > 223), inMemory:this.state.filterList.filter(x =>  x.key > 223) })
+    }
+}
+
   // solution to faster loading
   async componentDidMount() {
     await InteractionManager.runAfterInteractions(() => {
@@ -54,7 +77,7 @@ export default class App extends PureComponent {
           snapshot.forEach((child) => {
             if(child.val().food_id == "1"){
               li.push({
-                key: child.key,
+                key: child.val().key,
                 title: child.val().title,
                 image: child.val().image,
                 image2: child.val().image2,
@@ -79,7 +102,7 @@ export default class App extends PureComponent {
               })
             }
           })
-          this.setState({ list: li, inMemory: li })
+          this.setState({ list: li, inMemory: li, filterList: li, memoryList: li })
           this.setState({interactionsComplete: true});
         })
       }, 300);
@@ -92,15 +115,17 @@ export default class App extends PureComponent {
   }
 
   handleSearch = (text) => {
-    const filter = this.state.inMemory.filter(
-      list => {
-        let title = list.title.toLowerCase()
-        let search = text.toLowerCase()
-
-        return title.indexOf(search) > -1
-      }
-    )
-    this.setState({ list: filter, searchText: text })
+    
+      const filter = this.state.inMemory.filter(
+        list => {
+          let title = list.title.toLowerCase()
+          let search = text.toLowerCase()
+  
+          return title.indexOf(search) > -1
+        }
+      )
+      this.setState({ list: filter, searchText: text})
+   
     this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
   }
 
@@ -132,22 +157,49 @@ export default class App extends PureComponent {
           </View>
         </View>
 
-        {renderIf(this.state.searchText == '')(
-          <View>
-            <Text style={{ paddingLeft: 10, paddingTop: 10, fontFamily: 'latoR', color: '#808080' }}>Suggested filters:</Text>
-            <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('foodfilter')}
-                style={globalStyles.button}
-              >
-                {/* to be replaced by another page to prevent confusion */}
-                  <Text style={globalStyles.buttonFilter}>Filters</Text>
-                  <Image style={globalStyles.filterImg} source={require('../assets/filter.png')}/>
+     
+          {
+            renderIf(!this.state.searchText)(
+              <View>
+                <Text style={{ paddingLeft: 10, paddingTop: 10, fontFamily: 'latoR', color: '#808080' }}>Suggested filters:</Text>
+                
+                <View style={{flexDirection:"row", width:"100%"}}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('filter')}
+                    style={globalStyles.button}
+                  >
+                    {/* to be replaced by another page to prevent confusion */}
+                      <Text style={globalStyles.buttonFilter}>Filters</Text>
+                      <Image style={globalStyles.filterImg} source={require('../assets/filter.png')}/>
 
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-        )}
+                  </TouchableOpacity>
+
+                  <DropDownPicker
+                      items={[
+                          {label: 'All', value: 'all', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                          {label: 'West', value: 'west', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                          {label: 'East', value: 'east', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                          {label: 'North', value: 'north', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                          {label: 'Central', value: 'central', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                      ]}
+                      defaultValue={this.state.place}
+                      containerStyle={{height: 50}}
+                      style={{backgroundColor: 'white', width:120, alignSelf:'center', margin: 7.5, top:3}}
+                      itemStyle={{
+                          justifyContent: 'flex-start', height: 40
+                      }}
+                      activeLabelStyle={{color:"#ff5959"}}
+                      labelStyle={{color: "black"}}
+                      dropDownStyle={{backgroundColor: 'white', width:120, alignSelf:'center'}}
+                      onChangeItem={(item) => this.setState({
+                          place: item.value
+                      },this.filter)} 
+                      
+                  />
+                </View>
+              </View>
+            )
+          }
 
         <View style={{flexDirection:'row', padding: 10}}> 
           <Text style={globalStyles.foodNum}>{this.state.list.length}</Text>

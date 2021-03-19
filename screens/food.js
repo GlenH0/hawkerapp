@@ -5,7 +5,7 @@ import {widthPercentageToDP, heightPercentageToDP} from 'react-native-responsive
 import { Searchbar } from 'react-native-paper';
 import firebase from '../firebase/fb'
 import renderIf from 'render-if';
-import { shuffle } from "lodash";
+import { runInContext, shuffle } from "lodash";
 
 import {globalStyles} from '../styles/global';
 

@@ -24,7 +24,6 @@ export default class FilterDessert extends React.PureComponent {
       num:1,
       lastRefresh: Date(Date.now()).toString(),
       animatedValue: new Animated.Value(0),
-      input : this.props.key,
       place: 'all'
     };
     this.refreshScreen = this.refreshScreen.bind(this)
@@ -136,27 +135,27 @@ export default class FilterDessert extends React.PureComponent {
 
         <DropDownPicker
             items={[
-                {label: 'All', value: 'all', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
-                {label: 'West', value: 'west', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
-                {label: 'East', value: 'east', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
-                {label: 'North', value: 'north', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
-                {label: 'Central', value: 'central', icon: () => <Icon name="flag" size={18} color="#900" onPress={this.filter}/>},
+                {label: 'All', value: 'all', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                {label: 'West', value: 'west', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                {label: 'East', value: 'east', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                {label: 'North', value: 'north', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
+                {label: 'Central', value: 'central', icon: () => <Icon name="map-pin" size={18} color="#ff5959" onPress={this.filter}/>},
             ]}
             defaultValue={this.state.place}
             containerStyle={{height: 50}}
-            style={{backgroundColor: '#fafafa', width:'50%', alignSelf:'center', marginBottom: 15}}
+            style={{backgroundColor: 'white', width:'50%', alignSelf:'center', marginBottom: 15}}
             itemStyle={{
                 justifyContent: 'flex-start', height: 40
             }}
-            activeLabelStyle={{color:"red"}}
+            activeLabelStyle={{color:"#ff5959"}}
             labelStyle={{color: "black"}}
-            dropDownStyle={{backgroundColor: '#fafafa', width:'50%', alignSelf:'center'}}
+            dropDownStyle={{backgroundColor: 'white', width:'50%', alignSelf:'center'}}
             onChangeItem={(item) => this.setState({
                 place: item.value
             },this.filter)} 
             
         />
-        {console.log(this.state.country)}
+        
 
         <FlatList
           data={shuffle(this.state.list).slice(0,10)} 

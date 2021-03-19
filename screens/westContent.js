@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Image, Linking, FlatList, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Image, Linking, FlatList, Dimensions,Easing } from "react-native";
 import { globalStyles, images } from '../styles/global';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,6 +9,8 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import firebase from '../firebase/fb'
 
 import { Ionicons } from '@expo/vector-icons';
+
+import ZoomImage from 'react-native-zoom-image';
 
 const numColumns = 1
 const WIDTH = Dimensions.get("window").width;
@@ -80,7 +82,14 @@ export default function West({ route, navigation, navigation: {goBack} }) {
       ListHeaderComponent={<>
         <View style={styles.boxImg}>
           <View style={styles.imgContainer}>
-            <Image style={{ width: '100%', height: 250 }} source={{ uri: image }} />
+            <ZoomImage
+                source={{uri: image}}
+                imgStyle={{width: "100%", height: "100%"}}
+                style={{ width: '100%', height: 250 }}
+                duration={200}
+                enableScaling={false}
+                easingFunc={Easing.ease}
+              />
           </View>
         </View>
 

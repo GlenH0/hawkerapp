@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 
 export default function Header({ title, navigation }) {
@@ -17,6 +17,13 @@ export default function Header({ title, navigation }) {
             {/* <View style={styles.headerTitle}>
                 <Text style={styles.headerText}>{title}</Text>
             </View> */}
+            
+            {
+                renderIf(title == 'Hawker Food')(
+                    <Foundation name="die-three" size={32} color="black" onPress={() =>navigation.navigate('filterDessert')} style={styles.icon1}/>
+                )
+            }
+
             {
                 renderIf(title !== 'About')(
                     <Image style={styles.logo} source={require('../assets/logo.png')}/>
@@ -46,6 +53,12 @@ const styles = StyleSheet.create({
     icon: {
         position: 'absolute',
         left: 0,
+        color: '#fff'
+    },
+
+    icon1: {
+        position: 'absolute',
+        right: 35,
         color: '#fff'
     },
     headerTitle: {

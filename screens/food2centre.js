@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, Button } from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, Button, Easing } from "react-native";
 import { globalStyles, images } from '../styles/global';
 import Modal from 'react-native-modal';
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -7,6 +7,8 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
 import firebase from '../firebase/fb'
+
+import ZoomImage from 'react-native-zoom-image';
 
 //fb icon
 import { Entypo } from '@expo/vector-icons';
@@ -119,14 +121,30 @@ export default function Break({ route, navigation: {goBack} }) {
           {/* this is if only 1 image */}
           {
             renderIf(!image2)(
-              <Image style={styles.img} source={{ uri: image }} />
+              // <Image style={styles.img} source={{ uri: image }} />
+              <ZoomImage
+                source={{uri: image}}
+                imgStyle={{width: "100%", height: "100%"}}
+                style={styles.img}
+                duration={200}
+                enableScaling={false}
+                easingFunc={Easing.ease}
+              />
             )
           }
           {/* for > 1 images */}
           {
             renderIf(image2)(
               picture.map((item, index) => (
-                <Image style={styles.img} key={index} source={{ uri: item }} />
+                <ZoomImage
+                key={index}
+                source={{uri: item}}
+                imgStyle={{width: "100%", height: "100%"}}
+                style={styles.img}
+                duration={200}
+                enableScaling={false}
+                easingFunc={Easing.ease}
+              />
               ))
             )
           }

@@ -76,8 +76,6 @@ function EastSide() {
   );
 }
 
-
-
 function WestSide() {
   return (
     <NE.Navigator>
@@ -102,7 +100,7 @@ const MainCentreTabScreen = ({route}) => (
       initialRouteName={route.name}
       activeColor="#ff5959"
       inactiveColor="#d3d3d3"
-      style={{ backgroundColor: 'tomato' }}
+      style={{ backgroundColor: 'white' }}
       backBehavior = 'Hawker Food'
     >
       <Tab.Screen
