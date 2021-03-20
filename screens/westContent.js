@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Linking, FlatList, Dimensions,Easing } from "react-native";
-import { globalStyles, images } from '../styles/global';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import renderIf from 'render-if';
@@ -16,13 +15,12 @@ const numColumns = 1
 const WIDTH = Dimensions.get("window").width;
 
 export default function West({ route, navigation, navigation: {goBack} }) {
-  const { title, video, rating, add, time, phone, lat, long, place, image } = route.params;
+  const { title, add, time, lat, long, place, image } = route.params;
   const [loaded, setLoaded] = useState(false)
   const [list, setList] = useState([])
 
   useEffect(() => {
     firebase.database().ref('foodBreak').on('value', (snapshot) => {
-      // console.log(snapshot.val())
       var li = []
       snapshot.forEach((child) => {
         if (child.val().place == place) {
@@ -96,7 +94,6 @@ export default function West({ route, navigation, navigation: {goBack} }) {
         {/* cross button */}
         <View>
             <View style={styles.outerCrossBtn}>
-            {/* <Entypo name="circle-with-cross" size={26} color="white" /> */}
             <Ionicons name="chevron-back" size={26} color="white" style={styles.crossBtn} onPress={() => goBack()}/>
             </View>
          </View>
@@ -175,8 +172,6 @@ export default function West({ route, navigation, navigation: {goBack} }) {
     />
   );
 }
-
-
 
 const styles = StyleSheet.create({
 
