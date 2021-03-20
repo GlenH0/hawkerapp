@@ -101,7 +101,6 @@ export default class FoodFilter extends PureComponent {
   }
 
   handleFoodType = () => {
-    // this.setState({list: this.state.inMemory, check: false})
     this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'noodle') })
     // to scroll back up to the top
     this.flatListRef.scrollToOffset({ animated: true, offset: 0 });

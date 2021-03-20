@@ -68,8 +68,6 @@ export default function Food({navigation}) {
       )
       setSearchText(text)
       setList(filter)
-      // flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    
   }
 
   const imageLoaded = () => {
@@ -98,10 +96,11 @@ export default function Food({navigation}) {
       var li = []
       snapshot.forEach((child) => {
         li.push({
-          key: child.key,
+          key: child.val().key,
                 title: child.val().title,
                 image: child.val().image,
                 image2: child.val().image2,
+                image3: child.val().image3,
                 video: child.val().video,
                 subpage: child.val().subpage,
                 subpageadd: child.val().subpageadd,
@@ -140,7 +139,7 @@ export default function Food({navigation}) {
       <View style={{backgroundColor:"white",  height: '100%'}}>
         {/* search bar */}
          <Searchbar
-            placeholder="What's in mind today?"
+            placeholder="What are you craving?"
             onChangeText={(text) => handleSearch(text)}
             value={searchText}
             style={{borderRadius: 20, width: "95%", alignSelf:'center', marginTop:15}}

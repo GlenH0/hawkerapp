@@ -80,7 +80,7 @@ export default class FilterDessert extends React.PureComponent {
         this.setState({ list: this.state.inMemory.filter(x => x.key > 195 && x.key < 222) })
        }
        else if(this.state.place =='central'){
-        this.setState({ list: this.state.inMemory.filter(x =>  x.key > 223) })
+        this.setState({ list: this.state.filterList.filter(x =>  x.key > 223 && x.key < 315)})
        }
   }
 

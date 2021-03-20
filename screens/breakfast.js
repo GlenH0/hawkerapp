@@ -64,7 +64,7 @@ export default class App extends PureComponent {
      this.setState({ list: this.state.filterList.filter(x => x.key > 195 && x.key < 222), inMemory: this.state.filterList.filter(x => x.key > 195 && x.key < 222) })
     }
     else if(this.state.place =='central'){
-     this.setState({ list: this.state.filterList.filter(x =>  x.key > 223), inMemory:this.state.filterList.filter(x =>  x.key > 223) })
+     this.setState({ list: this.state.filterList.filter(x =>  x.key > 223 && x.key < 315), inMemory:this.state.filterList.filter(x =>  x.key > 223 && x.key < 315) })
     }
 }
 
@@ -147,7 +147,7 @@ export default class App extends PureComponent {
             {
               renderIf(this.state.check == false)(
                 <Searchbar
-                  placeholder="What's in mind today?"
+                  placeholder="What are you craving?"
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
                   style={{borderRadius: 20, width: "95%", alignSelf:'center', margin:5}}

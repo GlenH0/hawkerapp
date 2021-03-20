@@ -167,7 +167,6 @@ export default function West({ route, navigation, navigation: {goBack} }) {
 
                   </MapView>
                 </TouchableOpacity>
-                {/* <Text style={{paddingTop:5, fontSize: 10}}>*Use two fingers to tap on the map to view GPS</Text> */}
               </View>
             </View>
           </View>

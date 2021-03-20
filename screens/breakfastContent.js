@@ -26,7 +26,7 @@ const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
 export default function Break({ route, navigation: {goBack}, navigation }) {
-  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, unit, description, descriptionIndex } = route.params;
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, unit, description, descriptionIndex, key } = route.params;
 
 
   var picture = [image, image2]
@@ -60,38 +60,14 @@ export default function Break({ route, navigation: {goBack}, navigation }) {
     })
   }, [])
 
-    // read more text
-    renderTruncatedFooter = (handlePress) => {
-      return (
-        <Text style={{color: '#4286f4', marginTop: 5}} onPress={handlePress}>
-          Read more
-        </Text>
-      );
-    }
-   
-    renderRevealedFooter = (handlePress) => {
-      return (
-        <Text style={{color: '#4286f4', marginTop: 5}} onPress={handlePress}>
-          Show less
-        </Text>
-      );
-    }
-
   const DescriptionGroup = () => {
     return list.map(function (desGroup, i) {
       if (descriptionIndex == i) {
         return (
           <View key={i}>
-            {/* currently got glitch issue when read more is here */}
-            {/* <ReadMore
-              numberOfLines={3}
-              renderTruncatedFooter={this.renderTruncatedFooter}
-              renderRevealedFooter={this.renderRevealedFooter}
-              > */}
               <Text style={{paddingTop: 5, paddingBottom: 20}}>
                 {desGroup.text}
               </Text>
-            {/* </ReadMore> */}
           </View>
         );
       }
@@ -178,12 +154,7 @@ export default function Break({ route, navigation: {goBack}, navigation }) {
             {
               renderIf(description)(
                 <View>
-                  <ReadMore
-                    numberOfLines={3}
-                    // undo later
-                    // renderTruncatedFooter={this.renderTruncatedFooter}
-                    // renderRevealedFooter={this.renderRevealedFooter}
-                    >
+                  <ReadMore>
                     <Text style={{paddingTop: 5, paddingBottom: 20}}>
                       {description}
                     </Text>
@@ -196,6 +167,8 @@ export default function Break({ route, navigation: {goBack}, navigation }) {
                 <DescriptionGroup />
               )
             }
+
+            <View style={{paddingTop: 30}}></View>
 
             {/* phone */}
             {
@@ -283,22 +256,34 @@ export default function Break({ route, navigation: {goBack}, navigation }) {
           <View style={styles.desContent}>
             <Text style={styles.desc}>Where to find them?</Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('hawkerDetail', {
-              // key: subpage,
-              title: subpage,
-              image: subpageimg,
-              add: subpageadd,
-              time: subpagetime,
-              phone: subpagephone,
-              lat: subpagelat,
-              long: subpagelong,
-              place: place
-            })}>
-              <View style={{ flexDirection: 'row', width: 280, height: 50 }}>
-                <MaterialIcons name="place" size={24} color="#c71521" />
-                <Text style={{ color: '#4286f4', fontFamily: 'latoB', top: 4}}>{subpage}</Text>
-              </View>
-            </TouchableOpacity >
+            {
+              renderIf(key < 315)(
+                <TouchableOpacity onPress={() => navigation.navigate('hawkerDetail', {
+                  // key: subpage,
+                  title: subpage,
+                  image: subpageimg,
+                  add: subpageadd,
+                  time: subpagetime,
+                  phone: subpagephone,
+                  lat: subpagelat,
+                  long: subpagelong,
+                  place: place
+                })}>
+                  <View style={{ flexDirection: 'row', width: 280, height: 50 }}>
+                    <MaterialIcons name="place" size={24} color="#c71521" />
+                    <Text style={{ color: '#4286f4', fontFamily: 'latoB', top: 4}}>{subpage}</Text>
+                  </View>
+                </TouchableOpacity >
+              )
+            }
+            {
+              renderIf(key > 314)(
+                <View style={{ flexDirection: 'row', width: 280, height: 50 }}>
+                    <MaterialIcons name="place" size={24} color="black" />
+                    <Text style={{ color: 'black', fontFamily: 'latoB', top: 4}}>Available in all Hawker Centres</Text>
+                  </View>
+              )
+            }
 
             {
               renderIf(store)(

@@ -48,6 +48,7 @@
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.2.3",
     "react-native-youtube-iframe": "^1.4.1",
+    "react-native-zoom-image": "^0.1.2",
     "react-navigation": "^1.0.0-beta.7",
     "render-if": "^0.1.1"
   },

@@ -56,7 +56,7 @@ export default class App extends PureComponent {
           snapshot.forEach((child) => {
             if(child.val().food_id == "4"){
               li.push({
-                key: child.key,
+                key: child.val().key,
                 title: child.val().title,
                 image: child.val().image,
                 image2: child.val().image2,
@@ -93,57 +93,6 @@ export default class App extends PureComponent {
     this._isMounted = false;
   }
 
-  handleSearch = (text) => {
-    const filter = this.state.inMemory.filter(
-      list => {
-        let title = list.title.toLowerCase()
-        let search = text.toLowerCase()
-
-        return title.indexOf(search) > -1
-      }
-    )
-    this.setState({ list: filter, searchText: text })
-  }
-
-  handleFilter = () => {
-    this.setState({ check: true })
-    if (this.state.check == true) {
-      this.setState({ list: this.state.inMemory, check: false })
-    }
-    this.setState({ active: null })
-  }
-
-  handleHalal = () => {
-    this.setState({ list: this.state.inMemory.filter(x => x.type === 'halal') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 1 })
-  }
-
-  handleFoodType = () => {
-    // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'noodle') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 0 })
-  }
-
-  handleFoodRice = () => {
-    // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'rice') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 2 })
-  }
-
-  handleFoodTypeW = () => {
-    // this.setState({list: this.state.inMemory, check: false})
-    this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'western') })
-    // to scroll back up to the top
-    this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
-    this.setState({ active: 3 })
-  }
-
   render() {
     // this is for loading screen
     if (!this.state.interactionsComplete) {
@@ -162,7 +111,7 @@ export default class App extends PureComponent {
             {
               renderIf(this.state.check == false)(
                 <Searchbar
-                  placeholder="What's in mind today?"
+                  placeholder="What are you craving?"
                   onChangeText={(text) => this.handleSearch(text)}
                   value={this.state.searchText}
                   style={{borderRadius: 20, width: "95%", alignSelf:'center', margin:5}}
@@ -180,12 +129,6 @@ export default class App extends PureComponent {
         {renderIf(this.state.list == '')(
           <View style={{justifyContent:'center', alignItems:'center'}}>
             <Text style={{ padding: 10 }}>Ops! No results found</Text>
-            {/* <Image
-        style={{width: "80%", height: "80%", resizeMode:'contain'}}
-        source={{
-          uri: 'https://www.buzzdine.com/img/not-found.png',
-        }}
-      /> */}
           </View>
         )}
 
