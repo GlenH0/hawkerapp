@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Linking, Button, Easing } from "react-native";
-import { globalStyles, images } from '../styles/global';
+
 import Modal from 'react-native-modal';
 import YoutubePlayer from "react-native-youtube-iframe";
 
@@ -21,16 +21,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import ReadMore from 'react-native-read-more-text';
 
-import { Rating, AirbnbRating } from 'react-native-ratings';
-
 // for img in slider
 const { width } = Dimensions.get("window");
 const height = width * 0.65;
 
-export default function Break({ route, navigation: {goBack} }) {
-  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, unit, description, descriptionIndex } = route.params;
+export default function Break({ route, navigation: {goBack}, navigation }) {
+  const { phone, title, text, image, image2, link, video, rating, subpage, subpageimg, subpageadd, subpagetime, subpagephone, subpagelat, subpagelong, store, place, unit, description, descriptionIndex, key } = route.params;
 
-  //Review API call here 
 
   var picture = [image, image2]
 
@@ -63,38 +60,14 @@ export default function Break({ route, navigation: {goBack} }) {
     })
   }, [])
 
-    // read more text
-    renderTruncatedFooter = (handlePress) => {
-      return (
-        <Text style={{color: '#4286f4', marginTop: 5}} onPress={handlePress}>
-          Read more
-        </Text>
-      );
-    }
-   
-    renderRevealedFooter = (handlePress) => {
-      return (
-        <Text style={{color: '#4286f4', marginTop: 5}} onPress={handlePress}>
-          Show less
-        </Text>
-      );
-    }
-
   const DescriptionGroup = () => {
     return list.map(function (desGroup, i) {
       if (descriptionIndex == i) {
         return (
           <View key={i}>
-            {/* currently got glitch issue when read more is here */}
-            {/* <ReadMore
-              numberOfLines={3}
-              renderTruncatedFooter={this.renderTruncatedFooter}
-              renderRevealedFooter={this.renderRevealedFooter}
-              > */}
-              <Text style={{paddingTop: 5, paddingBottom: 10}}>
+              <Text style={{paddingTop: 5, paddingBottom: 20}}>
                 {desGroup.text}
               </Text>
-            {/* </ReadMore> */}
           </View>
         );
       }
@@ -121,7 +94,6 @@ export default function Break({ route, navigation: {goBack} }) {
           {/* this is if only 1 image */}
           {
             renderIf(!image2)(
-              // <Image style={styles.img} source={{ uri: image }} />
               <ZoomImage
                 source={{uri: image}}
                 imgStyle={{width: "100%", height: "100%"}}
@@ -150,8 +122,8 @@ export default function Break({ route, navigation: {goBack} }) {
           }
         </ScrollView>
 
-         {/* cross button */}
-         <View>
+        {/* cross button */}
+        <View>
             <View style={styles.outerCrossBtn}>
             {/* <Entypo name="circle-with-cross" size={26} color="white" /> */}
             <Ionicons name="chevron-back" size={26} color="white" style={styles.crossBtn} onPress={() => goBack()}/>
@@ -172,8 +144,8 @@ export default function Break({ route, navigation: {goBack} }) {
       <View style={styles.view}>
         <View style={{ paddingLeft: 20, paddingBottom: 10, width: '95%' }}>
           <Text style={styles.name}>{title}</Text>
-          
         </View>
+        
 
         <View style={{ alignItems: 'center' }}>
           <View style={styles.desContent}>
@@ -182,13 +154,8 @@ export default function Break({ route, navigation: {goBack} }) {
             {
               renderIf(description)(
                 <View>
-                  <ReadMore
-                    numberOfLines={3}
-                    // undo later
-                    // renderTruncatedFooter={this.renderTruncatedFooter}
-                    // renderRevealedFooter={this.renderRevealedFooter}
-                    >
-                    <Text style={{paddingTop: 5, paddingBottom: 5}}>
+                  <ReadMore>
+                    <Text style={{paddingTop: 5, paddingBottom: 20}}>
                       {description}
                     </Text>
                   </ReadMore>
@@ -200,6 +167,8 @@ export default function Break({ route, navigation: {goBack} }) {
                 <DescriptionGroup />
               )
             }
+
+            <View style={{paddingTop: 30}}></View>
 
             {/* phone */}
             {
@@ -239,7 +208,7 @@ export default function Break({ route, navigation: {goBack} }) {
             }
 
             {/* socials */}
-                <View style={{ width: 100, flexDirection: 'row' }}>
+                <View style={{ width: 100, flexDirection: 'row', paddingBottom: 10 }}>
                   {/* fb */}
                   {
                     renderIf(link)(
@@ -277,14 +246,11 @@ export default function Break({ route, navigation: {goBack} }) {
                           />
                         </View>
                       </View>
-
-                      {/* <Button title="Return"  /> */}
-                      
                     </View>
                   </Modal>
                 </View>
           </View>
-        </View> 
+        </View>  
       </View>
     </ScrollView>
   );
@@ -344,7 +310,7 @@ const styles = StyleSheet.create({
   desc: {
     fontFamily: 'latoB',
     fontSize: 15,
-    paddingBottom: 5
+    paddingBottom: 10
   },
   desContent: {
     width: '90%',

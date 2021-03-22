@@ -220,7 +220,7 @@ export default class App extends PureComponent {
                 dropDownStyle={{backgroundColor: 'white', width:120, alignSelf:'center'}}
                 onChangeItem={(item) => this.setState({
                     place: item.value
-                },this.filter)} 
+                },this.filter, this.flatListRef.scrollToOffset({ animated: true, offset: 0 }))} 
                 
             />
           </View>

@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import { View, Text, FlatList, Dimensions, TouchableOpacity, Image, StyleSheet, ScrollView, InteractionManager } from 'react-native';
 
 import { shuffle } from "lodash";
-import { Searchbar } from 'react-native-paper';
 import renderIf from 'render-if';
 
 import _ from 'lodash'
@@ -35,7 +34,6 @@ export default class FoodFilter extends PureComponent {
 
         <View>
           <TouchableOpacity style={globalStyles.itemStyle} onPress={() => this.props.navigation.navigate('break', item)}>
-            {/* potential fast loading solution for image */}
             <Image key={item.key} style={globalStyles.img} source={{ uri: item.image, cache: 'force-cache' }} transistion ={false} resizeMethod='resize'/>
           </TouchableOpacity>
         </View>      
@@ -53,11 +51,10 @@ export default class FoodFilter extends PureComponent {
           snapshot.forEach((child) => {
             if(child.val().food_id == "1"){
               li.push({
-                key: child.key,
+                key: child.val().key,
                 title: child.val().title,
                 image: child.val().image,
                 image2: child.val().image2,
-                image3: child.val().image3,
                 video: child.val().video,
                 subpage: child.val().subpage,
                 subpageadd: child.val().subpageadd,
@@ -74,7 +71,7 @@ export default class FoodFilter extends PureComponent {
                 phone: child.val().phone,
                 place:child.val().place,
                 description: child.val().description,
-                descriptionIndex: child.val().descriptionIndex
+                descriptionIndex: child.val().descriptionIndex,
               })
             }
           })
