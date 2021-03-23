@@ -1,64 +1,50 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Button, TouchableOpacity, Dimensions, ScrollView } from "react-native";
-import {globalStyles} from '../styles/global';
+import { StyleSheet, View, Text, Image, Dimensions} from "react-native";
+
 import YoutubePlayer from "react-native-youtube-iframe";
 
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';    
 
 const HEIGHT = Dimensions.get("window").height;
 
 export default function About({navigation}){
+
     return(
-        <View style={styles.container}>
+        
+            <View style={styles.container}>
             <Image style={styles.image} source={require('../assets/wok.jpg')}/>
 
             <View>
                 <View style={styles.outerCrossBtn}>
-                {/* <Entypo name="circle-with-cross" size={26} color="white" /> */}
                 <Entypo name="menu" size={26} color="white" style={styles.crossBtn} onPress={() => navigation.openDrawer()}/>
                 </View>
             </View>
             
            <View style={styles.whiteBox}>
                 <View style={styles.box}>
+                
                     <Text style={styles.head}>About</Text>
                     <Text style={styles.content}>EH! Hawker Leh app aims to spread and reach out to individuals who are interested in the different aspects of Singapore's Hawker Culture, from the breakdown of common drinks and dishes to the ways of enjoying it.
                     </Text>
 
                     </View>
 
-                    <View style={styles.video}>
-                        <YoutubePlayer
-                            height={240}
-                            videoId={"l1gcm8g5EHY"}
-                            play={false}
-                        />
-                    </View>
+                        <View style={styles.video}>
+                            <YoutubePlayer
+                                height={240}
+                                videoId={"l1gcm8g5EHY"}
+                                play={false}
+                            />
+                        </View>
+
 
                 <Image style={styles.logo} source={require('../assets/logo.png')}/>
-
-                {/* <View style={styles.imgBox}>
-                    <Image style={styles.wok} source={require('../assets/wokhei.jpg')}/>
-                </View>
-                <View style={styles.imgBox1}>
-                    <Image style={styles.wok} source={require('../assets/kway.jpg')}/>
-                </View>
-      
-                 <View style={styles.btnBox}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Hawker Centres')}>
-                        <Text style={styles.button}>Hawker Centres</Text>
-                    </TouchableOpacity>
-                
-                    <TouchableOpacity onPress={() => navigation.navigate('Hawker Food')}>
-                        <Text style={styles.button}>Hawker Food</Text>
-                    </TouchableOpacity>
-                </View>  */}
-
-           </View>
+            </View>
            
         </View>
+        
     )
 }
 
@@ -131,13 +117,6 @@ const styles = StyleSheet.create({
         overflow:'hidden',
         borderRadius: 20,
     },
-    wok: {
-        width: "96%",
-        height: 150,
-        justifyContent: 'center',
-        alignSelf:'center',
-        borderRadius: 5
-    },
     imgBox:{
         width: '90%',
         height: 160,
@@ -184,6 +163,7 @@ const styles = StyleSheet.create({
         justifyContent:'center', 
         alignSelf:'center',
         paddingTop: 30,
+        height: 240
     },
     crossBtn:{
       justifyContent:'center',

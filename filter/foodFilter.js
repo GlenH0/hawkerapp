@@ -18,6 +18,7 @@ export default class FoodFilter extends PureComponent {
     super(props);
     this.state = {
       list: [],
+      searchText: '',
       active: null,
       interactionsComplete: false,
       foodName: 'noodle',
@@ -48,13 +49,12 @@ export default class FoodFilter extends PureComponent {
         firebase.database().ref('foodBreak').on('value', (snapshot) => {
           var li = []
           snapshot.forEach((child) => {
-            if(child.val().food_id !== "3" && child.val().food_id !== "4"){
+            if(child.val().food_id != "4"){
               li.push({
                 key: child.val().key,
                 title: child.val().title,
                 image: child.val().image,
                 image2: child.val().image2,
-                image3: child.val().image3,
                 video: child.val().video,
                 subpage: child.val().subpage,
                 subpageadd: child.val().subpageadd,
@@ -71,7 +71,7 @@ export default class FoodFilter extends PureComponent {
                 phone: child.val().phone,
                 place:child.val().place,
                 description: child.val().description,
-                descriptionIndex: child.val().descriptionIndex
+                descriptionIndex: child.val().descriptionIndex,
               })
             }
           })
@@ -98,6 +98,7 @@ export default class FoodFilter extends PureComponent {
   }
 
   handleFoodType = () => {
+    // this.setState({list: this.state.inMemory, check: false})
     this.setState({ list: this.state.inMemory.filter(x => x.foodtype === 'noodle') })
     // to scroll back up to the top
     this.flatListRef.scrollToOffset({ animated: true, offset: 0 });
@@ -135,6 +136,20 @@ export default class FoodFilter extends PureComponent {
     const { navigation } = this.props
     return (
       <View style={globalStyles.container}>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+          <View style={{ width: '95%' }}>
+            {/* {
+              renderIf(this.state.check == false)(
+                <Searchbar
+                  placeholder="What's in mind today?"
+                  onChangeText={(text) => this.handleSearch(text)}
+                  value={this.state.searchText}
+                />
+              )
+            } */}
+          </View>
+        </View>
 
         {renderIf(this.state.searchText == '')(
           <View>

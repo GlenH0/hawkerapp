@@ -208,12 +208,6 @@ export default class App extends PureComponent {
         {renderIf(this.state.list == '')(
           <View style={{justifyContent:'center', alignItems:'center'}}>
             <Text style={{ padding: 10 }}>Ops! No results found</Text>
-            {/* <Image
-        style={{width: "80%", height: "80%", resizeMode:'contain'}}
-        source={{
-          uri: 'https://www.buzzdine.com/img/not-found.png',
-        }}
-      /> */}
           </View>
         )}
 

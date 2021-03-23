@@ -32,6 +32,7 @@ export default class App extends PureComponent {
     this._isMounted = false;
   }
 
+
   imageLoaded = () => {
     this.setState({ loaded: true })
   }
